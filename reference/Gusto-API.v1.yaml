@@ -1,24 +1,25 @@
 openapi: 3.0.0
 tags:
-  - name: Current User
-  - name: Companies
-  - name: Employees
-  - name: Contractors
-  - name: Payroll
-  - name: Contractor Payments
-  - name: Company Bank Accounts (Beta)
-  - name: Benefits
-  - name: Locations
-  - name: Jobs
-  - name: Job Applicants (Beta)
-  - name: Compensations
-  - name: Pay Schedules
-  - name: Garnishments
-  - name: Time Off Requests
-  - name: Earning Type
-  - name: Terminations
-  - name: Custom Fields
   - name: Admins (Beta)
+  - name: Benefits
+  - name: Companies
+  - name: Company Bank Accounts (Beta)
+  - name: Compensations
+  - name: Contractor Payments
+  - name: Contractors
+  - name: Current User
+  - name: Custom Fields
+  - name: Earning Type
+  - name: Employee Bank Accounts (Beta)
+  - name: Employees
+  - name: Garnishments
+  - name: Job Applicants (Beta)
+  - name: Jobs
+  - name: Locations
+  - name: Pay Schedules
+  - name: Payroll
+  - name: Terminations
+  - name: Time Off Requests
 info:
   title: Gusto API
   version: '1.0'
@@ -3419,7 +3420,8 @@ paths:
         required: true
     get:
       summary: Get all employee bank accounts
-      tags: []
+      tags:
+        - Employee Bank Accounts (Beta)
       operationId: get-v1-employees-employee_id-bank_accounts
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
@@ -3443,7 +3445,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Creates an employee bank account. An employee can have multiple bank accounts.
+        Creates an employee bank account. An employee can have multiple bank accounts. Note that creating an employee bank account will also update the employee's payment method.
       requestBody:
         content:
           application/json:
@@ -3461,6 +3463,11 @@ paths:
                   enum:
                     - Checking
                     - Savings
+              required:
+                - name
+                - routing_number
+                - account_number
+                - account_type
             examples:
               Example:
                 value:
@@ -3468,6 +3475,8 @@ paths:
                   routing_number: '266905059'
                   account_number: '5809431207'
                   account_type: Checking
+      tags:
+        - Employee Bank Accounts (Beta)
   '/v1/employees/{employee_id}/bank_accounts/{bank_account_id}':
     parameters:
       - schema:
@@ -3490,6 +3499,8 @@ paths:
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
         Deletes an employee bank account. To update an employee's bank account details, delete the bank account first and create a new one.
+      tags:
+        - Employee Bank Accounts (Beta)
 components:
   schemas:
     Employee:
@@ -5820,6 +5831,8 @@ components:
         hidden_account_number:
           type: string
           description: Masked bank account number
+      x-tags:
+        - Employee Bank Accounts (Beta)
   securitySchemes:
     Authorization:
       type: http
