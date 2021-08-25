@@ -1428,7 +1428,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Returns all company bank accounts
+        Returns company bank accounts. Currently we only support a single default bank account per company.
       tags:
         - Company Bank Accounts (Beta)
     post:
