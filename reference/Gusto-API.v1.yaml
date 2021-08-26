@@ -3501,6 +3501,76 @@ paths:
         Deletes an employee bank account. To update an employee's bank account details, delete the bank account first and create a new one.
       tags:
         - Employee Bank Accounts (Beta)
+  '/v1/employees/{employee_id}/payment_method':
+    parameters:
+      - schema:
+          type: string
+        name: employee_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Employee Payment Method (Beta)
+      responses:
+        '200':
+          $ref: '#/components/responses/Employee-Payment-Method-Object'
+      operationId: get-v1-employees-employee_id-payment_method
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Fetches an employee's payment method, which describes the employee's associated bank accounts and how the payment should be split.
+    put:
+      summary: ''
+      operationId: put-v1-employees-employee_id-payment_method
+      responses:
+        '200':
+          $ref: '#/components/responses/Employee-Payment-Method-Object'
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Updates an employee's payment method. An employee only has payment methods if there are bank accounts associated with the employee.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - Direct Deposit
+                    - Check
+                  description: The payment method type
+                split_by:
+                  type: string
+                  enum:
+                    - Amount
+                    - Percentage
+                  description: Describes how the payment will be split
+                splits:
+                  type:
+                    - string
+                    - array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: |
+                          The bank account ID
+                      name:
+                        type: string
+                        description: The bank account name
+                      priority:
+                        type: string
+                        description: The order of priority for each payment split
+                      split_amount:
+                        type: string
+                        description: The amount allocated for each payment split
+              required:
+                - type
+        description: ''
 components:
   schemas:
     Employee:
@@ -5833,6 +5903,75 @@ components:
           description: Masked bank account number
       x-tags:
         - Employee Bank Accounts (Beta)
+    Employee-Payment-Method:
+      title: Employee-Payment-Method
+      type: object
+      x-examples:
+        Example-1:
+          value:
+            type: Direct Deposit
+            split_by: Amount
+            splits:
+              - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+                name: BoA Checking Account
+                priority: '1'
+                amount: '500'
+              - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                name: Chase Checking Account
+                priority: '2'
+                amount: '1000'
+              - id: 1531e824-8d9e-4bd8-9f90-0d04608125d7
+                name: US Bank Checking Account
+                priority: '3'
+                amount: nil
+        Example-2:
+          value:
+            type: Direct Deposit
+            split_by: Percentage
+            splits:
+              - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+                name: BoA Checking Account
+                priority: '1'
+                amount: '60'
+              - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                name: Chase Checking Account
+                priority: '2'
+                amount: '40'
+        Example-3:
+          value:
+            type: Check
+      properties:
+        type:
+          type: string
+          enum:
+            - Direct Deposit
+            - Check
+          description: The payment method type
+        split_by:
+          type: string
+          enum:
+            - Amount
+            - Percentage
+          description: Describes how the payment will be split
+        splits:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The bank account ID
+              name:
+                type: string
+                description: The bank account name
+              priority:
+                type: string
+                description: The order of priority for each payment split
+              split_amount:
+                type: string
+                description: The split amount allocated for the bank account
+      required:
+        - type
   securitySchemes:
     Authorization:
       type: http
@@ -7579,6 +7718,12 @@ components:
                   routing_number: '266905059'
                   hidden_account_number: XXXX1207
                   account_type: Checking
+    Employee-Payment-Method-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Employee-Payment-Method'
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
