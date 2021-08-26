@@ -3509,7 +3509,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Employee Payment Method
       tags:
         - Employee Payment Method (Beta)
       responses:
@@ -3519,7 +3519,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Fetches an employee's payment method, which describes the employee's associated bank accounts and how the payment should be split.
+        Fetches an employee's payment method. An employee payment method describes how the payment should be split across the employee's associated bank accounts.
     put:
       summary: ''
       operationId: put-v1-employees-employee_id-payment_method
@@ -3529,7 +3529,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Updates an employee's payment method. An employee only has payment methods if there are bank accounts associated with the employee.
+        Updates an employee's payment method. Note that creating an employee bank account will also update the employee's payment method.
       requestBody:
         content:
           application/json:
@@ -3541,21 +3541,19 @@ paths:
                   enum:
                     - Direct Deposit
                     - Check
-                  description: The payment method type
+                  description: 'The payment method type. If type is Check, then split_by and splits do not need to be populated. If type is Direct Deposit, split_by and splits are required.'
                 split_by:
                   type: string
                   enum:
                     - Amount
                     - Percentage
-                  description: Describes how the payment will be split
+                  description: 'Describes how the payment will be split. If split_by is Percentage, then the split amounts must add up to exactly 100. If split_by is Amount, then the last split amount must be nil to capture the remainder.'
                 splits:
-                  type:
-                    - string
-                    - array
+                  type: array
                   items:
                     type: object
                     properties:
-                      id:
+                      uuid:
                         type: string
                         description: |
                           The bank account ID
@@ -3564,7 +3562,7 @@ paths:
                         description: The bank account name
                       priority:
                         type: string
-                        description: The order of priority for each payment split
+                        description: 'The order of priority for each payment split, with "1" being the first bank account paid. Priority must be unique and sequential.'
                       split_amount:
                         type: string
                         description: The amount allocated for each payment split
@@ -3576,15 +3574,15 @@ paths:
                   type: Direct Deposit
                   split_by: Amount
                   splits:
-                    - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+                    - uuid: e88f9436-b74e-49a8-87e9-777b9bfe715e
                       name: BoA Checking Account
                       priority: '1'
                       split_amount: '500'
-                    - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                    - uuid: 0d2b7f73-05d6-4184-911d-269edeecc30a
                       name: Chase Checking Account
                       priority: '2'
                       split_amount: '1000'
-                    - id: 1531e824-8d9e-4bd8-9f90-0d04608125d7
+                    - uuid: 1531e824-8d9e-4bd8-9f90-0d04608125d7
                       name: US Bank Checking Account
                       priority: '3'
                       split_amount: nil
@@ -3593,11 +3591,11 @@ paths:
                   type: Direct Deposit
                   split_by: Percentage
                   splits:
-                    - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+                    - uuid: e88f9436-b74e-49a8-87e9-777b9bfe715e
                       name: BoA Checking Account
                       priority: '1'
                       split_amount: '60'
-                    - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                    - uuid: 0d2b7f73-05d6-4184-911d-269edeecc30a
                       name: Chase Checking Account
                       priority: '2'
                       split_amount: '40'
@@ -5946,15 +5944,15 @@ components:
             type: Direct Deposit
             split_by: Amount
             splits:
-              - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+              - uuid: e88f9436-b74e-49a8-87e9-777b9bfe715e
                 name: BoA Checking Account
                 priority: '1'
                 split_amount: '500'
-              - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+              - uuid: 0d2b7f73-05d6-4184-911d-269edeecc30a
                 name: Chase Checking Account
                 priority: '2'
                 split_amount: '1000'
-              - id: 1531e824-8d9e-4bd8-9f90-0d04608125d7
+              - uuid: 1531e824-8d9e-4bd8-9f90-0d04608125d7
                 name: US Bank Checking Account
                 priority: '3'
                 split_amount: nil
@@ -5963,14 +5961,14 @@ components:
             type: Direct Deposit
             split_by: Percentage
             splits:
-              - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+              - uuid: e88f9436-b74e-49a8-87e9-777b9bfe715e
                 name: BoA Checking Account
                 priority: '1'
-                split_amount: '60'
-              - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                split_amount: '100'
+              - uuid: 0d2b7f73-05d6-4184-911d-269edeecc30a
                 name: Chase Checking Account
                 priority: '2'
-                split_amount: '40'
+                split_amount: '0'
         Example-3:
           value:
             type: Check
@@ -5980,19 +5978,19 @@ components:
           enum:
             - Direct Deposit
             - Check
-          description: The payment method type
+          description: 'The payment method type. If type is Check, then split_by and splits do not need to be populated. If type is Direct Deposit, split_by and splits are required.'
         split_by:
           type: string
           enum:
             - Amount
             - Percentage
-          description: Describes how the payment will be split
+          description: 'Describes how the payment will be split. If split_by is Percentage, then the split amounts must add up to exactly 100. If split_by is Amount, then the last split amount must be nil to capture the remainder.'
         splits:
           type: array
           items:
             type: object
             properties:
-              id:
+              uuid:
                 type: string
                 description: The bank account ID
               name:
@@ -6000,12 +5998,13 @@ components:
                 description: The bank account name
               priority:
                 type: string
-                description: The order of priority for each payment split
+                description: 'The order of priority for each payment split, with "1" being the first bank account paid. Priority must be unique and sequential.'
               split_amount:
                 type: string
-                description: The split amount allocated for the bank account
+                description: The amount allocated for each payment split
       required:
         - type
+      description: ''
   securitySchemes:
     Authorization:
       type: http
