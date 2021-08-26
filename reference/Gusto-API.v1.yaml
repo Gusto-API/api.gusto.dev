@@ -3570,6 +3570,40 @@ paths:
                         description: The amount allocated for each payment split
               required:
                 - type
+            examples:
+              example-1:
+                value:
+                  type: Direct Deposit
+                  split_by: Amount
+                  splits:
+                    - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+                      name: BoA Checking Account
+                      priority: '1'
+                      amount: '500'
+                    - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                      name: Chase Checking Account
+                      priority: '2'
+                      amount: '1000'
+                    - id: 1531e824-8d9e-4bd8-9f90-0d04608125d7
+                      name: US Bank Checking Account
+                      priority: '3'
+                      amount: nil
+              example-2:
+                value:
+                  type: Direct Deposit
+                  split_by: Percentage
+                  splits:
+                    - id: e88f9436-b74e-49a8-87e9-777b9bfe715e
+                      name: BoA Checking Account
+                      priority: '1'
+                      amount: '60'
+                    - id: 0d2b7f73-05d6-4184-911d-269edeecc30a
+                      name: Chase Checking Account
+                      priority: '2'
+                      amount: '40'
+              example-3:
+                value:
+                  type: Check
         description: ''
 components:
   schemas:
