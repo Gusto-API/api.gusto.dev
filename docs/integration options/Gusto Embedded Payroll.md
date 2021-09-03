@@ -15,9 +15,9 @@ The instructions below assume that the application is already authenticated, and
 
 Your embedded payroll product allows the Company to pay the Employees the right amount at the right cadence, while accounting for tax implications.
 
-The `pay_schedule` object in Gusto API includes details of when employees work and when they should be paid. It establishes pay periods with start_date and `end_date`. We automatically pre-generate scheduled regular payrolls based on the company’s pay schedule and corresponding pay periods.
+The `pay_schedule` object in Gusto API includes details of when employees work and when they should be paid. It establishes pay periods with `start_date` and `end_date`. We automatically pre-generate scheduled regular payrolls based on the company’s pay schedule and corresponding pay periods. Pay periods are the foundation of payroll. Compensation, time & attendance, taxes, and expense reports all rely on when they happened. To begin submitting information for a given payroll, we need to agree on the time period.
 
-To run a regular payroll, start by selecting an open pay period. Upcoming regular payrolls can be retrieved through a GET request to the [Payroll endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls/get) and the next upcoming payroll will be the earliest unprocessed payroll.
+To run a regular payroll, start by selecting an open pay period. Upcoming regular payrolls can be retrieved through a GET request to the [Payroll endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls/get) and the next upcoming payroll will be the earliest unprocessed payroll. Use the optional parameters to narrow down the response (e.g processed = false).
 
 To make changes to the upcoming payroll, use the [update payroll endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpay_period_start_date%7D~1%7Bpay_period_end_date%7D/put). Key inputs include hours (regular, overtime, double overtime), earnings (salaries, bonuses, commissions, tips, reimbursements), and time off (vacation, sick, holiday).
 
@@ -26,7 +26,7 @@ The payrolls are identified by their pay periods’ `start_date` and `end_date`.
 ![](../../assets/images/GEP02.png)
 
 A payroll must first be updated with the `update payroll` API to create a unique ID for the payroll. This `payroll_id` can then be used to:
-1. [Get a single payroll by ID](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpayroll_id%7D/get)
+1. [Get a single payroll by ID](https://gusto.stoplight.io/docs/api/b3A6MTQ3MTExMjc-get-a-single-payroll)
 2. [Calculate a Payroll](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpayroll_id%7D~1calculate/put)
 3. [Submit Payroll](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpayroll_Id%7D~1submit/put)
 4. [Cancel a Payroll](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpayroll_id%7D~1cancel/put)
@@ -39,15 +39,17 @@ This endpoint is asynchronous and responds with only a 202 HTTP status. To view 
 
 ![](../../assets/images/GEP03.png)
 
-We recommend building a UI where the user can review their payroll before submitting (example below).
+We recommend building a UI where the user can review their payroll before submitting. The displayed information can be customized to fit your unique business needs, but we highly recommend a preview step to provide the user with the payroll details before they finalize it. Typically this includes a breakdown of taxes and debits, similar to the one below. 
 
-![](../../assets/images/GEP04.png)
+![](../../assets/images/preview.png)
 
 If everything looks accurate, a payroll can be processed with a request to the `submit payroll` API. Upon success, this request transitions the payroll to the processed state and initiates the transfer of funds. **This is a critical step to process payroll. A payroll is not finalized without calling this endpoint.**
 
+![](../../assets/images/GEP04.png)
+
 In some cases, a payroll may be submitted with incorrect payroll information. A request to the `cancel a payroll` endpoint will cancel the specified payroll. This request transitions a `processed` payroll back to the `unprocessed` state. 
 
-**Important:** a payroll cannot be canceled once it has entered the `funded` state. All payrolls will be funded at 3:30PM PT on the `payroll_deadline`. *If a payroll is already funded and needs to be canceled, the customer should contact Gusto directly to resolve.*
+**Important:** a payroll cannot be canceled after 3:30pm PST on the `payroll_deadline`. *If a customer needs to cancel a payroll after this time frame they will need to contact support.*
 
 ![](../../assets/images/GEP05.png)
 
@@ -69,7 +71,7 @@ If everything looks accurate, a payroll can be processed with a request to the `
 
 The `cancel a payroll` endpoint can also revert a `processed` payroll back to the `unprocessed` state. 
 
-*As a reminder, a payroll cannot be canceled once it has entered the funded state. All payrolls will be funded at 3:30PM PT on the `payroll_deadline`. If a payroll is already `funded` and needs to be canceled, the customer should contact Gusto directly to resolve.*
+*As a reminder, a payroll cannot be canceled after 3:30pm PST on the `payroll_deadline`. If a customer needs to cancel a payroll after this time frame they will need to contact support.*
 
 ### Process contractor payments
 
@@ -77,13 +79,19 @@ Similar to off-cycle payrolls, contractor payments are ad-hoc and do not have a 
 
 A POST request to the [create a contractor payment endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1contractor_payments/post) will return an object containing individual contractor payments, within a given time period, including totals. This will also return a unique contractor payment ID for the newly created payment (`uuid`)
 
+![](../../assets/images/Contractor-payments-1.png)
+
 **Important:** Unlike payrolls, this POST request creates and processes the contractor payment in one step. There is no need to submit the payment.
 
 To review the payment, use the `uuid` obtained in the previous step to call the [get a single contractor payment](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1contractor_payments~1%7Bcontractor_payment_id%7D/get) endpoint. 
 
-Similar to payrolls, a contractor payment can be canceled using the [cancel a contractor payment endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1contractor_payments~1%7Bcontractor_payment_id%7D/delete). This reverts a processed payment back to the unprocessed state. 
+Similar to payrolls, a contractor payment can be canceled using the [cancel a contractor payment endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1contractor_payments~1%7Bcontractor_payment_id%7D/delete). This DELETE request reverts a processed payment back to the unprocessed state. 
 
-*Similar to employee payrolls, a payment cannot be canceled once it has entered the `funded` state. All payrolls will be funded at 3:30PM PT on the `payroll_deadline`. If a payroll is already `funded` and needs to be canceled, the customer should contact Gusto directly to resolve.*
+*Similar to employee payrolls, a payment cannot be canceled once it has entered the `funded` state. If a contractor payment is already `funded` and needs to be canceled, the customer should contact Gusto directly to resolve.*
+
+![](../../assets/images/Contractor-payments-2.png)
+
+A GET request to the [contractor payments for a company endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1contractor_payments/get) returns an object containing individual contractor payments, within a given time period, including totals. To GET payments for a particular time period, include the `start_date` and `end_date` parameters.
 
 ### Payroll processing timeline
 Today, we only support the creation of 4-day payrolls when paid by direct deposit via our API because of the way Automated Clearing House (ACH) works. ACH is a way to move money between banks without using paper checks, wire transfers, credit card networks, or cash. At Gusto, we use ACH for direct deposits to employees. We’re working on introducing faster payroll options in the near future. 

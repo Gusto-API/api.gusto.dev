@@ -138,7 +138,7 @@ Looks like she is eligible for two types of fixed compensations, one type of hou
 
 Hourly and salaried employees will be returned in the unprocessed payroll response. `hourly_compensations`, `paid_time_off`, and `fixed_compensations` can be updated for hourly employees. However Gusto will automatically calculate wages for salaried employees so there won’t be any `hourly_compensations` to update for salaried employees. You can still pass any applicable `paid_time_off` hours and `fixed_compensations` for salaried employees.
 
-Use the `flsa_status` in [compensations](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1compensations~1%7Bcompensation_id%7D/get) to determine if an employee is elibgle for overtime.
+Use the `flsa_status` in [compensations](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1compensations~1%7Bcompensation_id%7D/get) to determine if an employee is eligible for overtime.
 
 Now we need to match up the totals from our data with the pay period it fits in. Because all of our dates are formatted according to [RFC-3339](http://tools.ietf.org/html/rfc3339#section-5.1), we can take advantage of simple string comparisions.
 

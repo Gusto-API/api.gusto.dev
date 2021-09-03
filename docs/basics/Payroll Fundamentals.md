@@ -8,7 +8,7 @@ Let’s start with companies and employees. Companies themselves are, naturally,
 
 To onboard a company for payroll, key inputs include company details (e.g. name, EIN), location, bank accounts, and other information. To onboard an employee, key inputs include employee details (e.g. name, addresses), pay rates (salaried or hourly), benefits deductions, tax withholding, and so on. Once set up, these change rather infrequently.
 
-Companies can have multiple work locations, across multiple states, but everyone on the same pay schedule gets paid at the same time. Companies can have multiple pay schedules which means there can be multiple day dates for Employees.
+Companies can have multiple work locations, across multiple states, but everyone on the same pay schedule gets paid at the same time. Companies can have multiple pay schedules which means there can be multiple pay dates for Employees.
 
 ![](../../assets/images/company-and-employees.png)
 
@@ -46,10 +46,10 @@ Once the payroll admin has reviewed employee pay and employer cost, they can sub
 To find out more about the different timelines used to process payments by direct deposit, refer to this [help center article](https://support.gusto.com/payroll/payroll-settings/Payroll-Schedules/999752211/Time-needed-to-process-payments.htm).
 
 Gusto will initiate up to 4 separate debit transactions from a customer's bank account after each payroll is submitted:
-1. **Employee pay **(received in direct deposit) - returned as `net_pay_debit` in the ‘totals’ object of the ['payrolls' endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpayroll_id%7D/get)
-2. **Employee reimbursements** - returned as `net_pay_debit`
-3. ** Employee and employer payroll taxes** - returned as `tax_debit`
-4. **Child support ** *(if applicable)* - returned as child_support_debit
+1. **Employee pay**(received in direct deposit) - returned as `net_pay_debit` in the ‘totals’ object of the ['payrolls' endpoint](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1companies~1%7Bcompany_id%7D~1payrolls~1%7Bpayroll_id%7D/get)
+2. **Employee reimbursements** - returned as `reimbursement_debit`
+3. **Employee and employer payroll taxes** - returned as `tax_debit`
+4. **Child support** *(if applicable)* - returned as `child_support_debit`
 
 The `company_debit` in the `payrolls` response should be the **total** company debit for the specified payroll (all 4 combined). 
 

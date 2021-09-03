@@ -44,7 +44,9 @@ Here is the sample application information we'll use throughout:
       secret:       cb06cb755b868a819ead51671f0f7e9c35c7c4cbbae0e38bef167e0e4ba64ee6
       redirect_uri: https://example.com/callback
 
-The `redirect_uri` is sometimes referred to as a `callback URI` and the id can also be called a `client_id`. The id and secret will be generated when you supply a `redirect_uri` to Gusto. (Note: when you receive your API keys for Gusto, we will include an API Token. This API token is only used when creating a company through the API.)
+The `redirect_uri` is sometimes referred to as a `callback URI` and the id can also be called a `client_id`. The id and secret will be generated when you supply a `redirect_uri` to Gusto. OAuth2 does not support wildcard URIs or URIs with fragments (e.g #).
+
+*Note: when you receive your API keys for Gusto, we will include an API Token. This API token is only used when creating a company through the API.*
 
 #### Authorization Code
 
@@ -57,7 +59,7 @@ The `redirect_uri` is sometimes referred to as a `callback URI` and the id can a
 > **Parameters:**
 >
 > -   `client_id` your client id
-> -   `redirect_uri` [percent-encoded](http://en.wikipedia.org/wiki/Percent-encoding/) url you submitted when signing up > for the Gusto API. Should the user accept integration, the user will be returned to this url with the `code` parameter set to the authorization > code.
+> -   `redirect_uri` [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding) url you submitted when signing up > for the Gusto API. Should the user accept integration, the user will be returned to this url with the `code` parameter set to the authorization > code.
 > -   `response_type` the literal string `code`
 
 The first step is a user authorizing your application to access their information on Gusto. To do this, you'll create a link to Gusto where they can approve access.
@@ -88,7 +90,7 @@ This parameter contains the authorization code that you will then use to obtain 
 >
 > -   `client_id` - your client id
 > -   `client_secret` - your client secret
-> -   `redirect_uri` - the [percent-encoded](http://en.wikipedia.org/wiki/Percent-encoding/) url you submitted when signing up for the Gusto API.
+> -   `redirect_uri` - the [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding) url you submitted when signing up for the Gusto API.
 > -   `code` - the code being exchanged for an access token. This should be the Authorization Code received above (`51d5d63ae28783aecd59e7834be2c637a9ee260f241b191565aa10fe380471db`.)
 > -   `grant_type` - this should be the literal string "authorization_code"
 
