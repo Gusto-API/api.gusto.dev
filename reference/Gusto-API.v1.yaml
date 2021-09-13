@@ -1357,6 +1357,64 @@ paths:
       description: The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
       tags:
         - Pay Schedules
+    post:
+      summary: Create a new single pay schedule
+      responses:
+        '200':
+          $ref: '#/components/responses/Pay-Schedule-Object'
+      operationId: get-v1-companies-company_id-pay_schedules
+      description: |-
+        Creates a new single default pay schedule for the company.
+
+        This endpoint can only be used if the company has not yet processed a payroll. It assigns all employees to the new single pay schedule.
+
+        Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what schedule is right for your customers.
+
+        This endpoint is in beta. Please contact developer-gws@gusto.com if you’d like to have more information and use it for production. Note, this may require you to enter a different agreement with Gusto
+      tags:
+        - Pay Schedules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                frequency:
+                  type: string
+                  description: How often employees are paid.
+                  enum:
+                    - Every week
+                    - Every other week
+                    - Twice per month
+                    - Monthly
+                    - Quarterly
+                    - Semiannually
+                    - Annually
+                anchor_pay_date:
+                  type: string
+                  description: Anchor first pay date.
+                anchor_end_of_pay_period:
+                  type: string
+                  description: Anchor last date of the first pay period.
+                day_1:
+                  type: string
+                  description: For monthly and twice per month pay schedules, this is the first day of the month that employees to be paid.
+                day_2:
+                  type: string
+                  description: For twice per month pay schedules, this is the second day of the month that employees are paid.
+              required:
+                - frequency
+                - anchor_pay_date
+                - anchor_end_of_pay_period
+            examples:
+              Example:
+                value:
+                  frequency: Twice per month
+                  anchor_pay_date: '2021-10-15'
+                  anchor_end_of_pay_period: '2021-10-15'
+                  day_1: 1
+                  day_2: 15
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
