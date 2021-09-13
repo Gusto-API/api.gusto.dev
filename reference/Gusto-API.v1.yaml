@@ -1382,7 +1382,7 @@ paths:
               properties:
                 frequency:
                   type: string
-                  description: How often employees are paid.
+                  description: The frequency that employees on this pay schedule are paid with Gusto.
                   enum:
                     - Every week
                     - Every other week
