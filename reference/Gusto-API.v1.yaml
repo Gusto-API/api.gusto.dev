@@ -1388,21 +1388,18 @@ paths:
                     - Every other week
                     - Twice per month
                     - Monthly
-                    - Quarterly
-                    - Semiannually
-                    - Annually
                 anchor_pay_date:
                   type: string
-                  description: Anchor first pay date.
+                  description: The first date that employees on this pay schedule are paid with Gusto.
                 anchor_end_of_pay_period:
                   type: string
-                  description: Anchor last date of the first pay period.
+                  description: The last date of the first pay period. This can be the same date as the anchor pay date.
                 day_1:
                   type: string
-                  description: For monthly and twice per month pay schedules, this is the first day of the month that employees to be paid.
+                  description: An integer between 1 and 31 indicating the first day of the month that employees are paid. This field is only relevant for pay schedules with the “Twice per month” and “Monthly” frequencies. It will be null for pay schedules with other frequencies.
                 day_2:
                   type: string
-                  description: For twice per month pay schedules, this is the second day of the month that employees are paid.
+                  description: An integer between 1 and 31 indicating the first day of the month that employees are paid. This field is only relevant for pay schedules with the “Twice per month” and “Monthly” frequencies. It will be null for pay schedules with other frequencies.
               required:
                 - frequency
                 - anchor_pay_date
@@ -1413,8 +1410,8 @@ paths:
                   frequency: Twice per month
                   anchor_pay_date: '2021-10-15'
                   anchor_end_of_pay_period: '2021-10-15'
-                  day_1: 1
-                  day_2: 15
+                  day_1: 15
+                  day_2: 31
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
@@ -5035,11 +5032,12 @@ components:
           readOnly: true
         frequency:
           type: string
+          description: The frequency that employees on this pay schedule are paid with Gusto.
           enum:
+            - Every week
+            - Every other week
             - Twice per month
             - Monthly
-            - Every other week
-            - Every week
           readOnly: true
         anchor_pay_date:
           type: string
