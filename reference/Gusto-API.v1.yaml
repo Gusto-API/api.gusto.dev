@@ -1357,6 +1357,63 @@ paths:
       description: The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
       tags:
         - Pay Schedules
+    post:
+      summary: Create a new single pay schedule
+      responses:
+        '200':
+          $ref: '#/components/responses/Pay-Schedule-Object'
+      operationId: get-v1-companies-company_id-pay_schedules
+      description: |-
+        Creates a new single default pay schedule for the company.
+
+        This creates one pay schedule during company onboarding and cannot be used if the company has processed a payroll. Creating multiple pay schedules at this time is not supported. To change a pay schedule, the end user will need to login to Gusto to edit their pay schedule.
+
+        Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what schedule is right for your customers.
+
+        This endpoint is in beta. Please contact developer-gws@gusto.com if you’d like to have more information and use it for production. Note, this may require you to enter a different agreement with Gusto
+      tags:
+        - Pay Schedules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                frequency:
+                  type: string
+                  description: The frequency that employees on this pay schedule are paid with Gusto.
+                  enum:
+                    - Every week
+                    - Every other week
+                    - Twice per month
+                    - Monthly
+                anchor_pay_date:
+                  type: string
+                  description: The first date that employees on this pay schedule are paid with Gusto.
+                anchor_end_of_pay_period:
+                  type: string
+                  description: The last date of the first pay period. This can be the same date as the anchor pay date.
+                day_1:
+                  type: string
+                  description: An integer between 1 and 31 indicating the first day of the month that employees are paid. This field is only relevant for pay schedules with the “Twice per month” and “Monthly” frequencies. It will be null for pay schedules with other frequencies.
+                day_2:
+                  type: string
+                  description: An integer between 1 and 31 indicating the second day of the month that employees are paid. This field is the second pay date for pay schedules with the “Twice per month” frequency. It will be null for pay schedules with other frequencies.
+              required:
+                - frequency
+                - anchor_pay_date
+                - anchor_end_of_pay_period
+            examples:
+              Example:
+                value:
+                  frequency: Twice per month
+                  anchor_pay_date: '2021-10-15'
+                  anchor_end_of_pay_period: '2021-10-15'
+                  day_1: 15
+                  day_2: 31
+                  auto_pilot: false
+                  version: '68934a3e9455fa72420237eb05902327'
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
@@ -4977,11 +5034,12 @@ components:
           readOnly: true
         frequency:
           type: string
+          description: The frequency that employees on this pay schedule are paid with Gusto.
           enum:
+            - Every week
+            - Every other week
             - Twice per month
             - Monthly
-            - Every other week
-            - Every week
           readOnly: true
         anchor_pay_date:
           type: string
