@@ -1412,6 +1412,8 @@ paths:
                   anchor_end_of_pay_period: '2021-10-15'
                   day_1: 15
                   day_2: 31
+                  auto_pilot: false
+                  version: '68934a3e9455fa72420237eb05902327'
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
