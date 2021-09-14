@@ -1366,7 +1366,7 @@ paths:
       description: |-
         Creates a new single default pay schedule for the company.
 
-        This endpoint can only be used if the company has not yet processed a payroll. It assigns all employees to the new single pay schedule.
+        This creates one pay schedule during company onboarding and cannot be used if the company has processed a payroll. Creating multiple pay schedules at this time is not supported. To change a pay schedule, the end user will need to login to Gusto to edit their pay schedule.
 
         Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what schedule is right for your customers.
 
