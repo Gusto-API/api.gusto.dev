@@ -4,6 +4,8 @@
 
 Welcome to Gusto's API documentation. This site serves as both a technical reference for the endpoints available and a general overview of payroll. We designed the objects and their properties to require as little domain-specific payroll knowledge as possible. We are dedicated to developer success by offering robust APIs, detailed documentation, [self-service tools](https://dev.gusto.com/), and [hands-on support](https://gusto.com/about/bd/developer-faqs-menu), so you can focus on building payroll products that solve customer problems. 
 
+We currently do not support API access for Gusto customers looking to connect their own company systems directly to their Gusto account using the API. We hope to offer this in the future and appreciate your patience in the meantime.
+
 *Please note that some endpoints require additional information and approval. The steps to obtain access to these endpoints are outlined in their respective sections.*
 
 ### Developing with Gusto: What to expect
