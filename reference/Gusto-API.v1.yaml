@@ -723,12 +723,14 @@ paths:
           in: query
           name: start_date
           description: The time period for which to retrieve contractor payments
+          required: true
         - schema:
             type: string
             example: '2020-12-31'
           in: query
           name: end_date
           description: The time period for which to retrieve contractor payments
+          required: true
     post:
       summary: Create a contractor payment (Beta)
       tags:
