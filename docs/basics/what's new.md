@@ -8,7 +8,8 @@ Below is a list of new endpoints, enhancements and changes made to the Gusto API
 - [calculate](https://gusto.stoplight.io/docs/api/b3A6MTI0MTUzODk-calculate-a-payroll-beta) / [submit](https://gusto.stoplight.io/docs/api/b3A6MTI0MTUzOTA-submit-payroll-beta) / [cancel payroll](https://gusto.stoplight.io/docs/api/b3A6MTI3MzMxMDM-cancel-a-payroll-beta)
 - [create an off-cycle payroll](https://gusto.stoplight.io/docs/api/b3A6MTQ3MTExMjU-create-an-off-cycle-payroll-beta)
 - [create](https://gusto.stoplight.io/docs/api/b3A6MTIyNTk2MzY-create-a-contractor-payment-beta) / [cancel contractor payment](https://gusto.stoplight.io/docs/api/b3A6MTQ3MTExMjI-cancel-a-contractor-payment-beta)
-- create / [update a pay schedule](https://gusto.stoplight.io/docs/api/b3A6MTM3NTg2MDE-update-a-pay-schedule) (enable/disable autopilot only right now)
+- [create](https://docs.gusto.com/docs/api/b3A6MjA5MTEyMTI-create-a-new-single-pay-schedule) / [update a pay schedule](https://gusto.stoplight.io/docs/api/b3A6MTM3NTg2MDE-update-a-pay-schedule) (enable/disable autopilot only right now)
+
 *Learn more about these endpoints and how to use them together here: [Gusto Embedded Payroll](https://gusto.stoplight.io/docs/api/ZG9jOjE0NzI2OTgy-new-gusto-embedded-payroll).*
 
 
