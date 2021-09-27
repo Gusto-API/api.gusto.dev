@@ -30,6 +30,11 @@
       "uri": "docs/basics/Versioning.md"
     },
     {
+      "type": "item",
+      "title": "What's New",
+      "uri": "docs/basics/What's New.md"
+    },
+    {
       "type": "divider",
       "title": "integration options"
     },
