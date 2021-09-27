@@ -17,9 +17,9 @@ Below is a list of new endpoints, enhancements and changes made to the Gusto API
 - [create partner managed company](https://gusto.stoplight.io/docs/api/b3A6MTMzNjk4NzY-create-a-partner-managed-company-beta) (create a new Gusto company and authenticate)
 - [create](https://gusto.stoplight.io/docs/api/b3A6MTI3NDgwOTU-create-an-admin-for-the-company) / [get](https://gusto.stoplight.io/docs/api/b3A6MTI3NDgwOTQ-get-all-the-admins-at-a-company) admins
 - [create](https://gusto.stoplight.io/docs/api/b3A6MTQxMjg0MTE-create-a-company-bank-account) / [verify](https://gusto.stoplight.io/docs/api/b3A6MTQxMzc1MDE-verify-a-company-bank-account) / [get](https://gusto.stoplight.io/docs/api/b3A6MTQxMjg0MTA-get-all-company-bank-accounts) company bank accounts
-- [update](https://gusto.stoplight.io/docs/api/b3A6MTU3ODY5MjY-update-federal-tax-details) / [get](https://gusto.stoplight.io/docs/api/b3A6MTU3ODY5MjU-get-federal-tax-details) federal tax details
+- [update](https://gusto.stoplight.io/docs/api/b3A6MTU3ODY5MjY-update-federal-tax-details)  /  [get](https://gusto.stoplight.io/docs/api/b3A6MTU3ODY5MjU-get-federal-tax-details) federal tax details
 
 
 ### Employee Onboarding:
 - [create](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTI-create-an-employee-bank-account) / [get](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTE-get-all-employee-bank-accounts) / [delete](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTM-delete-an-employee-bank-account) employee bank accounts
-- [get](https://gusto.stoplight.io/docs/api/b3A6MTk0NjI2NTU-get-an-employee-s-payment-method) employee payment method
+- [update](https://docs.gusto.com/docs/api/b3A6MTk0NjI2NTY-update-an-employee-s-payment-method) / [get](https://gusto.stoplight.io/docs/api/b3A6MTk0NjI2NTU-get-an-employee-s-payment-method) employee payment method
