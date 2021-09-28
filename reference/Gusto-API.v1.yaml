@@ -5978,6 +5978,7 @@ components:
         Example-3:
           value:
             type: Check
+      description: ''
       properties:
         type:
           type: string
@@ -6002,6 +6003,9 @@ components:
               name:
                 type: string
                 description: The bank account name
+              hidden_account_number:
+                type: string
+                description: Masked bank account number
               priority:
                 type: string
                 description: 'The order of priority for each payment split, with "1" being the first bank account paid. Priority must be unique and sequential.'
@@ -6010,7 +6014,6 @@ components:
                 description: The amount allocated for each payment split
       required:
         - type
-      description: ''
   securitySchemes:
     Authorization:
       type: http
