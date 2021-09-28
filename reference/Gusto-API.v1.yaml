@@ -67,7 +67,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                 first_name:
                   type: string
                 middle_initial:
@@ -252,7 +252,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                 title:
                   type: string
                 location_id:
@@ -556,7 +556,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                 start_date:
                   type: string
                   description: |
@@ -860,7 +860,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                   readOnly: true
                 rate:
                   type: string
@@ -1137,7 +1137,7 @@ paths:
                   description: Whether the amount should be treated as a percentage to be deducted per pay period.
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
               required:
                 - version
             examples:
@@ -1320,7 +1320,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                 street_1:
                   type: string
                 street_2:
@@ -1461,7 +1461,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                 auto_pilot:
                   type: boolean
                   description: 'With Autopilot® enabled, payroll will run automatically one day before your payroll deadlines.'
@@ -1714,7 +1714,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                   readOnly: true
                 active:
                   type: boolean
@@ -1981,7 +1981,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                   readOnly: true
                 active:
                   type: boolean
@@ -2293,7 +2293,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for details using this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
                 employee_compensations:
                   type: array
                   items:
@@ -2447,7 +2447,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for details using this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
                 employee_compensations:
                   type: array
                   items:
@@ -3318,7 +3318,7 @@ paths:
                 properties:
                   version:
                     type: string
-                    description: The current version of the object. See the versioning guide for details using this field.
+                    description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
                   tax_payer_type:
                     type: string
                     description: |-
@@ -3389,7 +3389,7 @@ paths:
                 properties:
                   version:
                     type: string
-                    description: The current version of the object. See the versioning guide for details using this field.
+                    description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
                   tax_payer_type:
                     type: string
                     description: |-
@@ -3455,7 +3455,7 @@ paths:
                   description: Whether this company should be taxed as an S-Corporation
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for details using this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
               required:
                 - version
             examples:
@@ -3604,7 +3604,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
                 type:
                   type: string
                   enum:
@@ -3809,7 +3809,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the employee. See the versioning guide for details using this field.
+          description: The current version of the employee. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
           readOnly: true
         department:
           type: string
@@ -3896,7 +3896,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         company_id:
           type: integer
@@ -4010,7 +4010,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         employee_id:
           type: integer
@@ -4074,7 +4074,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         employee_id:
           type: integer
@@ -4111,7 +4111,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         job_id:
           type: integer
@@ -4165,7 +4165,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         employee_id:
           type: integer
@@ -4617,7 +4617,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         type:
           type: string
@@ -5186,7 +5186,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         company_id:
           type: number
@@ -5243,7 +5243,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
           readOnly: true
         employee_id:
           type: number
@@ -5507,7 +5507,7 @@ components:
       properties:
         version:
           type: string
-          description: The current version of the object. See the versioning guide for details using this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
           readOnly: true
         payroll_deadline:
           type: string
@@ -5924,7 +5924,7 @@ components:
       properties:
         version:
           type: string
-          description: The current version of the object. See the versioning guide for details using this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
         tax_payer_type:
           type: string
           description: |-
@@ -6053,7 +6053,7 @@ components:
       properties:
         version:
           type: string
-          description: The current version of the object. See the versioning guide for information on how to use this field.
+          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
         type:
           type: string
           enum:
