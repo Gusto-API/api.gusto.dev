@@ -83,6 +83,7 @@ paths:
                   pattern: '[0-9]{9}'
                 two_percent_shareholder:
                   type: boolean
+                  description: Whether the employee is a two percent shareholder of the company. This field only applies to companies with an S-Corp entity type.
               required:
                 - version
             examples:
