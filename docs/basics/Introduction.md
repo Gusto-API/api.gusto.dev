@@ -43,6 +43,8 @@ Gusto requires a quality review (“QA”) of all builds using our API before we
 The review process for an **[integrated App](https://docs.gusto.com/docs/api/docs/integration%20options/Build%20an%20Application.md)** requires the [partner checklist](https://docs.google.com/spreadsheets/d/19ORmdNtOhnmAPPTYL8b-YnEcVmPM7oDp4OjR9bB83A0/edit?usp=sharing) created in the previous stage to be completed and emailed to developer@gusto.com. 
 
 The review process for a **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** product is different and you will be working directly with our Partnerships team through this process.
+
+During review, all applications will be assigned API scopes based on your integration use-case. These scopes must be tested in our demo environment and will be enforced in our production environment upon approval. Any API call made outside of your assigned scope in production will be rejected. You'll be able to request additional scopes or request changes to your scopes by contacting developer@gusto.com after releasing to production.
  
 Once your integration is approved, Gusto’s Developer Relations team will issue your production keys to your developer account to access at any time.
 
