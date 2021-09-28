@@ -1,5 +1,5 @@
 {
-  "items": [   
+  "items": [
     {
       "type": "divider",
       "title": "basics"
@@ -13,7 +13,7 @@
       "type": "item",
       "title": "Payroll Fundamentals",
       "uri": "docs/basics/Payroll Fundamentals.md"
-    },   
+    },
     {
       "type": "item",
       "title": "Authentication",
@@ -28,6 +28,11 @@
       "type": "item",
       "title": "Versioning",
       "uri": "docs/basics/Versioning.md"
+    },
+    {
+      "type": "item",
+      "title": "What's New",
+      "uri": "docs/basics/what's new.md"
     },
     {
       "type": "divider",
