@@ -6077,6 +6077,9 @@ components:
               name:
                 type: string
                 description: The bank account name
+              hidden_account_number:
+                type: string
+                description: Masked bank account number
               priority:
                 type: integer
                 description: 'The order of priority for each payment split, with priority 1 being the first bank account paid. Priority must be unique and sequential.'
