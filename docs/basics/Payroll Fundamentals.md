@@ -14,7 +14,7 @@ Companies can have multiple work locations, across multiple states, but everyone
 
 ### Payroll
 
-Now let’s talk about the key inputs to payroll.
+Now let’s talk about the key inputs to payroll. 
 
 Regular payrolls are tied to a specific pay period and all associated information - paid time off (vacation, sick, holiday, custom policies), hours worked, bonuses, commissions, etc. - should be applied to that time range.  In a regular payroll, the Company payroll admin sets the pay schedule (e.g. monthly, bi-monthly) and the start date. From there, each payroll is associated with a specific pay period with a start and end date, to make sure there are no overlapping dates. 
 
