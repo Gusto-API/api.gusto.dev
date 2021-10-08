@@ -6,9 +6,9 @@ To enchance API performance, several collection endpoints support pagination. To
 https://api.gusto.com/v1/companies/abc123/employees?page=2&per=5
 ```
 
-...will return the second page of five employees of the company identified by the UUID `abc123`. If the `per` paramter is not provided, the API will return 25 records per page by default, unless otherwise specified.
+...will return the second page of five employees of the company identified by the UUID `abc123`. If the `per` parameter is not provided, the API will return 25 records per page by default, unless otherwise specified.
 
-Information on whether a given endpoint supports pagaintion parameters can be found on its respective page in the documentation.
+Information on whether a given endpoint supports pagination parameters can be found on its respective page in the documentation.
 
 ## Paginated responses
 
@@ -23,10 +23,9 @@ X-Per-Page: 25
 
 Here's a summary of the meaning of each of these headers:
 
-Header | Descripiton | Example
+Header | Description | Example
 ---------|----------|---------
  `X-Page` | The current page being returned | `3`
  `X-Total-Count` | The total number of records in the full collection | `542`
  `X-Total-Pages` | Total number of pages for this collection | `22`
  `X-Per-Page` | Numer of records currently being returned per page | `25`
- 
