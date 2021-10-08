@@ -3281,13 +3281,13 @@ paths:
               properties:
                 first_name:
                   type: string
-                  description: 'The email of the admin. This will be used for the admin to log in to their account. If the email matches an existing user, this will create an admin account for them.'
+                  description: The first name of the admin.
                 last_name:
                   type: string
-                  description: The first name of the admin.
+                  description: The last name of the admin.
                 email:
                   type: string
-                  description: The last name of the admin.
+                  description: 'The email of the admin. This will be used for the admin to log in to their account. If the email matches an existing user, this will create an admin account for them.'
               required:
                 - first_name
                 - last_name
