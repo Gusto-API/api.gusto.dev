@@ -146,16 +146,6 @@ paths:
           in: query
           name: terminated
           description: Filters employees by the provided boolean
-        - schema:
-            type: number
-          in: query
-          name: page
-          description: 'The page that is requested. When unspecified, will load all employees.'
-        - schema:
-            type: number
-          in: query
-          name: per
-          description: 'Number of employees per page. When unspecified, will default to 25'
         - in: query
           name: include
           description: Include the requested attribute(s) in each employee response
@@ -165,6 +155,8 @@ paths:
               type: string
               enum:
                 - custom_fields
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       description: 'Get all of the employees, onboarding, active and terminated, for a given company.'
       responses:
         '200':
@@ -290,12 +282,14 @@ paths:
         description: The employee ID
     get:
       summary: Get jobs for an employee
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Job-List'
       operationId: get-v1-employees-employee_id-jobs
       description: Get all of the jobs that an employee holds.
-      parameters: []
       tags:
         - Jobs
     post:
@@ -338,6 +332,9 @@ paths:
         description: The ID or UUID of the company
     get:
       summary: Get company locations
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Location-List'
@@ -346,7 +343,6 @@ paths:
         Company locations represent all addresses associated with a company. These can be filing addesses, mailing addresses, and/or work locations; one address may serve multiple, or all, purposes.
 
         Since all company locations are subsets of locations, retrieving or updating an individual record should be done via the locations endpoints.
-      parameters: []
       tags:
         - Locations
     post:
@@ -618,6 +614,9 @@ paths:
       summary: Get contractors of a company
       tags:
         - Contractors
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Contractor-List'
@@ -732,6 +731,8 @@ paths:
           name: end_date
           description: The time period for which to retrieve contractor payments
           required: true
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
     post:
       summary: Create a contractor payment (Beta)
       tags:
@@ -904,6 +905,9 @@ paths:
         description: The ID of the job to which the compensation belongs
     get:
       summary: Get compensations for a job
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Compensation-List'
@@ -984,6 +988,9 @@ paths:
       summary: Get garnishments for an employee
       tags:
         - Garnishments
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Garnishment-List'
@@ -1242,6 +1249,8 @@ paths:
           in: query
           name: end_date
           description: Filter time off requests where the request end date is equal to or after this parameter
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
   /v1/me:
     get:
       summary: Get the current user
@@ -1353,6 +1362,9 @@ paths:
         description: The ID of the company
     get:
       summary: Get the pay schedules for a company
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Pay-Schedule-List'
@@ -1482,6 +1494,9 @@ paths:
         description: The ID or UUID of the company
     get:
       summary: Get all company bank accounts
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Company-Bank-Account-List'
@@ -1837,6 +1852,9 @@ paths:
       summary: Get an employee's benefits
       tags:
         - Benefits
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Employee-Benefit-List'
@@ -2810,6 +2828,9 @@ paths:
       summary: Get an employee's custom fields
       tags:
         - Custom Fields
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           description: OK
@@ -2866,6 +2887,9 @@ paths:
       operationId: get-v1-companies-company_id-custom_fields
       tags:
         - Custom Fields
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           description: OK
@@ -3000,6 +3024,9 @@ paths:
       summary: Get all job applicants for a company
       tags:
         - Job Applicants (Beta)
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           $ref: '#/components/responses/Job-Applicant-List'
@@ -3200,6 +3227,9 @@ paths:
       summary: Get approved Payroll Reversals
       tags:
         - Payroll
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       responses:
         '200':
           description: OK
@@ -3252,6 +3282,9 @@ paths:
       summary: Get all the admins at a company
       tags:
         - Admins (Beta)
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       operationId: get-v1-companies-company_id-admins
       responses:
         '200':
@@ -3486,6 +3519,9 @@ paths:
       summary: Get all employee bank accounts
       tags:
         - Employee Bank Accounts (Beta)
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perParam'
       operationId: get-v1-employees-employee_id-bank_accounts
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
@@ -3677,6 +3713,19 @@ paths:
                   type: Check
         description: ''
 components:
+  parameters:
+    pageParam:
+      schema:
+        type: number
+      in: query
+      name: page
+      description: 'The page that is requested. When unspecified, will load all employees.'
+    perParam:
+      schema:
+        type: number
+      in: query
+      name: per
+      description: 'Number of employees per page. When unspecified, will default to 25'
   schemas:
     Employee:
       title: Employee
