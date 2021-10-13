@@ -1,5 +1,9 @@
 # Contibuting (internal)
 
+## Setup
+
+We use [spectral](https://meta.stoplight.io/docs/spectral/ZG9jOjYx-overview) in a pre-commit hook, so you need to run `yarn install`  after cloning this repo.
+
 ## Change request
 
 The DevRel team track changes to the api on their Jira board if you want to request a change.
