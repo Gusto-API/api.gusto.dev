@@ -1,0 +1,6 @@
+extends: spectral:oas
+formats: ["oas3.0"]
+rules:
+  oas3-valid-schema-example: true
+  oas3-valid-media-example: true
+  oas3-unused-component: false
