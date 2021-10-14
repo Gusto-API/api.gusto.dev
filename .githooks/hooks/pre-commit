@@ -1,0 +1,2 @@
+# Runs spectral and fails on anything that's a warning or worse:
+spectral lint --fail-severity=warn --display-only-failures --quiet ./reference/*.yaml
