@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "dependencies": {
+    "@stoplight/spectral-cli": "^6.1.0"
+  },
+  "devDependencies": {
+    "husky": "^7.0.2"
+  },
+  "scripts": {
+    "postinstall": "husky install"
+  }
+}
