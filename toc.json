@@ -26,6 +26,11 @@
     },
     {
       "type": "item",
+      "title": "Pagination",
+      "uri": "docs/basics/Pagination.md"
+    },
+    {
+      "type": "item",
       "title": "Versioning",
       "uri": "docs/basics/Versioning.md"
     },
