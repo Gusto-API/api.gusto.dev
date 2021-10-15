@@ -1,14 +1,20 @@
-# Contibuting (internal)
+# Gusto Partner API Documentation
 
-## Change request
+## Contibuting (internal)
+
+### Setup
+
+We use [spectral](https://meta.stoplight.io/docs/spectral/ZG9jOjYx-overview) in a pre-commit hook, so you need to run `yarn install`  after cloning this repo.
+
+### Change request
 
 The DevRel team track changes to the api on their Jira board if you want to request a change.
 
-## Change approval
+### Change approval
 
 If you want to do the change yourself, have your changes go through the DevRel team first for approval
 
-## How to
+### How to
 
 The documentation is generated through [stoplight.io](gusto.stoplight.io).
 
@@ -22,7 +28,7 @@ Here is the process: https://docs.google.com/document/d/1KxoLOgQLf8s3p0A5_qZCiJ_
 We also have a process for editing directly this repo (not recommended): https://docs.google.com/document/d/1H4vtaynEvc74ZXfMb-ED34I5Ur4QLPM_ZkRvJ8dENp4
 
 
-## Auth
+### Auth
 
 You need write access on both https://gusto.stoplight.io and the https://github.com/Gusto-API/api.gusto.dev repo.
 

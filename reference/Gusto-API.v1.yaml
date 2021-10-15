@@ -11,6 +11,7 @@ tags:
   - name: Custom Fields
   - name: Earning Type
   - name: Employee Bank Accounts (Beta)
+  - name: Employee Payment Method (Beta)
   - name: Employees
   - name: Garnishments
   - name: Job Applicants (Beta)
@@ -20,6 +21,7 @@ tags:
   - name: Payroll
   - name: Terminations
   - name: Time Off Requests
+  - name: Federal Tax Details (Beta)
 info:
   title: Gusto API
   version: '1.0'
@@ -67,7 +69,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                 first_name:
                   type: string
                 middle_initial:
@@ -244,7 +246,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                 title:
                   type: string
                 location_id:
@@ -552,7 +554,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                 start_date:
                   type: string
                   description: |
@@ -861,7 +863,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                   readOnly: true
                 rate:
                   type: string
@@ -1033,6 +1035,7 @@ paths:
                   type: integer
                   readOnly: false
                   default: null
+                  nullable: true
                   description: The number of times to apply the garnisment. Ignored if recurring is true.
                 recurring:
                   type: boolean
@@ -1043,12 +1046,14 @@ paths:
                   format: float
                   readOnly: false
                   default: null
+                  nullable: true
                   description: 'The maximum deduction per annum. A null value indicates no maximum. Represented as a float, e.g. "200.00".'
                   type: string
                 pay_period_maximum:
                   type: string
                   format: float
                   default: null
+                  nullable: true
                   description: 'The maximum deduction per pay period. A null value indicates no maximum. Represented as a float, e.g. "16.00".'
                 deduct_as_percentage:
                   type: boolean
@@ -1120,6 +1125,7 @@ paths:
                   type: integer
                   readOnly: false
                   default: null
+                  nullable: true
                   description: The number of times to apply the garnisment. Ignored if recurring is true.
                 recurring:
                   type: boolean
@@ -1130,12 +1136,14 @@ paths:
                   format: float
                   readOnly: false
                   default: null
+                  nullable: true
                   description: 'The maximum deduction per annum. A null value indicates no maximum. Represented as a float, e.g. "200.00".'
                   type: string
                 pay_period_maximum:
                   type: string
                   format: float
                   default: null
+                  nullable: true
                   description: 'The maximum deduction per pay period. A null value indicates no maximum. Represented as a float, e.g. "16.00".'
                 deduct_as_percentage:
                   type: boolean
@@ -1144,7 +1152,7 @@ paths:
                   description: Whether the amount should be treated as a percentage to be deducted per pay period.
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
               required:
                 - version
             examples:
@@ -1329,7 +1337,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                 street_1:
                   type: string
                 street_2:
@@ -1377,7 +1385,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Pay-Schedule-Object'
-      operationId: get-v1-companies-company_id-pay_schedules
+      operationId: post-v1-companies-company_id-pay_schedules
       description: |-
         Creates a new single default pay schedule for the company.
 
@@ -1410,11 +1418,13 @@ paths:
                   type: string
                   description: The last date of the first pay period. This can be the same date as the anchor pay date.
                 day_1:
-                  type: string
+                  type: integer
                   description: An integer between 1 and 31 indicating the first day of the month that employees are paid. This field is only relevant for pay schedules with the “Twice per month” and “Monthly” frequencies. It will be null for pay schedules with other frequencies.
+                  nullable: true
                 day_2:
-                  type: string
                   description: An integer between 1 and 31 indicating the second day of the month that employees are paid. This field is the second pay date for pay schedules with the “Twice per month” frequency. It will be null for pay schedules with other frequencies.
+                  type: integer
+                  nullable: true
               required:
                 - frequency
                 - anchor_pay_date
@@ -1428,7 +1438,7 @@ paths:
                   day_1: 15
                   day_2: 31
                   auto_pilot: false
-                  version: '68934a3e9455fa72420237eb05902327'
+                  version: 68934a3e9455fa72420237eb05902327
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
@@ -1473,7 +1483,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                 auto_pilot:
                   type: boolean
                   description: 'With Autopilot® enabled, payroll will run automatically one day before your payroll deadlines.'
@@ -1729,7 +1739,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                   readOnly: true
                 active:
                   type: boolean
@@ -1999,7 +2009,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                   readOnly: true
                 active:
                   type: boolean
@@ -2311,7 +2321,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
                 employee_compensations:
                   type: array
                   items:
@@ -2465,7 +2475,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
                 employee_compensations:
                   type: array
                   items:
@@ -3250,6 +3260,7 @@ paths:
                   approved_at:
                     type: string
                     description: Timestamp of when the reversal was approved.
+                    nullable: true
                   category:
                     type: string
                     description: Category chosen by the admin who requested the reversal.
@@ -3351,7 +3362,7 @@ paths:
                 properties:
                   version:
                     type: string
-                    description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+                    description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
                   tax_payer_type:
                     type: string
                     description: |-
@@ -3422,7 +3433,7 @@ paths:
                 properties:
                   version:
                     type: string
-                    description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+                    description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
                   tax_payer_type:
                     type: string
                     description: |-
@@ -3488,7 +3499,7 @@ paths:
                   description: Whether this company should be taxed as an S-Corporation
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
               required:
                 - version
             examples:
@@ -3640,7 +3651,7 @@ paths:
               properties:
                 version:
                   type: string
-                  description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+                  description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
                 type:
                   type: string
                   enum:
@@ -3671,6 +3682,7 @@ paths:
                       split_amount:
                         description: The cents amount allocated for each payment split
                         type: integer
+                        nullable: true
               required:
                 - version
                 - type
@@ -3692,7 +3704,7 @@ paths:
                     - uuid: 1531e824-8d9e-4bd8-9f90-0d04608125d7
                       name: US Bank Checking Account
                       priority: 3
-                      split_amount: nil
+                      split_amount: null
               example-2:
                 value:
                   version: 63859768485e218ccf8a449bb60f14ed
@@ -3858,7 +3870,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the employee. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+          description: 'The current version of the employee. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
           readOnly: true
         department:
           type: string
@@ -3945,7 +3957,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         company_id:
           type: integer
@@ -4059,7 +4071,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         employee_id:
           type: integer
@@ -4123,7 +4135,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         employee_id:
           type: integer
@@ -4160,7 +4172,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         job_id:
           type: integer
@@ -4214,7 +4226,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         employee_id:
           type: integer
@@ -4261,6 +4273,7 @@ components:
           type: string
           readOnly: false
           default: null
+          nullable: true
           description: The title for the job.
         primary:
           type: boolean
@@ -4666,7 +4679,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         type:
           type: string
@@ -5235,7 +5248,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         company_id:
           type: number
@@ -5292,7 +5305,7 @@ components:
           readOnly: true
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
           readOnly: true
         employee_id:
           type: number
@@ -5556,7 +5569,7 @@ components:
       properties:
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
           readOnly: true
         payroll_deadline:
           type: string
@@ -5872,6 +5885,7 @@ components:
         selection_options:
           type: array
           description: 'An array of options for fields of type radio. Otherwise, null.'
+          nullable: true
           items:
             type: string
       required:
@@ -5902,6 +5916,7 @@ components:
         selection_options:
           type: array
           description: 'An array of options for fields of type radio. Otherwise, null.'
+          nullable: true
           items:
             type: string
       required:
@@ -5973,7 +5988,7 @@ components:
       properties:
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
         tax_payer_type:
           type: string
           description: |-
@@ -6079,7 +6094,7 @@ components:
               - uuid: 1531e824-8d9e-4bd8-9f90-0d04608125d7
                 name: US Bank Checking Account
                 priority: 3
-                split_amount: nil
+                split_amount: null
         Example-2:
           value:
             version: 63859768485e218ccf8a449bb60f14ed
@@ -6102,7 +6117,7 @@ components:
       properties:
         version:
           type: string
-          description: The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.
+          description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
         type:
           type: string
           enum:
@@ -6115,8 +6130,10 @@ components:
             - Amount
             - Percentage
           description: 'Describes how the payment will be split. If split_by is Percentage, then the split amounts must add up to exactly 100. If split_by is Amount, then the last split amount must be nil to capture the remainder.'
+          nullable: true
         splits:
           type: array
+          nullable: true
           items:
             type: object
             properties:
@@ -6133,8 +6150,9 @@ components:
                 type: integer
                 description: 'The order of priority for each payment split, with priority 1 being the first bank account paid. Priority must be unique and sequential.'
               split_amount:
-                type: integer
                 description: The cents amount allocated for each payment split
+                type: integer
+                nullable: true
       required:
         - version
         - type
