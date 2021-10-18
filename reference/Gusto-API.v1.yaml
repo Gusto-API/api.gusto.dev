@@ -40,7 +40,10 @@ paths:
     get:
       summary: Get an employee
       operationId: get-v1-employees
-      description: Get an employee.
+      description: |
+        Get an employee.
+
+        `scope: employees.read`
       parameters:
         - in: query
           name: include
@@ -59,7 +62,10 @@ paths:
     put:
       summary: Update an employee
       operationId: put-v1-employees
-      description: Update an employee.
+      description: |-
+        Update an employee.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -117,7 +123,10 @@ paths:
     get:
       summary: Get a company
       operationId: get-v1-companies
-      description: Get a company.
+      description: |-
+        Get a company.
+
+        `scope: companies.read`
       parameters: []
       responses:
         '200':
@@ -159,7 +168,10 @@ paths:
                 - custom_fields
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/perParam'
-      description: 'Get all of the employees, onboarding, active and terminated, for a given company.'
+      description: |-
+        Get all of the employees, onboarding, active and terminated, for a given company.
+
+        `scope: employees.read`
       responses:
         '200':
           $ref: '#/components/responses/Employee-List'
@@ -205,7 +217,10 @@ paths:
                   ssn: '123456294'
         description: Create an employee.
       parameters: []
-      description: Create an employee.
+      description: |-
+        Create an employee.
+
+        `scope: employees.write`
       responses:
         '201':
           $ref: '#/components/responses/Employee-Object'
@@ -226,7 +241,10 @@ paths:
           $ref: '#/components/responses/Job-Object'
       operationId: get-v1-jobs-job_id
       parameters: []
-      description: Get a job.
+      description: |-
+        Get a job.
+
+        `scope: jobs.read`
       tags:
         - Jobs
     put:
@@ -235,7 +253,10 @@ paths:
         '200':
           $ref: '#/components/responses/Job-Object'
       operationId: put-v1-jobs-job_id
-      description: Update a job.
+      description: |-
+        Update a job.
+
+        `scope: jobs.write`
       parameters: []
       requestBody:
         content:
@@ -273,7 +294,10 @@ paths:
         '204':
           description: No Content
       operationId: delete-v1-jobs-job_id
-      description: Deletes a specific job that an employee holds.
+      description: |-
+        Deletes a specific job that an employee holds.
+
+        `scope: jobs.write`
   '/v1/employees/{employee_id}/jobs':
     parameters:
       - schema:
@@ -291,7 +315,10 @@ paths:
         '200':
           $ref: '#/components/responses/Job-List'
       operationId: get-v1-employees-employee_id-jobs
-      description: Get all of the jobs that an employee holds.
+      description: |-
+        Get all of the jobs that an employee holds.
+
+        `scope: jobs.read`
       tags:
         - Jobs
     post:
@@ -300,7 +327,10 @@ paths:
         '201':
           $ref: '#/components/responses/Job-Object'
       operationId: post-v1-jobs-job_id
-      description: Create a job.
+      description: |-
+        Create a job.
+
+        `scope: jobs.write`
       parameters: []
       requestBody:
         content:
@@ -345,6 +375,8 @@ paths:
         Company locations represent all addresses associated with a company. These can be filing addesses, mailing addresses, and/or work locations; one address may serve multiple, or all, purposes.
 
         Since all company locations are subsets of locations, retrieving or updating an individual record should be done via the locations endpoints.
+
+        `scope: companies.read`
       tags:
         - Locations
     post:
@@ -357,6 +389,8 @@ paths:
         Company locations represent all addresses associated with a company. These can be filing addesses, mailing addresses, and/or work locations; one address may serve multiple, or all, purposes.
 
         Since all company locations are subsets of locations, retrieving or updating an individual record should be done via the locations endpoints.
+
+        scope: companies.write
       parameters: []
       requestBody:
         content:
@@ -466,7 +500,10 @@ paths:
         '200':
           $ref: '#/components/responses/Location-Object'
       operationId: get-v1-locations-location_id
-      description: Get a location.
+      description: |-
+        Get a location.
+
+        `scope: companies.read`
       parameters: []
       tags:
         - Locations
@@ -476,7 +513,10 @@ paths:
         '200':
           $ref: '#/components/responses/Location-Object'
       operationId: put-v1-locations-location_id
-      description: Update a location.
+      description: |-
+        Update a location.
+
+        scope: companies.write
       requestBody:
         content:
           application/json:
@@ -535,7 +575,10 @@ paths:
         '200':
           $ref: '#/components/responses/Contractor-Object'
       operationId: get-v1-contractors-contractor_id
-      description: Get a contractor.
+      description: |-
+        Get a contractor.
+
+        `scope: employees.read`
     put:
       summary: Update a contractor
       tags:
@@ -544,7 +587,10 @@ paths:
         '200':
           $ref: '#/components/responses/Contractor-Object'
       operationId: put-v1-contractors-contractor_id
-      description: Update a contractor.
+      description: |-
+        Update a contractor.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -623,7 +669,10 @@ paths:
         '200':
           $ref: '#/components/responses/Contractor-List'
       operationId: get-v1-companies-company_id-contractors
-      description: 'Get all contractors, active and inactive, individual and business, for a company.'
+      description: |-
+        Get all contractors, active and inactive, individual and business, for a company.
+
+        `scope: employees.read`
     post:
       summary: Create a contractor
       tags:
@@ -632,7 +681,10 @@ paths:
         '201':
           $ref: '#/components/responses/Contractor-Object'
       operationId: post-v1-companies-company_id-contractors
-      description: Create an individual or business contractor.
+      description: |-
+        Create an individual or business contractor.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -717,7 +769,10 @@ paths:
         '200':
           $ref: '#/components/responses/Contractor-Payments'
       operationId: get-v1-companies-company_id-contractor_payments
-      description: 'Returns an object containing individual contractor payments, within a given time period, including totals.'
+      description: |-
+        Returns an object containing individual contractor payments, within a given time period, including totals.
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: string
@@ -808,7 +863,10 @@ paths:
         '200':
           $ref: '#/components/responses/Contractor-Payment-Object'
       operationId: get-v1-companies-company_id-contractor_payment-contractor-payment
-      description: Returns a single contractor payments
+      description: |-
+        Returns a single contractor payments
+
+        `scope: payrolls.read`
     delete:
       summary: Cancel a contractor payment (Beta)
       tags:
@@ -840,6 +898,8 @@ paths:
         Compensations contain information on how much is paid out for a job. Jobs may have many compensations, but only one that is active. The current compensation is the one with the most recent `effective_date`.
 
         Note: Currently, jobs are arbitrarily limited to a single compensation as multiple compensations per job are not yet available in Gusto. The API is architected as if multiple compensations may exist, so integrations should integrate under the same assumption. The only exception is that creating a compensation with the same `job_id` as another will fail with a relevant error.
+
+        `scope: jobs.read`
       tags:
         - Compensations
     put:
@@ -854,6 +914,8 @@ paths:
         Compensations contain information on how much is paid out for a job. Jobs may have many compensations, but only one that is active. The current compensation is the one with the most recent `effective_date`.
 
         Note: Currently, jobs are arbitrarily limited to a single compensation as multiple compensations per job are not yet available in Gusto. The API is architected as if multiple compensations may exist, so integrations should integrate under the same assumption. The only exception is that creating a compensation with the same `job_id` as another will fail with a relevant error
+
+        `scope: jobs.write`
       requestBody:
         content:
           application/json:
@@ -920,6 +982,8 @@ paths:
         Note: Currently, jobs are arbitrarily limited to a single compensation as multiple compensations per job are not yet available in Gusto. The API is architected as if multiple compensations may exist, so integrations should integrate under the same assumption. The only exception is that creating a compensation with the same `job_id` as another will fail with a relevant error.
 
         Use the `flsa_status` to determine if an employee is elibgle for overtime.
+
+        `scope: jobs.read`
       tags:
         - Compensations
     post:
@@ -931,6 +995,8 @@ paths:
         Compensations contain information on how much is paid out for a job. Jobs may have many compensations, but only one that is active. The current compensation is the one with the most recent `effective_date`.
 
         Note: Currently, jobs are arbitrarily limited to a single compensation as multiple compensations per job are not yet available in Gusto. The API is architected as if multiple compensations may exist, so integrations should integrate under the same assumption. The only exception is that creating a compensation with the same `job_id` as another will fail with a relevant error
+
+        `scope: jobs.write`
       responses:
         '201':
           $ref: '#/components/responses/Compensation-Object'
@@ -997,7 +1063,10 @@ paths:
         '200':
           $ref: '#/components/responses/Garnishment-List'
       operationId: get-v1-employees-employee_id-garnishments
-      description: 'Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.'
+      description: |-
+        Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.
+
+        `scope: employees.read`
     post:
       summary: Create a garnishment
       tags:
@@ -1006,7 +1075,10 @@ paths:
         '201':
           $ref: '#/components/responses/Garnishment-Object'
       operationId: post-v1-employees-employee_id-garnishments
-      description: 'Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.'
+      description: |-
+        Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -1088,7 +1160,10 @@ paths:
         '200':
           $ref: '#/components/responses/Garnishment-Object'
       operationId: get-v1-garnishments-garnishment_id
-      description: 'Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.'
+      description: |-
+        Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.
+
+        `scope: employees.read`
     put:
       summary: Update a garnishment
       tags:
@@ -1097,7 +1172,10 @@ paths:
         '200':
           $ref: '#/components/responses/Garnishment-Object'
       operationId: put-v1-garnishments-garnishment_id
-      description: 'Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.'
+      description: |-
+        Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -1180,6 +1258,8 @@ paths:
         Terminations are created whenever an employee is scheduled to leave the company. The only things required are an effective date (their last day of work) and whether they should receive their wages in a one-off termination payroll or with the rest of the company.
 
         Note that some states require employees to receive their final wages within 24 hours (unless they consent otherwise,) in which case running a one-off payroll may be the only option.
+
+        `scope: employees.read`
     post:
       summary: Create an employee termination
       tags:
@@ -1192,6 +1272,8 @@ paths:
         Terminations are created whenever an employee is scheduled to leave the company. The only things required are an effective date (their last day of work) and whether they should receive their wages in a one-off termination payroll or with the rest of the company.
 
         Note that some states require employees to receive their final wages within 24 hours (unless they consent otherwise,) in which case running a one-off payroll may be the only option.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -1226,7 +1308,7 @@ paths:
         '200':
           $ref: '#/components/responses/Time-Off-Request-List'
       operationId: get-v1-companies-company_id-time_off_requests
-      description: |
+      description: |-
         Get all time off requests, past and present, for a company.
 
         In order to reduce the number of time off requests returned in a single response, or to retrieve time off requests from a time period of interest, you may use the `start_date` and `end_date` parameters.
@@ -1244,6 +1326,8 @@ paths:
         `?start_date='2019-05-01'&end_date='2019-08-31'`
 
         Returns all time off requests where the request start date is equal to or after May 1, 2019 and the request end date is equal to or before August 31, 2019.
+
+        `scope: time_off_requests.read`
       parameters:
         - schema:
             type: string
@@ -1318,7 +1402,10 @@ paths:
         '200':
           $ref: '#/components/responses/Location-Object'
       operationId: get-v1-employees-employee_id-home_address
-      description: The home address of an employee is used to determine certain tax information about them. Addresses are geocoded on create and update to ensure validity.
+      description: |-
+        The home address of an employee is used to determine certain tax information about them. Addresses are geocoded on create and update to ensure validity.
+
+        `scope: employees.read`
     put:
       summary: Update an employee's home address
       tags:
@@ -1327,7 +1414,10 @@ paths:
         '200':
           $ref: '#/components/responses/Location-Object'
       operationId: put-v1-employees-employee_id-home_address
-      description: The home address of an employee is used to determine certain tax information about them. Addresses are geocoded on create and update to ensure validity.
+      description: |-
+        The home address of an employee is used to determine certain tax information about them. Addresses are geocoded on create and update to ensure validity.
+
+        `scope: employees.write`
       requestBody:
         content:
           application/json:
@@ -1377,7 +1467,10 @@ paths:
         '200':
           $ref: '#/components/responses/Pay-Schedule-List'
       operationId: get-v1-companies-company_id-pay_schedules
-      description: The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
+      description: |-
+        The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
+
+        `scope: payrolls.read`
       tags:
         - Pay Schedules
     post:
@@ -1459,7 +1552,10 @@ paths:
         '200':
           $ref: '#/components/responses/Pay-Schedule-Object'
       operationId: get-v1-companies-company_id-pay_schedules-pay_schedule_id
-      description: The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
+      description: |-
+        The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
+
+        `scope: payrolls.read`
       tags:
         - Pay Schedules
     put:
@@ -1618,6 +1714,8 @@ paths:
         Returns all benefits supported by Gusto.
 
         The benefit object in Gusto contains high level information about a particular benefit type and its tax considerations. When companies choose to offer a benefit, they are creating a Company Benefit object associated with a particular benefit.
+
+        `scope: benefits.read`
       tags:
         - Benefits
   '/v1/benefits/{benefit_id}':
@@ -1635,6 +1733,8 @@ paths:
         Returns a benefit supported by Gusto.
 
         The benefit object in Gusto contains high level information about a particular benefit type and its tax considerations. When companies choose to offer a benefit, they are creating a Company Benefit object associated with a particular benefit.
+
+        `scope: benefits.read`
       tags:
         - Benefits
       responses:
@@ -1660,6 +1760,8 @@ paths:
         Company benefits represent the benefits that a company is offering to employees. This ties together a particular supported benefit with the company-specific information for the offering of that benefit.
 
         Note that company benefits can be deactivated only when no employees are enrolled.
+
+        `scope: company_benefits.read`
     post:
       summary: Create a company benefit
       tags:
@@ -1672,6 +1774,8 @@ paths:
         Company benefits represent the benefits that a company is offering to employees. This ties together a particular supported benefit with the company-specific information for the offering of that benefit.
 
         Note that company benefits can be deactivated only when no employees are enrolled.
+
+        `scope: company_benefits.write`
       requestBody:
         content:
           application/json:
@@ -1718,6 +1822,8 @@ paths:
         Company benefits represent the benefits that a company is offering to employees. This ties together a particular supported benefit with the company-specific information for the offering of that benefit.
 
         Note that company benefits can be deactivated only when no employees are enrolled.
+
+        `scope: company_benefits.read`
     put:
       summary: Update a company benefit
       tags:
@@ -1730,6 +1836,8 @@ paths:
         Company benefits represent the benefits that a company is offering to employees. This ties together a particular supported benefit with the company-specific information for the offering of that benefit.
 
         Note that company benefits can be deactivated only when no employees are enrolled.
+
+        `scope: company_benefits:write`
       requestBody:
         content:
           application/json:
@@ -1778,6 +1886,8 @@ paths:
 
         #### Custom Earning Type
         Custom earning types are all the other earning types added specifically for a company.
+
+        `scope: payrolls.read`
     post:
       summary: Create a custom earning type
       tags:
@@ -1790,6 +1900,8 @@ paths:
         Create a custom earning type.
 
         If an inactive earning type exists with the same name, this will reactivate it instead of creating a new one.
+
+        `scope: payrolls:write`
       requestBody:
         content:
           application/json:
@@ -1827,7 +1939,10 @@ paths:
         '200':
           $ref: '#/components/responses/Earning-Type-Object'
       operationId: put-v1-companies-company_id-earning_types-earning_type_uuid
-      description: Update an earning type.
+      description: |-
+        Update an earning type.
+
+        `scope: payrolls.write`
       requestBody:
         content:
           application/json:
@@ -1849,7 +1964,10 @@ paths:
         '204':
           description: No Content
       operationId: delete-v1-companies-company_id-earning_types-earning_type_uuid
-      description: Deactivate an earning type.
+      description: |-
+        Deactivate an earning type.
+
+        `scope: payrolls.write`
   '/v1/employees/{employee_id}/employee_benefits':
     parameters:
       - schema:
@@ -1873,6 +1991,8 @@ paths:
         Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
 
         Returns an array of all employee benefits for this employee
+
+        `scope: employee_benefits.read`
     post:
       summary: Create an employee benefit
       tags:
@@ -1881,7 +2001,10 @@ paths:
         '201':
           $ref: '#/components/responses/Employee-Benefit-Object'
       operationId: post-v1-employees-employee_id-employee_benefits
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.write`
       requestBody:
         content:
           application/json:
@@ -1969,7 +2092,10 @@ paths:
       tags:
         - Benefits
       operationId: post-employee-ytd-benefit-amounts-from-different-company
-      description: 'Year-to-date benefit amounts from a different company represents the amount of money added to an employees plan during a current year, made outside of the current contribution when they were employed at a different company.'
+      description: |-
+        Year-to-date benefit amounts from a different company represents the amount of money added to an employees plan during a current year, made outside of the current contribution when they were employed at a different company.
+
+        `scope: employee_benefits.write`
       requestBody:
         $ref: '#/components/requestBodies/post-employee-ytd-benefit-amounts-from-different-company'
       responses:
@@ -1991,7 +2117,10 @@ paths:
         '200':
           $ref: '#/components/responses/Employee-Benefit-Object'
       operationId: get-v1-employee_benefits-employee_benefit_id
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.read`
     put:
       summary: Update an employee benefit
       tags:
@@ -2000,7 +2129,10 @@ paths:
         '200':
           $ref: '#/components/responses/Employee-Benefit-Object'
       operationId: put-v1-employee_benefits-employee_benefit_id
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.write`
       requestBody:
         content:
           application/json:
@@ -2080,7 +2212,10 @@ paths:
         '204':
           description: No Content
       operationId: delete-v1-employee_benefits-employee_benefit_id
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.write`
   '/v1/companies/{company_id_or_uuid}/pay_periods':
     parameters:
       - schema:
@@ -2187,6 +2322,8 @@ paths:
 
 
         By default, this endpoint returns every current and past pay period for a company. Since companies can process payroll as often as every week, there can be up to 53 pay periods a year. If a company has been running payroll with Gusto for five years, this endpoint could return up to 265 pay periods. Use the `start_date` and `end_date` parameters to reduce the scope of the response.
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: string
@@ -2221,6 +2358,8 @@ paths:
         * Hour and dollar amounts are returned as string representations of numeric decimals.
         * Hours are represented to the thousands place; dollar amounts are represented to the cent.
         * Every eligible compensation is returned for each employee. If no data has yet be inserted for a given field, it defaults to “0.00” (for fixed amounts) or “0.000” (for hours ).
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: boolean
@@ -2312,7 +2451,10 @@ paths:
         '200':
           $ref: '#/components/responses/Payroll-Object'
       operationId: put-v1-companies-company_id-payrolls
-      description: This endpoint allows you to update information for one or more employees for a specific **unprocessed** payroll.
+      description: |-
+        This endpoint allows you to update information for one or more employees for a specific **unprocessed** payroll.
+
+        `scope: payrolls.write`
       requestBody:
         content:
           application/json:
@@ -2420,6 +2562,8 @@ paths:
         * Hour and dollar amounts are returned as string representations of numeric decimals.
         * Hours are represented to the thousands place; dollar amounts are represented to the cent.
         * Every eligible compensation is returned for each employee. If no data has yet be inserted for a given field, it defaults to “0.00” (for fixed amounts) or “0.000” (for hours ).
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: string
@@ -2467,6 +2611,8 @@ paths:
         This endpoint allows you to update information for one or more employees for a specific **unprocessed** payroll.
 
         The payrolls are identified by their pay periods’ start_date and end_date. Both are required and must correspond with an existing, unprocessed payroll. *If the dates do not match, the entire request will be rejected.* This was an explicit design decision to remove any assumptions around the timespan for data sent.
+
+        `scope: payrolls.write`
       requestBody:
         content:
           application/json:
@@ -2882,7 +3028,10 @@ paths:
                           - banana
                           - orange
       operationId: get-v1-employees-employee_id-custom_fields
-      description: Returns a list of the employee's custom fields.
+      description: |-
+        Returns a list of the employee's custom fields.
+
+        `scope: employees.read`
   '/v1/companies/{company_id}/custom_fields':
     parameters:
       - schema:
@@ -2893,7 +3042,10 @@ paths:
         description: The ID of the company
     get:
       summary: Get the custom fields of a company
-      description: Returns a list of the custom fields of the company. Useful when you need to know the schema of custom fields for an entire company
+      description: |-
+        Returns a list of the custom fields of the company. Useful when you need to know the schema of custom fields for an entire company
+
+        `scope: companies.read`
       operationId: get-v1-companies-company_id-custom_fields
       tags:
         - Custom Fields
@@ -2956,7 +3108,10 @@ paths:
         '200':
           $ref: '#/components/responses/Time-Off-Request-Object'
       operationId: get-v1-companies-company_id-time_off_requests-time_off_request_id
-      description: Details of a single time off request
+      description: |-
+        Details of a single time off request
+
+        `scope: time_off_requests.read`
   '/v1/companies/{company_id}/job_applicants':
     parameters:
       - schema:
@@ -2977,6 +3132,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Create a job applicant.
+
+        `scope: job_applicants.write`
       requestBody:
         content:
           application/json:
@@ -3045,6 +3202,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Returns all job applicants for a company.
+
+        `scope: job_applicants.read`
   '/v1/companies/{company_id}/job_applicants/{job_applicant_uuid}':
     parameters:
       - schema:
@@ -3071,6 +3230,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Returns a single job applicant.
+
+        `scope: job_applicants.read`
     put:
       summary: Update a job applicant
       operationId: put-v1-companies-company_id-job_applicants-job_applicant_uuid
@@ -3081,6 +3242,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Update an existing job applicant (only allowed when the job applicant has not been imported).
+
+        `scope: job_applicants.write`
       requestBody:
         content:
           application/json:
@@ -3145,6 +3308,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Permanently remove a job applicant by uuid (only allowed when the job applicant has not been imported).
+
+        `scope: job_applicants.write`
       tags:
         - Job Applicants (Beta)
   '/v1/companies/{company_id}/payrolls/{payroll_id}/calculate':
@@ -3280,7 +3445,10 @@ paths:
                     reversed_employee_ids:
                       - 3
       operationId: get-v1-companies-company_id_or_uuid-payroll_reversals
-      description: Returns all approved Payroll Reversals for a Company.
+      description: |-
+        Returns all approved Payroll Reversals for a Company.
+
+        `scope: payrolls.read`
   '/v1/companies/{company_id}/admins':
     parameters:
       - schema:
