@@ -6850,6 +6850,7 @@ components:
           value:
             version: 63859768485e218ccf8a449bb60f14ed
             type: Check
+      description: ''
       properties:
         version:
           type: string
@@ -8671,7 +8672,7 @@ components:
                   company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
                   account_type: Checking
                   routing_number: '851070439'
-                  account_number: XXXX4087
+                  hidden_account_number: XXXX4087
                   verification_status: verified
     Employee-Bank-Account-Object:
       description: Example response
