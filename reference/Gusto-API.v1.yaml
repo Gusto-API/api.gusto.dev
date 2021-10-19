@@ -5759,7 +5759,7 @@ components:
           company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
           account_type: Checking
           routing_number: '851070439'
-          account_number: XXXX4087
+          hidden_account_number: XXXX4087
           verification_status: verified
       x-tags:
         - Company Bank Accounts (Beta)
