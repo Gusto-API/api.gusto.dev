@@ -1907,16 +1907,16 @@ paths:
                   description: 'The amount to be paid, per pay period, by the company.'
                 employee_deduction_annual_maximum:
                   type: string
-                  nullable: true
                   description: The maximum employee deduction amount per year. A null value signifies no limit.
+                  nullable: true
                 company_contribution_annual_maximum:
                   type: string
-                  nullable: true
                   description: The maximum company contribution amount per year. A null value signifies no limit.
+                  nullable: true
                 limit_option:
                   type: string
-                  nullable: true
                   description: 'Some benefits require additional information to determine their limit. For example, for an HSA benefit, the limit option should be either "Family" or "Individual". For a Dependent Care FSA benefit, the limit option should be either "Joint Filing or Single" or "Married and Filing Separately".'
+                  nullable: true
                 deduct_as_percentage:
                   type: boolean
                   default: false
@@ -1931,21 +1931,61 @@ paths:
                   description: Whether the employee should use a benefit’s "catch up" rate. Only Roth 401k and 401k benefits use this value for employees over 50.
                 coverage_amount:
                   type: string
-                  nullable: true
                   description: 'The amount that the employee is insured for. Note: company contribution cannot be present if coverage amount is set.'
+                  nullable: true
                 deduction_reduces_taxable_income:
                   type: string
-                  nullable: true
                   enum:
                     - unset
                     - reduces_taxable_income
                     - does_not_reduce_taxable_income
                     - null
                   description: 'Whether the employee deduction reduces taxable income or not. Only valid for Group Term Life benefits. Note: when the value is not "unset", coverage amount and coverage salary multiplier are ignored.'
+                  nullable: true
                 coverage_salary_multiplier:
                   type: string
                   default: '0.00'
                   description: 'The coverage amount as a multiple of the employee’s salary. Only applicable for Group Term Life benefits. Note: cannot be set if coverage amount is also set.'
+                elective:
+                  type: boolean
+                  description: Whether the company contribution is elective (aka "matching"). For "tiered" contribution types this is ignored and assumed to be true.
+                contribution:
+                  type: object
+                  description: An object representing the company contribution type and value.
+                  properties:
+                    type:
+                      type: string
+                      description: |-
+                        The company contribution scheme.
+
+                        "amount": The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
+
+                        "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
+
+                        "tiered": The company contribution varies according to the size of the employee deduction.
+                    value:
+                      type:
+                        - string
+                        - array
+                      description: |-
+                        For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
+
+                        For "tiered" contribution types, an array of tiers.
+                      items:
+                        type: object
+                        description: A single tier of a tiered matching scheme.
+                        properties:
+                          rate:
+                            type: string
+                            description: The percentage of employee deduction the company contribution will match for amounts the employee deducts within this tier.
+                          threshold:
+                            type: string
+                            description: |-
+                              The percentage threshold at which this tier ends (inclusive). 
+
+                              For example, a value of "5" means the company contribution will match employee deductions from the previous tier's threshold up to and including 5% of payroll.
+
+                              If this is the first tier, a value of "5" means the company contribution will match employee deductions from 0% up to and including 5% of payroll.
               required:
                 - company_benefit_id
             examples:
@@ -2025,16 +2065,16 @@ paths:
                   description: 'The amount to be paid, per pay period, by the company.'
                 employee_deduction_annual_maximum:
                   type: string
-                  nullable: true
                   description: The maximum employee deduction amount per year. A null value signifies no limit.
+                  nullable: true
                 company_contribution_annual_maximum:
                   type: string
-                  nullable: true
                   description: The maximum company contribution amount per year. A null value signifies no limit.
+                  nullable: true
                 limit_option:
                   type: string
-                  nullable: true
                   description: 'Some benefits require additional information to determine their limit. For example, for an HSA benefit, the limit option should be either "Family" or "Individual". For a Dependent Care FSA benefit, the limit option should be either "Joint Filing or Single" or "Married and Filing Separately".'
+                  nullable: true
                 deduct_as_percentage:
                   type: boolean
                   default: false
@@ -2049,11 +2089,10 @@ paths:
                   description: Whether the employee should use a benefit’s "catch up" rate. Only Roth 401k and 401k benefits use this value for employees over 50.
                 coverage_amount:
                   type: string
-                  nullable: true
                   description: 'The amount that the employee is insured for. Note: company contribution cannot be present if coverage amount is set.'
+                  nullable: true
                 deduction_reduces_taxable_income:
                   type: string
-                  nullable: true
                   default: unset
                   enum:
                     - unset
@@ -2061,10 +2100,51 @@ paths:
                     - does_not_reduce_taxable_income
                     - null
                   description: 'Whether the employee deduction reduces taxable income or not. Only valid for Group Term Life benefits. Note: when the value is not "unset", coverage amount and coverage salary multiplier are ignored.'
+                  nullable: true
                 coverage_salary_multiplier:
                   type: string
                   default: '0.00'
                   description: 'The coverage amount as a multiple of the employee’s salary. Only applicable for Group Term Life benefits. Note: cannot be set if coverage amount is also set.'
+                elective:
+                  type: string
+                  description: Whether the company contribution is elective (aka "matching"). For "tiered" contribution types this is ignored and assumed to be true.
+                contribution:
+                  type: object
+                  description: An object representing the type and value of the company contribution.
+                  properties:
+                    type:
+                      type: string
+                      description: |-
+                        The company contribution scheme.
+
+                        "amount": The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
+
+                        "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
+
+                        "tiered": The company contribution varies according to the size of the employee deduction.
+                    value:
+                      type:
+                        - string
+                        - array
+                      description: |-
+                        For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
+
+                        For "tiered" contribution types, an array of tiers.
+                      items:
+                        type: object
+                        description: A single tier of a tiered matching scheme.
+                        properties:
+                          rate:
+                            type: string
+                            description: The percentage of employee deduction the company contribution will match for amounts the employee deducts within this tier.
+                          threshold:
+                            type: string
+                            description: |-
+                              The percentage threshold at which this tier ends (inclusive). 
+
+                              For example, a value of "5" means the company contribution will match employee deductions from the previous tier's threshold up to and including 5% of payroll.
+
+                              If this is the first tier, a value of "5" means the company contribution will match employee deductions from 0% up to and including 5% of payroll.
               required:
                 - version
             examples:
@@ -5298,6 +5378,57 @@ components:
     Employee-Benefit:
       description: The representation of an employee benefit.
       type: object
+      x-tags:
+        - Benefits
+      title: ''
+      x-examples:
+        Example:
+          id: 1363316536327004
+          version: 09j3d29jqdpj92109j9j2d90dq
+          employee_id: 908123091820398
+          company_benefit_id: 290384923980230
+          active: true
+          employee_deduction: '100.00'
+          company_contribution: '100.00'
+          employee_deduction_annual_maximum: '200.00'
+          company_contribution_annual_maximum: '200.00'
+          limit_option: null
+          deduct_as_percentage: false
+          contribute_as_percentage: false
+          catch_up: false
+          coverage_amount: null
+          deduction_reduces_taxable_income: null
+          coverage_salary_multiplier: '0.00'
+          contribution:
+            type: amount
+            value: '100.00'
+          elective: false
+        Tiered Example:
+          id: 1363316536327004
+          version: 09j3d29jqdpj92109j9j2d90dq
+          employee_id: 908123091820398
+          company_benefit_id: 290384923980230
+          active: true
+          employee_deduction: '100.00'
+          employee_deduction_annual_maximum: '200.00'
+          company_contribution_annual_maximum: '200.00'
+          limit_option: null
+          deduct_as_percentage: false
+          catch_up: false
+          coverage_amount: null
+          deduction_reduces_taxable_income: null
+          coverage_salary_multiplier: '0.00'
+          elective: true
+          contribution:
+            type: tiered
+            value:
+              tiers:
+                - rate: '100.0'
+                  threshold: '2.0'
+                  threshold_delta: '0.0'
+                - rate: '50.0'
+                  threshold: '5.0'
+                  threshold_delta: '3.0'
       properties:
         id:
           type: number
@@ -5326,19 +5457,19 @@ components:
         company_contribution:
           type: string
           default: '0.00'
-          description: 'The amount to be paid, per pay period, by the company.'
+          description: 'The amount to be paid, per pay period, by the company. This field will not appear for tiered contribution types.'
         employee_deduction_annual_maximum:
           type: string
-          nullable: true
           description: The maximum employee deduction amount per year. A null value signifies no limit.
+          nullable: true
         company_contribution_annual_maximum:
           type: string
-          nullable: true
           description: The maximum company contribution amount per year. A null value signifies no limit.
+          nullable: true
         limit_option:
           type: string
-          nullable: true
           description: 'Some benefits require additional information to determine their limit. For example, for an HSA benefit, the limit option should be either "Family" or "Individual". For a Dependent Care FSA benefit, the limit option should be either "Joint Filing or Single" or "Married and Filing Separately".'
+          nullable: true
         deduct_as_percentage:
           type: boolean
           default: false
@@ -5346,18 +5477,17 @@ components:
         contribute_as_percentage:
           type: boolean
           default: false
-          description: Whether the company contribution amount should be treated as a percentage to be deducted from each payroll.
+          description: Whether the company_contribution value should be treated as a percentage to be added to each payroll. This field will not appear for tiered contribution types.
         catch_up:
           type: boolean
           default: false
           description: Whether the employee should use a benefit’s "catch up" rate. Only Roth 401k and 401k benefits use this value for employees over 50.
         coverage_amount:
           type: string
-          nullable: true
           description: 'The amount that the employee is insured for. Note: company contribution cannot be present if coverage amount is set.'
+          nullable: true
         deduction_reduces_taxable_income:
           type: string
-          nullable: true
           default: unset
           enum:
             - unset
@@ -5365,31 +5495,58 @@ components:
             - does_not_reduce_taxable_income
             - null
           description: 'Whether the employee deduction reduces taxable income or not. Only valid for Group Term Life benefits. Note: when the value is not "unset", coverage amount and coverage salary multiplier are ignored.'
+          nullable: true
         coverage_salary_multiplier:
           type: string
           default: '0.00'
           description: 'The coverage amount as a multiple of the employee’s salary. Only applicable for Group Term Life benefits. Note: cannot be set if coverage amount is also set.'
-      x-tags:
-        - Benefits
-      title: ''
-      x-examples:
-        Example:
-          id: 1363316536327004
-          version: 09j3d29jqdpj92109j9j2d90dq
-          employee_id: 908123091820398
-          company_benefit_id: 290384923980230
-          active: true
-          employee_deduction: '100.00'
-          company_contribution: '100.00'
-          employee_deduction_annual_maximum: '200.00'
-          company_contribution_annual_maximum: '200.00'
-          limit_option: null
-          deduct_as_percentage: false
-          contribute_as_percentage: false
-          catch_up: false
-          coverage_amount: null
-          deduction_reduces_taxable_income: null
-          coverage_salary_multiplier: '0.00'
+        elective:
+          type: boolean
+          description: 'Whether the company contribution is elective (aka matching). For "tiered" contribution types, this is always true.'
+        contribution:
+          type: object
+          description: An object representing the type and value of the company contribution.
+          properties:
+            type:
+              type: string
+              description: |-
+                The company contribution scheme.
+
+                "amount": The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
+
+                "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
+
+                "tiered": The company contribution varies according to the size of the employee deduction.
+            value:
+              type:
+                - string
+                - object
+              description: |-
+                For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
+
+                For "tiered" contribution types, an array of tiers.
+              properties:
+                tiers:
+                  type: array
+                  description: ''
+                  items:
+                    type: object
+                    description: A single tier of a tiered matching scheme.
+                    properties:
+                      rate:
+                        type: string
+                        description: The percentage of employee deduction the company contribution will match for amounts the employee deducts within this tier.
+                      threshold:
+                        type: string
+                        description: |-
+                          The percentage threshold at which this tier ends (inclusive). 
+
+                          For example, a value of "5" means the company contribution will match employee deductions from the previous tier's threshold up to and including 5% of payroll.
+
+                          If this is the first tier, a value of "5" means the company contribution will match employee deductions from 0% up to and including 5% of payroll.
+                      thershold_delta:
+                        type: string
+                        description: 'The step up difference between this tier''s threshold and the previous tier''s threshold. In the first tier, this is equivalent to threshold.'
     Pay-Period:
       description: The representation of a pay period.
       type: object
