@@ -5003,6 +5003,16 @@ components:
     Company-Bank-Account:
       description: The company bank account
       type: object
+      x-examples:
+        Example:
+          uuid: 1263eae5-4411-48d9-bd6d-18ed93082e65
+          company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
+          account_type: Checking
+          routing_number: '851070439'
+          account_number: XXXX4087
+          verification_status: verified
+      x-tags:
+        - Company Bank Accounts (Beta)
       properties:
         uuid:
           type: string
@@ -5021,7 +5031,7 @@ components:
           description: The bank account's routing number
         hidden_account_number:
           type: string
-          description: masked bank account number
+          description: Masked bank account number
         verification_status:
           type: string
           enum:
@@ -5034,16 +5044,6 @@ components:
             'awaiting_deposits' means the bank account is just created and money is being transferred.
             'ready_for_verification' means the micro-deposits are completed and the verification process can begin by using the verify endpoint.
             'verified' means the bank account is verified.
-      x-examples:
-        Example:
-          uuid: 1263eae5-4411-48d9-bd6d-18ed93082e65
-          company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
-          account_type: Checking
-          routing_number: '851070439'
-          account_number: XXXX4087
-          verification_status: verified
-      x-tags:
-        - Company Bank Accounts (Beta)
     Supported-Benefit:
       description: ''
       type: object
