@@ -83,6 +83,11 @@
     },
     {
       "type": "item",
+      "title": "Building Embedded Payroll",
+      "uri": "docs/guides/Building Embedded Payroll.md"
+    },
+    {
+      "type": "item",
       "title": "Getting Custom Fields",
       "uri": "docs/guides/Getting Custom Fields.md"
     },
