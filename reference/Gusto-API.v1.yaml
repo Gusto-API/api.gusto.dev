@@ -3896,18 +3896,21 @@ paths:
   '/v1/flows':
     post:
       summary: Create a flow
-      responses:
-        '201':
-          $ref: '#components/responses/Flow-Object'
+      tags:
+        - Flows (Beta)
       operationId: post-v1-flows
       description: |-
-        Generate a link to access a specific workflow on our whitelabel UI.
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Generate a link to access a workflow in Gusto whitelabel UI.
       parameters: []
+      responses:
+        '201':
+          $ref: '#/components/responses/Flow-Object'
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
               type: object
               properties:
                 company_id:
@@ -3934,6 +3937,13 @@ paths:
                 - flow_type
                 - entity_uuid
                 - entity_type
+            examples:
+              Example:
+                value:
+                  company_id: '89771af8-b964-472e-8064-554dfbcb56d9'
+                  flow_type: 'company_onboarding'
+                  entity_type: 'Company'
+                  entity_uuid: '89771af8-b964-472e-8064-554dfbcb56d9'
 components:
   parameters:
     pageParam:
@@ -6142,7 +6152,7 @@ components:
           expires_at: '2021-12-28 04:25:48'
       title: Flow
       x-tags:
-        - Flow (Beta)
+        - Flows (Beta)
       properties:
         url:
           type: string
