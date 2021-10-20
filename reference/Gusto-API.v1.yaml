@@ -22,6 +22,7 @@ tags:
   - name: Terminations
   - name: Time Off Requests
   - name: Federal Tax Details (Beta)
+  - name: Flows (Beta)
 info:
   title: Gusto API
   version: '1.0'
@@ -3892,6 +3893,47 @@ paths:
                   version: 63859768485e218ccf8a449bb60f14ed
                   type: Check
         description: ''
+  '/v1/flows':
+    post:
+      summary: Create a flow
+      responses:
+        '201':
+          $ref: '#components/responses/Flow-Object'
+      operationId: post-v1-flows
+      description: |-
+        Generate a link to access a specific workflow on our whitelabel UI.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                company_id:
+                  type: string
+                  description: company UUID
+                flow_type:
+                  type: string
+                  description: flow type
+                  enum:
+                    - company_onboarding
+                entity_uuid:
+                  type: string
+                  description: UUID of the target entity applicable to the flow. For instance, the company's UUID is used for `company_onboarding` flow.
+                entity_type:
+                  type: string
+                  description: the type of target entity applicable to the flow. For instance, `Company` is used for `company_onboarding`
+                  enum:
+                    - Company
+                expires_at:
+                  type: string
+                  description: time at which the flow is expired and no longer accessible. A default value will be used based on the flow_type if this field is not specified.
+              required:
+                - company_id
+                - flow_type
+                - entity_uuid
+                - entity_type
 components:
   parameters:
     pageParam:
@@ -6091,6 +6133,21 @@ components:
         - id
         - name
         - type
+    Flow:
+      description: The representation of a flow in Gusto whitelabel UI.
+      type: object
+      x-examples:
+        Example:
+          url: 'https://gws.gusto.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+          expires_at: '2021-12-28 04:25:48'
+      title: Flow
+      x-tags:
+        - Flow (Beta)
+      properties:
+        url:
+          type: string
+        expires_at:
+          type: string
     Job-Applicant:
       description: The representation of a job applicant in Gusto.
       type: object
@@ -6709,6 +6766,17 @@ components:
                   last_name: Labadie
                   phone: 1-565-710-7559
                   email: louie.hessel7757869450111547@zemlak.biz
+    Flow-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Flow'
+          examples:
+            Example:
+              value:
+                url: 'https://gws.gusto.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+                expires_at: '2021-12-28 04:25:48'
     Job-Object:
       description: Example response
       content:
