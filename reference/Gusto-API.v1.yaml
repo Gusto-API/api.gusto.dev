@@ -6046,7 +6046,7 @@ components:
       type: object
       x-examples:
         Example:
-          url: 'https://gws.gusto.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+          url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
           expires_at: '2021-12-28 04:25:48'
       title: Flow
       x-tags:
@@ -6683,7 +6683,7 @@ components:
           examples:
             Example:
               value:
-                url: 'https://gws.gusto.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+                url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
                 expires_at: '2021-12-28 04:25:48'
     Job-Object:
       description: Example response
