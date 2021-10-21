@@ -26,6 +26,11 @@
     },
     {
       "type": "item",
+      "title": "Scopes",
+      "uri": "docs/basics/Scopes.md"
+    },
+    {
+      "type": "item",
       "title": "Versioning",
       "uri": "docs/basics/Versioning.md"
     },
