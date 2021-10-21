@@ -6170,6 +6170,8 @@ components:
             filing_form: string
             ein_verified: true
             legal_name: string
+      x-tags:
+        - Federal Tax Details (Beta)
     Employee-Bank-Account:
       title: Employee-Bank-Account
       type: object
@@ -6246,7 +6248,6 @@ components:
           value:
             version: 63859768485e218ccf8a449bb60f14ed
             type: Check
-      description: ''
       properties:
         version:
           type: string
@@ -6286,9 +6287,8 @@ components:
                 description: The cents amount allocated for each payment split
                 type: integer
                 nullable: true
-      required:
-        - version
-        - type
+      x-tags:
+        - Employee Payment Method (Beta)
   securitySchemes:
     Authorization:
       type: http
