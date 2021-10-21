@@ -3791,14 +3791,7 @@ paths:
                   version: 63859768485e218ccf8a449bb60f14ed
                   type: Check
         description: ''
-  '/v1/companies/{company_uuid}/flows':
-    parameters:
-      - schema
-          type: string
-        name: company_uuid
-        in: path
-        description: The UUID of the company
-        required: true
+  '/v1/flows':
     post:
       summary: Create a flow
       tags:
@@ -3818,6 +3811,9 @@ paths:
             schema:
               type: object
               properties:
+                company_id:
+                  type: string
+                  description: company UUID
                 flow_type:
                   type: string
                   description: flow type
