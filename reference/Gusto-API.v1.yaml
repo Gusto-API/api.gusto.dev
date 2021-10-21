@@ -3791,17 +3791,24 @@ paths:
                   version: 63859768485e218ccf8a449bb60f14ed
                   type: Check
         description: ''
-  '/v1/flows':
+  '/v1/companies/{company_uuid}/flows':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        description: The ID or UUID of the company
+        required: true
     post:
       summary: Create a flow
       tags:
         - Flows (Beta)
       operationId: post-v1-flows
+      parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
         Generate a link to access a workflow in Gusto whitelabel UI.
-      parameters: []
       responses:
         '201':
           $ref: '#/components/responses/Flow-Object'
@@ -3811,9 +3818,6 @@ paths:
             schema:
               type: object
               properties:
-                company_id:
-                  type: string
-                  description: company UUID
                 flow_type:
                   type: string
                   description: flow type
@@ -3831,14 +3835,12 @@ paths:
                   type: string
                   description: time at which the flow is expired and no longer accessible. A default value will be used based on the flow_type if this field is not specified.
               required:
-                - company_id
                 - flow_type
                 - entity_uuid
                 - entity_type
             examples:
               Example:
                 value:
-                  company_id: '89771af8-b964-472e-8064-554dfbcb56d9'
                   flow_type: 'company_onboarding'
                   entity_type: 'Company'
                   entity_uuid: '89771af8-b964-472e-8064-554dfbcb56d9'
