@@ -1965,7 +1965,7 @@ paths:
 
                         "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
 
-                        "tiered": The company contribution varies according to the size of the employee deduction.
+                        "tiered": The size of the company contribution corresponds to the size of the employee deduction relative to a tiered matching schedule.
                     value:
                       description: |-
                         For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
@@ -2130,7 +2130,7 @@ paths:
 
                         "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
 
-                        "tiered": The company contribution varies according to the size of the employee deduction.
+                        "tiered": The size of the company contribution corresponds to the size of the employee deduction relative to a tiered matching schedule.
                     value:
                       description: |-
                         For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
