@@ -4098,6 +4098,17 @@ components:
           type: string
           description: The work email address of the employee. This is provided to support syncing users between our system and yours. You may not use this email address for any other purpose (e.g. marketing).
           nullable: true
+        current_employment_status:
+          type: string
+          enum:
+            - Full-Time
+            - Part-Time (20-29 hours per week)
+            - Part-Time (0-19 hours per week)
+            - Variable
+            - Seasonal
+          description: The current employment status of the employee
+          nullable: true
+          readOnly: true
       readOnly: true
     Location:
       description: The representation of an address in Gusto.
