@@ -1683,7 +1683,20 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Verify a company bank account by confirming the two micro-deposits sent to the bank account. Note that the order of the two deposits specified in request parameters does not matter.
+        Verify a company bank account by confirming the two micro-deposits sent to the bank account. Note that the order of the two deposits specified in request parameters does not matter. There's a maximum of 5 verification attempts, after which we will automatically initiate a new set of micro-deposits and require the bank account to be verified with the new micro-deposits.
+
+        ### Bank account verification in demo
+
+        We provide the endpoint `POST '/v1/companies/{company_id_or_uuid}/bank_accounts/{bank_account_uuid}/send_test_deposits'` to facilitate bank account verification in the demo environment. This endpoint simulates the micro-deposits transfer and returns them in the reponse. You can call this endpoint as many times as you wish to retrieve the values of the two micro deposits.
+
+        ```
+          POST '/v1/companies/89771af8-b964-472e-8064-554dfbcb56d9/bank_accounts/ade55e57-4800-4059-9ecd-fa29cfeb6dd2/send_test_deposits'
+
+          {
+            "deposit_1": 0.02,
+            "deposit_2": 0.42
+          }
+        ```
       requestBody:
         content:
           application/json:
@@ -6048,7 +6061,7 @@ components:
       type: object
       x-examples:
         Example:
-          url: 'https://gws.gusto.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+          url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
           expires_at: '2021-12-28 04:25:48'
       title: Flow
       x-tags:
@@ -6685,7 +6698,7 @@ components:
           examples:
             Example:
               value:
-                url: 'https://gws.gusto.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+                url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
                 expires_at: '2021-12-28 04:25:48'
     Job-Object:
       description: Example response
