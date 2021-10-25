@@ -13,18 +13,18 @@ tags:
   - name: Employee Bank Accounts (Beta)
   - name: Employee Payment Method (Beta)
   - name: Employees
+  - name: Federal Tax Details (Beta)
+  - name: Flows (Beta)
+  - name: Forms (Beta)
   - name: Garnishments
   - name: Job Applicants (Beta)
   - name: Jobs
   - name: Locations
   - name: Pay Schedules
   - name: Payroll
+  - name: Signatories (Beta)
   - name: Terminations
   - name: Time Off Requests
-  - name: Federal Tax Details (Beta)
-  - name: Signatories (Beta)
-  - name: Forms (Beta)
-  - name: Flows (Beta)
 info:
   title: Gusto API
   version: '1.0'
@@ -3993,6 +3993,135 @@ paths:
       responses:
         '204':
           description: No Content
+  '/v1/companies/{company_id_or_uuid}/forms':
+    parameters:
+      - schema:
+          type: string
+        name: company_id_or_uuid
+        in: path
+        description: The ID or UUID of the company
+        required: true
+    get:
+      summary: Get all company forms
+      tags:
+        - Forms (Beta)
+      operationId: get-v1-company-forms
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get a list of all company's forms
+      responses:
+        '200':
+          $ref: '#/components/responses/Form-List'
+  '/v1/forms/{id_or_uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: id_or_uuid
+        in: path
+        description: The ID or UUID of the form
+        required: true
+    get:
+      summary: Get a form
+      tags:
+        - Forms (Beta)
+      operationId: get-v1-company-form
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get a company form
+      responses:
+        '200':
+          $ref: '#/components/responses/Form-Object'
+  '/v1/forms/{id_or_uuid}/pdf':
+    parameters:
+      - schema:
+          type: string
+        name: id_or_uuid
+        in: path
+        description: The ID or UUID of the form
+        required: true
+    get:
+      summary: Get a form pdf
+      tags:
+        - Forms (Beta)
+      operationId: get-v1-company-form-pdf
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get the link to the form PDF
+      responses:
+        '200':
+          description: Example response
+          content:
+            application/json:
+              schema:
+                title: Form PDF
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    description: the UUID of the form
+                    readOnly: true
+                  document_url:
+                    type: string
+                    description: the URL of the form
+                    readOnly: true
+              examples:
+                Example:
+                  value:
+                    uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+                    document_url: https://app.gusto-demo.com/assets/forms/7757842065202782/original/company_direct_deposit20211007-48226-gsqo8k.pdf?1633667020
+  '/v1/forms/{id_or_uuid}/sign':
+    parameters:
+      - schema:
+          type: string
+        name: id_or_uuid
+        in: path
+        description: The ID or UUID of the form
+        required: true
+    put:
+      summary: Sign a company form
+      tags:
+        - Forms (Beta)
+      operationId: put-v1-company-form-sign
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Sign a company form
+      responses:
+        '200':
+          $ref: '#/components/responses/Form-Object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                signature_text:
+                  type: string
+                  description: The signature
+                agree:
+                  type: boolean
+                  description: whether you agree to sign electronically
+                signed_by_ip_address:
+                  type: string
+                  description: The IP address of the signatory who signed the form.
+              required:
+                - signature_text
+                - agree
+                - signed_by_ip_address
+            examples:
+              Example:
+                value:
+                  signature_text: Jane Smith
+                  agree: true
+                  signed_by_ip_address: '192.168.0.1'
   '/v1/companies/{company_uuid}/flows':
     parameters:
       - schema:
@@ -4538,6 +4667,39 @@ components:
           effective_date: '2020-12-11'
       x-tags:
         - Compensations
+    Form:
+      title: Form
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: The UUID of the form
+          readOnly: true
+        name:
+          type: string
+          description: The type identifier of the form
+          readOnly: true
+        title:
+          type: string
+          description: The title of the form
+          readOnly: true
+        description:
+          type: string
+          description: The description of the form
+          readOnly: true
+        requires_signing:
+          type: boolean
+          description: A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
+          readOnly: true
+      x-examples:
+        Example:
+          uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+          name: company_direct_deposit
+          title: Direct Deposit Authorization
+          description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
+          requires_signing: true
+      x-tags:
+        - Forms (Beta)
     Job:
       title: Job
       type: object
@@ -7002,6 +7164,36 @@ components:
               value:
                 url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
                 expires_at: '2021-12-28 04:25:48'
+    Form-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Form'
+          examples:
+            Example:
+              value:
+                uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+                name: company_direct_deposit
+                title: Direct Deposit Authorization
+                description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
+                requires_signing: true
+    Form-List:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Form'
+          examples:
+            Example:
+              value:
+                - uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+                  name: company_direct_deposit
+                  title: Direct Deposit Authorization
+                  description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
+                  requires_signing: true
     Job-Object:
       description: Example response
       content:
