@@ -22,6 +22,8 @@ tags:
   - name: Terminations
   - name: Time Off Requests
   - name: Federal Tax Details (Beta)
+  - name: Signatories (Beta)
+  - name: Forms (Beta)
   - name: Flows (Beta)
 info:
   title: Gusto API
@@ -3893,7 +3895,7 @@ paths:
                   version: 63859768485e218ccf8a449bb60f14ed
                   type: Check
         description: ''
-  '/v1/companies/{company_uuid}/flows':
+  '/v1/companies/{company_uuid}/signatories':
     parameters:
       - schema:
           type: string
@@ -3902,10 +3904,108 @@ paths:
         description: The ID or UUID of the company
         required: true
     post:
+      summary: Create a signatory
+      tags:
+        - Signatories (Beta)
+      operationId: post-v1-company-signatories
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Create a company signatory who can legally sign forms. Please note that there can only be a single primary signatory in a company. You can retrieve the current primary signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property
+      responses:
+        '201':
+          $ref: '#/components/responses/Signatory-Object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: ''
+              properties:
+                ssn:
+                  type: string
+                first_name:
+                  type: string
+                middle_initial:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                title:
+                  type: string
+                phone:
+                  type: string
+                birthday:
+                  type: string
+                home_address:
+                  type: object
+                  description: The signatory's home address
+                  properties:
+                    street_1:
+                      type: string
+                    street_2:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    zip:
+                      type: string
+                  required:
+                    - street_1
+                    - city
+                    - state
+                    - zip
+              required:
+                - ssn
+                - first_name
+                - last_name
+                - email
+                - title
+                - birthday
+                - home_address
+  '/v1/companies/{company_uuid}/signatories/{uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        description: The UUID of the company
+        required: true
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        description: The UUID of the signatory
+        required: true
+    delete:
+      summary: Delete a signatory
+      tags:
+        - Signatories (Beta)
+      operationId: delete-v1-company-signatory
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Delete a company signatory. Please note that you can retrieve the signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property
+      responses:
+        '204':
+          description: No Content
+  '/v1/companies/{company_uuid}/flows':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        description: The UUID of the company
+        required: true
+    post:
       summary: Create a flow
       tags:
         - Flows (Beta)
-      operationId: post-v1-flows
+      operationId: post-v1-company-flows
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
@@ -6224,6 +6324,27 @@ components:
         - id
         - name
         - type
+    Signatory:
+      description: The representation of a company's signatory
+      type: object
+      x-examples:
+        Example:
+          uuid: c5fdae57-5483-4529-9aae-f0edceed92d4
+          first_name: Jane
+          last_name: Smith
+          title: Signatory
+      title: Signatory
+      x-tags:
+        - Signatories (Beta)
+      properties:
+        uuid:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        title:
+          type: string
     Flow:
       description: The representation of a flow in Gusto whitelabel UI.
       type: object
@@ -6857,6 +6978,19 @@ components:
                   last_name: Labadie
                   phone: 1-565-710-7559
                   email: louie.hessel7757869450111547@zemlak.biz
+    Signatory-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Signatory'
+          examples:
+            Example:
+              value:
+                uuid: c5fdae57-5483-4529-9aae-f0edceed92d4
+                first_name: Jane
+                last_name: Smith
+                title: Signatory
     Flow-Object:
       description: Example response
       content:
