@@ -3,6 +3,7 @@ on: push
 jobs:
   lint:
     name: Check formatting
+    runs-on: ubuntu-latest
     steps:
       - name: Spectral Linting
         uses: stoplightio/spectral-action@v0.8.1
