@@ -16,6 +16,7 @@ tags:
   - name: Federal Tax Details (Beta)
   - name: Flows (Beta)
   - name: Forms (Beta)
+  - name: Industry (Beta)
   - name: Garnishments
   - name: Job Applicants (Beta)
   - name: Jobs
@@ -1535,6 +1536,69 @@ paths:
                   day_2: 31
                   auto_pilot: false
                   version: 68934a3e9455fa72420237eb05902327
+  '/v1/companies/{company_id_or_uuid}/industry_selection':
+    parameters:
+      - schema:
+          type: string
+        name: company_id_or_uuid
+        in: path
+        description: The ID or UUID of the company
+        required: true
+    get:
+      summary: Get Company Industry Selection
+      tags:
+        - Industry (Beta)
+      operationId: get-v1-company-industry
+      parameters: [ ]
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get industry selection for the company.
+      responses:
+        '200':
+          $ref: '#/components/responses/Industry-Object'
+    put:
+      summary: Update a company industry selection
+      tags:
+        - Industry (Beta)
+      operationId: put-v1-company-industry
+      parameters: [ ]
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Update the company industry selection based on [Middesk API](https://docs.middesk.com/reference/introduction) selections.
+      responses:
+        '200':
+          $ref: '#/components/responses/Industry-Object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Industry title
+                naics_code:
+                  type: string
+                  description: North American Industry Classification System (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs
+                sic_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: A list of Standard Industrial Classification (SIC) codes, which are four digit number that categorize the industries that companies belong to based on their business activities.
+              required:
+                - title
+                - naics_code
+                - sic_codes
+            examples:
+              Example:
+                value:
+                  title: Computer Training
+                  naics_code: 611420
+                  sic_codes:
+                    - 8243
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
@@ -4700,6 +4764,35 @@ components:
           requires_signing: true
       x-tags:
         - Forms (Beta)
+    Industry:
+      title: Industry
+      type: object
+      properties:
+        company_uuid:
+          type: string
+          description: Company uuid
+          readOnly: true
+        naics_code:
+          type: string
+          description: North American Industry Classification System (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs.
+          readOnly: true
+        sic_codes:
+          type: array
+          description: A list of Standard Industrial Classification (SIC) codes, which are four digit number that categorize the industries that companies belong to based on their business activities.
+          readOnly: true
+        title:
+          type: string
+          description: Industry title
+          readOnly: true
+      x-examples:
+        Example:
+          company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
+          naics_code: 611420
+          sic_codes:
+            - 8243
+          title: Computer Training
+      x-tags:
+        - Industry (Beta)
     Job:
       title: Job
       type: object
@@ -7194,6 +7287,20 @@ components:
                   title: Direct Deposit Authorization
                   description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
                   requires_signing: true
+    Industry-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Industry'
+          examples:
+            Example:
+              value:
+                company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
+                naics_code: 611420
+                sic_codes:
+                  - 8243
+                title: Computer Training
     Job-Object:
       description: Example response
       content:
