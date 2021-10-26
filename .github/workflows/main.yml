@@ -2,7 +2,6 @@ name: Spectral Linting Check
 on: pull_request
 jobs:
   build:
-    name: Run Spectral
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.5
