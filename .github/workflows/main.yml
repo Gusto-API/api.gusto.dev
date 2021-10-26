@@ -1,11 +1,11 @@
-name: API Tests
-on: push
+name: Spectral Linting Check
+on: pull-request
 jobs:
-  lint:
-    name: Check formatting
+  build:
+    name: Run Spectral
     runs-on: ubuntu-latest
     steps:
-      - name: Spectral Linting
-        uses: stoplightio/spectral-action@v0.8.1
+      - uses: actions/checkout@v2
+      - uses: stoplightio/spectral-action@v0.8.1
         with:
           file_glob: reference/*.yaml
