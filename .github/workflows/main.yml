@@ -1,0 +1,10 @@
+name: API Tests
+on: push
+jobs:
+  lint:
+    name: Check formatting
+    steps:
+      - name: Spectral Linting
+        uses: stoplightio/spectral-action@v0.8.1
+        with:
+          file_glob: reference/*.yaml
