@@ -1,5 +1,5 @@
 name: Spectral Linting Check
-on: pull-request
+on: pull_request
 jobs:
   build:
     name: Run Spectral
