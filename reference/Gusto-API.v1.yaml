@@ -176,6 +176,48 @@ paths:
         in: path
         description: The ID or UUID of the company
         required: true
+  '/v1/companies/{company_uuid}/onboarding_status':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+        description: The UUID of the company
+    get:
+      summary: Get the company's onboarding status
+      operationId: get-v1-company-onboarding-status
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get company's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
+      responses:
+        '200':
+          $ref: '#/components/responses/Company-Onboarding-Status-Object'
+      tags:
+        - Companies
+  '/v1/companies/{company_uuid}/finish_onboarding':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+        description: The UUID of the company
+    put:
+      summary: Finish company onboarding
+      operationId: get-v1-company-finish-onboarding
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Use this endpoint to finalize company onboarding.
+      responses:
+        '200':
+          $ref: '#/components/responses/Company-Onboarding-Status-Object'
+      tags:
+        - Companies
   '/v1/companies/{company_id_or_uuid}/employees':
     parameters:
       - schema:
@@ -1581,7 +1623,7 @@ paths:
       tags:
         - Industry (Beta)
       operationId: get-v1-company-industry
-      parameters: [ ]
+      parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
@@ -1628,9 +1670,9 @@ paths:
               Example:
                 value:
                   title: Computer Training
-                  naics_code: 611420
+                  naics_code: '611420'
                   sic_codes:
-                    - 8243
+                    - '8243'
   '/v1/companies/{company_id_or_uuid}/pay_schedules/{pay_schedule_id_or_uuid}':
     parameters:
       - schema:
@@ -4830,9 +4872,9 @@ components:
       x-examples:
         Example:
           company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
-          naics_code: 611420
+          naics_code: '611420'
           sic_codes:
-            - 8243
+            - '8243'
           title: Computer Training
       x-tags:
         - Industry (Beta)
@@ -5228,6 +5270,83 @@ components:
             last_name: Labadie
             phone: 1-565-710-7559
             email: louie.hessel7757869450111547@zemlak.biz
+      x-tags:
+        - Companies
+    Company-Onboarding-Status:
+      description: The representation of a company's onboarding status
+      type: object
+      title: ''
+      properties:
+        uuid:
+          type: string
+          description: the UUID of the company
+        onboarding_completed:
+          type: boolean
+          description: a boolean flag for the company's onboarding status
+        onboarding_steps:
+          type: array
+          description: a list of company onboarding steps
+          items:
+            title: Onboarding step
+            type: object
+            properties:
+              title:
+                type: string
+                description: The display name of the onboarding step
+              id:
+                type: string
+                description: The string identifier for each onboarding step
+              required:
+                type: boolean
+                description: The boolean flag indicating whether the step is required or optional
+              completed:
+                type: boolean
+                description: The boolean flag indicating whether the step is completed or not.
+              requirements:
+                type: array
+                description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
+                items:
+                  type: string
+      x-examples:
+        Example:
+          uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
+          onboarding_completed: false
+          onboarding_steps:
+            - title: Add Your Company's Addresses
+              id: add_addresses
+              required: true
+              completed: true
+              requirements: []
+            - title: Add Your Employees
+              id: add_employees
+              required: true
+              completed: true
+              requirements: ['add_addresses']
+            - title: Enter Your Federal Tax Information
+              id: federal_tax_setup
+              required: true
+              completed: true
+              requirements: ['add_addresses', 'add_employees']
+            - title: Add Your Bank Account
+              id: add_bank_info
+              required: true
+              completed: true
+              requirements: []
+            - title: Select a Pay Schedule
+              id: payroll_schedule
+              required: true
+              completed: false
+              requirements: []
+            - title: Sign Documents
+              id: sign_all_forms
+              required: true
+              completed: false
+              requirements: ['add_employees', 'federal_tax_setup', 'state_setup', 'add_bank_info', 'payroll_schedule']
+            - title: Verify Your Bank Account
+              id: verify_bank_info
+              required: true
+              completed: false
+              requirements: ['add_bank_info']
       x-tags:
         - Companies
     Contractor:
@@ -7191,6 +7310,53 @@ components:
                   phone: '1234567890'
                   preferred_first_name: Denis
                   work_email: null
+    Company-Onboarding-Status-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Company-Onboarding-Status'
+          examples:
+            Example:
+              value:
+                uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
+                onboarding_completed: false
+                onboarding_steps:
+                  - title: Add Your Company's Addresses
+                    id: add_addresses
+                    required: true
+                    completed: true
+                    requirements: []
+                  - title: Add Your Employees
+                    id: add_employees
+                    required: true
+                    completed: true
+                    requirements: ['add_addresses']
+                  - title: Enter Your Federal Tax Information
+                    id: federal_tax_setup
+                    required: true
+                    completed: true
+                    requirements: ['add_addresses', 'add_employees']
+                  - title: Add Your Bank Account
+                    id: add_bank_info
+                    required: true
+                    completed: true
+                    requirements: []
+                  - title: Select a Pay Schedule
+                    id: payroll_schedule
+                    required: true
+                    completed: false
+                    requirements: []
+                  - title: Sign Documents
+                    id: sign_all_forms
+                    required: true
+                    completed: false
+                    requirements: ['add_employees', 'federal_tax_setup', 'state_setup', 'add_bank_info', 'payroll_schedule']
+                  - title: Verify Your Bank Account
+                    id: verify_bank_info
+                    required: true
+                    completed: false
+                    requirements: ['add_bank_info']
     Company-Object:
       description: Example response
       content:
@@ -7341,9 +7507,9 @@ components:
             Example:
               value:
                 company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
-                naics_code: 611420
+                naics_code: '611420'
                 sic_codes:
-                  - 8243
+                  - '8243'
                 title: Computer Training
     Job-Object:
       description: Example response
