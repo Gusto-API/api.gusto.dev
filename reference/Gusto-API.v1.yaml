@@ -2156,7 +2156,10 @@ paths:
       tags:
         - Benefits
       operationId: post-employee-ytd-benefit-amounts-from-different-company
-      description: 'Year-to-date benefit amounts from a different company represents the amount of money added to an employees plan during a current year, made outside of the current contribution when they were employed at a different company.'
+      description: |-
+        Year-to-date benefit amounts from a different company represents the amount of money added to an employees plan during a current year, made outside of the current contribution when they were employed at a different company.
+
+        `scope: employee_benefits.write`
       requestBody:
         $ref: '#/components/requestBodies/post-employee-ytd-benefit-amounts-from-different-company'
       responses:
@@ -2178,7 +2181,10 @@ paths:
         '200':
           $ref: '#/components/responses/Employee-Benefit-Object'
       operationId: get-v1-employee_benefits-employee_benefit_id
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.read`
     put:
       summary: Update an employee benefit
       tags:
@@ -2187,7 +2193,10 @@ paths:
         '200':
           $ref: '#/components/responses/Employee-Benefit-Object'
       operationId: put-v1-employee_benefits-employee_benefit_id
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.write`
       requestBody:
         content:
           application/json:
@@ -2312,7 +2321,10 @@ paths:
         '204':
           description: No Content
       operationId: delete-v1-employee_benefits-employee_benefit_id
-      description: Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+      description: |-
+        Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee’s enrollment.
+
+        `scope: employee_benefits.write`
   '/v1/companies/{company_id_or_uuid}/pay_periods':
     parameters:
       - schema:
@@ -2419,6 +2431,8 @@ paths:
 
 
         By default, this endpoint returns every current and past pay period for a company. Since companies can process payroll as often as every week, there can be up to 53 pay periods a year. If a company has been running payroll with Gusto for five years, this endpoint could return up to 265 pay periods. Use the `start_date` and `end_date` parameters to reduce the scope of the response.
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: string
@@ -2453,6 +2467,8 @@ paths:
         * Hour and dollar amounts are returned as string representations of numeric decimals.
         * Hours are represented to the thousands place; dollar amounts are represented to the cent.
         * Every eligible compensation is returned for each employee. If no data has yet be inserted for a given field, it defaults to “0.00” (for fixed amounts) or “0.000” (for hours ).
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: boolean
@@ -2544,7 +2560,10 @@ paths:
         '200':
           $ref: '#/components/responses/Payroll-Object'
       operationId: put-v1-companies-company_id-payrolls
-      description: This endpoint allows you to update information for one or more employees for a specific **unprocessed** payroll.
+      description: |-
+        This endpoint allows you to update information for one or more employees for a specific **unprocessed** payroll.
+
+        `scope: payrolls.write`
       requestBody:
         content:
           application/json:
@@ -2652,6 +2671,8 @@ paths:
         * Hour and dollar amounts are returned as string representations of numeric decimals.
         * Hours are represented to the thousands place; dollar amounts are represented to the cent.
         * Every eligible compensation is returned for each employee. If no data has yet be inserted for a given field, it defaults to “0.00” (for fixed amounts) or “0.000” (for hours ).
+
+        `scope: payrolls.read`
       parameters:
         - schema:
             type: string
@@ -2699,6 +2720,8 @@ paths:
         This endpoint allows you to update information for one or more employees for a specific **unprocessed** payroll.
 
         The payrolls are identified by their pay periods’ start_date and end_date. Both are required and must correspond with an existing, unprocessed payroll. *If the dates do not match, the entire request will be rejected.* This was an explicit design decision to remove any assumptions around the timespan for data sent.
+
+        `scope: payrolls.write`
       requestBody:
         content:
           application/json:
@@ -3114,7 +3137,10 @@ paths:
                           - banana
                           - orange
       operationId: get-v1-employees-employee_id-custom_fields
-      description: Returns a list of the employee's custom fields.
+      description: |-
+        Returns a list of the employee's custom fields.
+
+        `scope: employees.read`
   '/v1/companies/{company_id}/custom_fields':
     parameters:
       - schema:
@@ -3125,7 +3151,10 @@ paths:
         description: The ID of the company
     get:
       summary: Get the custom fields of a company
-      description: Returns a list of the custom fields of the company. Useful when you need to know the schema of custom fields for an entire company
+      description: |-
+        Returns a list of the custom fields of the company. Useful when you need to know the schema of custom fields for an entire company
+
+        `scope: companies.read`
       operationId: get-v1-companies-company_id-custom_fields
       tags:
         - Custom Fields
@@ -3188,7 +3217,10 @@ paths:
         '200':
           $ref: '#/components/responses/Time-Off-Request-Object'
       operationId: get-v1-companies-company_id-time_off_requests-time_off_request_id
-      description: Details of a single time off request
+      description: |-
+        Details of a single time off request
+
+        `scope: time_off_requests.read`
   '/v1/companies/{company_id}/job_applicants':
     parameters:
       - schema:
@@ -3209,6 +3241,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Create a job applicant.
+
+        `scope: job_applicants.write`
       requestBody:
         content:
           application/json:
@@ -3277,6 +3311,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Returns all job applicants for a company.
+
+        `scope: job_applicants.read`
   '/v1/companies/{company_id}/job_applicants/{job_applicant_uuid}':
     parameters:
       - schema:
@@ -3303,6 +3339,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Returns a single job applicant.
+
+        `scope: job_applicants.read`
     put:
       summary: Update a job applicant
       operationId: put-v1-companies-company_id-job_applicants-job_applicant_uuid
@@ -3313,6 +3351,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Update an existing job applicant (only allowed when the job applicant has not been imported).
+
+        `scope: job_applicants.write`
       requestBody:
         content:
           application/json:
@@ -3377,6 +3417,8 @@ paths:
         *This endpoint is in beta - we will be making breaking changes based on developer feedback.
 
         Permanently remove a job applicant by uuid (only allowed when the job applicant has not been imported).
+
+        `scope: job_applicants.write`
       tags:
         - Job Applicants (Beta)
   '/v1/companies/{company_id}/payrolls/{payroll_id}/calculate':
@@ -3512,7 +3554,10 @@ paths:
                     reversed_employee_ids:
                       - 3
       operationId: get-v1-companies-company_id_or_uuid-payroll_reversals
-      description: Returns all approved Payroll Reversals for a Company.
+      description: |-
+        Returns all approved Payroll Reversals for a Company.
+
+        `scope: payrolls.read`
   '/v1/companies/{company_id}/admins':
     parameters:
       - schema:
