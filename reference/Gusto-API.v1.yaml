@@ -2073,9 +2073,9 @@ paths:
                         For "tiered" contribution types, an array of tiers.
                       oneOf:
                         - type: string
-                          description: 'For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.'
+                          description: 'For `amount` and `percentage` contribution types, the value of the corresponding amount or percentage.'
                         - type: array
-                          description: 'For "tiered" contribution types, an array of tiers.'
+                          description: 'For `tiered` contribution types, an array of tiers.'
                           items:
                             type: object
                             description: A single tier of a tiered matching scheme.
@@ -2251,9 +2251,9 @@ paths:
                         For "tiered" contribution types, an array of tiers.
                       oneOf:
                         - type: string
-                          description: 'For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.'
+                          description: 'For `amount` and `percentage` contribution types, the value of the corresponding amount or percentage.'
                         - type: array
-                          description: 'For "tiered" contribution types, an array of tiers.'
+                          description: 'For `tiered` contribution types, an array of tiers.'
                           items:
                             type: object
                             description: A single tier of a tiered matching scheme.
