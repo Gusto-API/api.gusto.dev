@@ -2057,11 +2057,15 @@ paths:
                       description: |-
                         The company contribution scheme.
 
-                        "amount": The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
+                        `amount`: The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
 
-                        "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
+                        `percentage`: The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
 
-                        "tiered": The size of the company contribution corresponds to the size of the employee deduction relative to a tiered matching scheme.
+                        `tiered`: The size of the company contribution corresponds to the size of the employee deduction relative to a tiered matching scheme.
+                      enum:
+                        - tiered
+                        - percentage
+                        - amount
                     value:
                       description: |-
                         For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
@@ -2069,7 +2073,6 @@ paths:
                         For "tiered" contribution types, an array of tiers.
                       oneOf:
                         - type: string
-                          properties: {}
                           description: 'For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.'
                         - type: array
                           description: 'For "tiered" contribution types, an array of tiers.'
@@ -2090,7 +2093,7 @@ paths:
                                   If this is the first tier, a value of "5" means the company contribution will match employee deductions from 0% up to and including 5% of payroll.
                 elective:
                   type: boolean
-                  description: Whether the company contribution is elective (aka "matching"). For "tiered" contribution types this is ignored and assumed to be true.
+                  description: 'Whether the company contribution is elective (aka "matching"). For `tiered`, `elective_amount`, and `elective_percentage` contribution types this is ignored and assumed to be `true`.'
                   default: false
                 company_contribution_annual_maximum:
                   type: string
@@ -2232,11 +2235,15 @@ paths:
                       description: |-
                         The company contribution scheme.
 
-                        "amount": The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
+                        `amount`: The company contributes a fixed amount per payroll. If elective is true, the contribution is matching, dollar-for-dollar.
 
-                        "percentage": The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
+                        `percentage`: The company contributes a percentage of the payroll amount per payroll period. If elective is true, the contribution is matching, dollar-for-dollar.
 
-                        "tiered": The size of the company contribution corresponds to the size of the employee deduction relative to a tiered matching scheme.
+                        `tiered`: The size of the company contribution corresponds to the size of the employee deduction relative to a tiered matching scheme.
+                      enum:
+                        - amount
+                        - percentage
+                        - tiered
                     value:
                       description: |-
                         For "amount" and "percentage" contribution types, the value of the corresponding amount or percentage.
@@ -2264,7 +2271,7 @@ paths:
                                   If this is the first tier, a value of "5" means the company contribution will match employee deductions from 0% up to and including 5% of payroll.
                 elective:
                   type: boolean
-                  description: Whether the company contribution is elective (aka "matching"). For "tiered" contribution types this is ignored and assumed to be true.
+                  description: 'Whether the company contribution is elective (aka "matching"). For `tiered`, `elective_amount`, and `elective_percentage` contribution types this is ignored and assumed to be `true`.'
                   default: false
                 company_contribution_annual_maximum:
                   type: string
