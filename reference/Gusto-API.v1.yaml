@@ -4500,6 +4500,39 @@ components:
           effective_date: '2020-12-11'
       x-tags:
         - Compensations
+    Form:
+      title: Form
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: The UUID of the form
+          readOnly: true
+        name:
+          type: string
+          description: The type identifier of the form
+          readOnly: true
+        title:
+          type: string
+          description: The title of the form
+          readOnly: true
+        description:
+          type: string
+          description: The description of the form
+          readOnly: true
+        requires_signing:
+          type: boolean
+          description: A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
+          readOnly: true
+      x-examples:
+        Example:
+          uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+          name: company_direct_deposit
+          title: Direct Deposit Authorization
+          description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
+          requires_signing: true
+      x-tags:
+        - Forms (Beta)
     Job:
       title: Job
       type: object
@@ -6288,6 +6321,42 @@ components:
         - id
         - name
         - type
+    Signatory:
+      description: The representation of a company's signatory
+      type: object
+      x-examples:
+        Example:
+          uuid: c5fdae57-5483-4529-9aae-f0edceed92d4
+          first_name: Jane
+          last_name: Smith
+          title: Signatory
+      title: Signatory
+      x-tags:
+        - Signatories (Beta)
+      properties:
+        uuid:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        title:
+          type: string
+    Flow:
+      description: The representation of a flow in Gusto whitelabel UI.
+      type: object
+      x-examples:
+        Example:
+          url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+          expires_at: '2021-12-28 04:25:48'
+      title: Flow
+      x-tags:
+        - Flows (Beta)
+      properties:
+        url:
+          type: string
+        expires_at:
+          type: string
     Job-Applicant:
       description: The representation of a job applicant in Gusto.
       type: object
@@ -6393,7 +6462,7 @@ components:
           type: string
           description: The legal name of the company
       x-examples:
-        example-1:
+        Example:
           value:
             version: string
             tax_payer_type: string
@@ -6402,6 +6471,8 @@ components:
             filing_form: string
             ein_verified: true
             legal_name: string
+      x-tags:
+        - Federal Tax Details (Beta)
     Employee-Bank-Account:
       title: Employee-Bank-Account
       type: object
@@ -6478,7 +6549,6 @@ components:
           value:
             version: 63859768485e218ccf8a449bb60f14ed
             type: Check
-      description: ''
       properties:
         version:
           type: string
@@ -6518,9 +6588,8 @@ components:
                 description: The cents amount allocated for each payment split
                 type: integer
                 nullable: true
-      required:
-        - version
-        - type
+      x-tags:
+        - Employee Payment Method (Beta)
   securitySchemes:
     Authorization:
       type: http
@@ -6906,6 +6975,60 @@ components:
                   last_name: Labadie
                   phone: 1-565-710-7559
                   email: louie.hessel7757869450111547@zemlak.biz
+    Signatory-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Signatory'
+          examples:
+            Example:
+              value:
+                uuid: c5fdae57-5483-4529-9aae-f0edceed92d4
+                first_name: Jane
+                last_name: Smith
+                title: Signatory
+    Flow-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Flow'
+          examples:
+            Example:
+              value:
+                url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+                expires_at: '2021-12-28 04:25:48'
+    Form-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Form'
+          examples:
+            Example:
+              value:
+                uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+                name: company_direct_deposit
+                title: Direct Deposit Authorization
+                description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
+                requires_signing: true
+    Form-List:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Form'
+          examples:
+            Example:
+              value:
+                - uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+                  name: company_direct_deposit
+                  title: Direct Deposit Authorization
+                  description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
+                  requires_signing: true
     Job-Object:
       description: Example response
       content:
@@ -8301,6 +8424,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Employee-Payment-Method'
+    Federal-Tax-Details-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Federal-Tax-Details'
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
