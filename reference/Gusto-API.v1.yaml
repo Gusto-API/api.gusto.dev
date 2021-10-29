@@ -3638,63 +3638,7 @@ paths:
       summary: Get Federal Tax Details
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  version:
-                    type: string
-                    description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
-                  tax_payer_type:
-                    type: string
-                    description: |-
-                      What type of tax entity the company is. One of:
-                      - C-Corporation
-                      - S-Corporation
-                      - Sole proprietor
-                      - LLC
-                      - LLP
-                      - Limited partnership
-                      - Co-ownership
-                      - Association
-                      - Trusteeship
-                      - General partnership
-                      - Joint venture
-                      - Non-Profit
-                  ein:
-                    type: string
-                    description: The company's EIN
-                  taxable_as_scorp:
-                    type: boolean
-                    description: |-
-                      Whether the company is taxed as an S-Corporation. Tax payer types that may be taxed as an S-Corporation include:
-                      - S-Corporation
-                      - C-Corporation
-                      - LLC
-                  filing_form:
-                    type: string
-                    description: |-
-                      The form used by the company for federal tax filing. One of:
-                      - 941 (Quarterly federal tax return form)
-                      - 944 (Annual federal tax return form)
-                  ein_verified:
-                    type: boolean
-                    description: 'Whether the EIN was able to be verified as a valid EIN with the IRS. '
-                  legal_name:
-                    type: string
-                    description: The legal name of the company
-              examples:
-                Example:
-                  value:
-                    version: 6cb95e00540706ca48d4577b3c839fbe
-                    tax_payer_type: LLP
-                    ein: '561354858'
-                    taxable_as_scorp: false
-                    filing_form: '944'
-                    ein_verified: false
-                    legal_name: Acme Corp.
+          $ref: '#/components/responses/Federal-Tax-Details-Object'
       operationId: get-v1-companies-company_id_or_uuid-federal_tax_details
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
@@ -3709,53 +3653,7 @@ paths:
       summary: Update Federal Tax Details
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  version:
-                    type: string
-                    description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for details using this field.'
-                  tax_payer_type:
-                    type: string
-                    description: |-
-                      What type of tax entity the company is. One of:
-                      - C-Corporation
-                      - S-Corporation
-                      - Sole proprietor
-                      - LLC
-                      - LLP
-                      - Limited partnership
-                      - Co-ownership
-                      - Association
-                      - Trusteeship
-                      - General partnership
-                      - Joint venture
-                      - Non-Profit
-                  ein:
-                    type: string
-                    description: The company's EIN
-                  taxable_as_scorp:
-                    type: boolean
-                    description: |-
-                      Whether the company is taxed as an S-Corporation. Tax payer types that may be taxed as an S-Corporation include:
-                      - S-Corporation
-                      - C-Corporation
-                      - LLC
-                  filing_form:
-                    type: string
-                    description: |-
-                      The form used by the company for federal tax filing. One of:
-                      - 941 (Quarterly federal tax return form)
-                      - 944 (Annual federal tax return form)
-                  ein_verified:
-                    type: boolean
-                    description: 'Whether the EIN was able to be verified as a valid EIN with the IRS. '
-                  legal_name:
-                    type: string
-                    description: The legal name of the company
+          $ref: '#/components/responses/Federal-Tax-Details-Object'
       operationId: put-v1-companies-company_id_or_uuid-federal_tax_details
       requestBody:
         content:
