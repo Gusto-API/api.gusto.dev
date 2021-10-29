@@ -3922,6 +3922,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Create a company signatory who can legally sign forms. Please note that there can only be a single primary signatory in a company. You can retrieve the current primary signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property
       responses:
         '201':
@@ -3998,6 +3999,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Delete a company signatory. Please note that you can retrieve the signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property
       responses:
         '204':
@@ -4018,6 +4020,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Get a list of all company's forms
       responses:
         '200':
@@ -4038,6 +4041,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Get a company form
       responses:
         '200':
@@ -4058,6 +4062,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Get the link to the form PDF
       responses:
         '200':
@@ -4097,6 +4102,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Sign a company form
       responses:
         '200':
@@ -4143,6 +4149,7 @@ paths:
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
         Generate a link to access a workflow in Gusto whitelabel UI.
       responses:
         '201':
