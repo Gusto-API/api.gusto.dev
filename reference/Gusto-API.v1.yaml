@@ -1520,8 +1520,6 @@ paths:
                   type: string
                 deductions:
                   type: string
-                employee_id:
-                  type: integer
                 w4_data_type:
                   type: string
               required:
@@ -1536,7 +1534,6 @@ paths:
                   dependents_amount: '0.0'
                   other_income: '0.0'
                   deductions: '0.0'
-                  employee_id: 29
                   w4_data_type: rev_2020_w4
   '/v1/employees/{employee_id}/home_address':
     parameters:
@@ -1714,7 +1711,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Update the company industry selection based on [Middesk API](https://docs.middesk.com/reference/introduction) selections.
+        Update the company industry selection by passing in industry classification codes: [NAICS code](https://www.naics.com), [SICS code](https://siccode.com/) and industry title. Our UI is leveraging [Middesk API](https://docs.middesk.com/reference/introduction) to determine industry classification codes.
       responses:
         '200':
           $ref: '#/components/responses/Industry-Object'
@@ -6967,9 +6964,6 @@ components:
           description: Other income amount.
         deductions:
           type: string
-        employee_id:
-          type: integer
-          description: An employee id.
         w4_data_type:
           type: string
           description: The version of w4 form.
@@ -6993,7 +6987,6 @@ components:
             dependents_amount: '0.0'
             other_income: '0.0'
             deductions: '0.0'
-            employee_id: 29
             w4_data_type: rev_2020_w4
       x-tags:
         - Employee Federal Tax (Beta)
