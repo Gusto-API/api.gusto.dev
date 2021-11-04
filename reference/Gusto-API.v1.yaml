@@ -2800,6 +2800,9 @@ paths:
                       employee_id:
                         type: integer
                         description: The ID of the employee.
+                      excluded:
+                        type: boolean
+                        description: Skip payroll for this employee. By setting it to true, this employee would be excluded in payroll calculation and getting zero dollar pay.
                       fixed_compensations:
                         type: array
                         items:
@@ -2851,6 +2854,7 @@ paths:
                   version: 19289df18e6e20f797de4a585ea5a91535c7ddf7
                   employee_compensations:
                     - employee_id: 1123581321345589
+                      excluded: false
                       fixed_compensations:
                         - name: Bonus
                           amount: '200.00'
@@ -2958,6 +2962,9 @@ paths:
                       employee_id:
                         type: integer
                         description: The ID of the employee.
+                      excluded:
+                        type: boolean
+                        description: Skip payroll for this employee. By setting it to true, this employee would be excluded in payroll calculation and getting zero dollar pay.
                       fixed_compensations:
                         type: array
                         items:
@@ -3009,6 +3016,7 @@ paths:
                   version: 19289df18e6e20f797de4a585ea5a91535c7ddf7
                   employee_compensations:
                     - employee_id: 1123581321345589
+                      excluded: false
                       fixed_compensations:
                         - name: Bonus
                           amount: '200.00'
@@ -6418,6 +6426,7 @@ components:
             deferred_payroll_taxes: '0.00'
           employee_compensations:
             - employee_id: 1123581321345589
+              excluded: false
               gross_pay: '2791.25'
               net_pay: '1953.31'
               payment_method: Direct Deposit
@@ -6636,6 +6645,10 @@ components:
               employee_id:
                 type: number
                 description: The ID of the employee.
+                readOnly: true
+              excluded:
+                type: boolean
+                description: Skip payroll for this employee. By setting it to true, this employee would be excluded in payroll calculation and getting zero dollar pay. Cancelling a payroll would reset all employees' excluded back to false.
                 readOnly: true
               gross_pay:
                 type: string
@@ -8792,6 +8805,7 @@ components:
                   deferred_payroll_taxes: '0.00'
                 employee_compensations:
                   - employee_id: 1123581321345589
+                    excluded: false
                     gross_pay: '2791.25'
                     net_pay: '1953.31'
                     payment_method: Direct Deposit
@@ -8901,6 +8915,7 @@ components:
                     deferred_payroll_taxes: '0.00'
                   employee_compensations:
                     - employee_id: 1123581321345589
+                      excluded: false
                       gross_pay: '2791.25'
                       net_pay: '1953.31'
                       payment_method: Direct Deposit
