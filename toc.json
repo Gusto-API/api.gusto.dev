@@ -93,6 +93,11 @@
     },
     {
       "type": "item",
+      "title": "Embedded Payroll Onboarding",
+      "uri": "docs/guides/Embedded Payroll Onboarding.md"
+    },
+    {
+      "type": "item",
       "title": "Getting Custom Fields",
       "uri": "docs/guides/Getting Custom Fields.md"
     },
