@@ -1476,7 +1476,7 @@ paths:
     get:
       summary: Get an employee's federal taxes
       tags:
-        - Employees
+        - Employee Federal Tax (Beta)
       responses:
         '200':
           $ref: '#/components/responses/Employee-Federal-Tax-Object'
@@ -1488,7 +1488,7 @@ paths:
     put:
       summary: Update an employee's federal taxes
       tags:
-        - Employees
+        - Employee Federal Tax (Beta)
       responses:
         '200':
           $ref: '#/components/responses/Employee-Federal-Tax-Object'
