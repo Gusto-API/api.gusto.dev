@@ -7,7 +7,7 @@ This guide covers the steps to fully onboard a company for [Gusto Embedded Payro
 
 To onboard a company for payroll, key inputs include company details (e.g. legal name, EIN), location(s), bank accounts, and other information. To onboard an employee, key inputs include employee details (e.g. name, addresses), pay rates (salaried or hourly), tax withholding, and so on. In practice, company, compensations, addresses, and tax/withholding information are relatively static.
 
-Although APIs exist for the majority of Company and Employee Onboarding steps, **the Employee and Company state tax setup steps do not exist as public APIs at this time and must be completed using Gusto’s co-branded Onboarding Form**. Ultimately, our goal is to eventually support all company and employee onboarding steps using APIs so partners have the option to use APIs and/or our pre-built flows to fully onboard a company and its employees.
+Although APIs exist for the majority of Company and Employee Onboarding steps, **the Employee and Company state tax setup steps do not exist as public APIs at this time and must be completed using Gusto’s co-branded [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form)**. Ultimately, our goal is to eventually support all company and employee onboarding steps using APIs so partners have the option to use APIs and/or our pre-built flows to fully onboard a company and its employees.
 
 *This guide will be updated on a recurring basis as we release more API functionality.*
 
@@ -171,7 +171,30 @@ After you’ve passed all of the company and employee information you collect us
 
 Employee state tax details and Company state tax details, do not exist as public APIs and therefore must be completed using Gusto’s Onboarding Form. State tax information will be needed for every state that an employee is physically working from. Each state has its own requirements when it comes to IDs and tax rates. You can reference our [state tax table](https://support.gusto.com/hub/Employers-and-admins/Taxes-forms-and-compliance) to determine what information is needed for each state.
 
-The onboarding link will expire 2 weeks after the request is made, however the endpoint can be called again to generate a new link if onboarding has not been completed by the user. Any information that was saved previously will persist, so the user will only need to complete any remaining steps.
+### Company Forms
+
+We require the Company Signatory to sign forms that authorize Gusto to file forms and make payroll tax deposits on the company's behalf. **Forms can be signed through Gusto's [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form) or via API calls.**
+
+These are the prerequisites in order to `GET` and sign Company Forms:
+- `"add_employees"`
+- `"federal_tax_setup"`
+- `"state_setup"` (via Gusto's Onboarding Form)
+- `"add_bank_info"`
+- `"payroll_schedule"`
+
+After these steps are completed you can [Get all company forms](https://docs.gusto.com/docs/api/b3A6MjU1NDc5Njg-get-all-company-forms). In the API response you'll receive:
+
+- **uuid** (string) - The UUID of the form
+- **name** (string) - The type identifier of the form
+- **title** (string) - The title of the form
+- **description** (string) - The description of the form
+- **requires_signing** (boolean) - A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
+
+After identifying which forms require signing, you can take leverage `uuid` of the form and make a subsequent request to [Sign a company form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzE-sign-a-company-form). This request should include:
+
+- **signature_text** (string) - The name of the Company Signatory
+- **agree** (boolean) - whether you agree to sign electronically
+- **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
 
 ### Completing Onboarding and Company Approval
 
@@ -249,3 +272,7 @@ You can check the company’s onboarding status by pinging our [Get the company�
 ````
 
 After completing onboarding, the company will be reviewed by Gusto’s internal approval process which can take 1-2 business days. A company must be approved before it can process payroll. You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+
+### Video Tutorial
+
+See the APIs and Onboarding Form in action via this [Loom tutorial](https://www.loom.com/share/85a3dfb5d1f64e1389a56cbb0ef4d37b).
