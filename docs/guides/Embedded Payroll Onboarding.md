@@ -271,7 +271,7 @@ You can check the company’s onboarding status by pinging our [Get the company�
 }
 ````
 
-After completing onboarding, the company will be reviewed by Gusto’s internal approval process which can take 1-2 business days. A company must be approved before it can process payroll. You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+**After all the steps are completed, onboarding needs to be finalized. This can be done using the Onboarding Form or via API call to [Finish company onboarding](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTU-finish-company-onboarding)**. This will trigger the company's review by Gusto’s internal approval process which can take 1-2 business days. **A company must be approved before it can process payroll**. You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
 
 ### Video Tutorial
 
