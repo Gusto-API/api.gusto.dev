@@ -44,22 +44,38 @@ Using the `company_uuid` from the response of the [partner_managed_companies](ht
 [Create a company location
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location)
 
-We’ll need the company’s mailing and filing address (this can be the same or different addresses) and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
+We’ll need the company’s mailing and filing address and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
 
 [Update Federal Tax Details
 ](https://docs.gusto.com/docs/api/b3A6MTU3ODY5MjY-update-federal-tax-details)
 
-This endpoint is used to update attributes relevant for a company’s federal taxes. You will need to provide the company’s `legal_name`, `ein`, `tax_payer_type`, `filing_form` (941 or 944), and whether this company should be `taxable_as_scorp`.
+This endpoint is used to update attributes relevant for a company’s federal taxes. We need the company's federal tax details so we can file and pay taxes correctly. You can find this info on the company's [IRS Form CP-575](https://gusto.com/blog/taxes/form-cp-575). You will need to provide the company’s `legal_name`, `ein`, `tax_payer_type`, `filing_form` (941 or 944), and whether this company should be `taxable_as_scorp`.
+
+Allowed `tax_payer_type` values:
+- C-Corporation
+- S-Corporation
+- Sole proprietor
+- LLC
+- LLP
+- Limited partnership
+- Co-ownership
+- Association
+- Trusteeship
+- General partnership
+- Joint venture
+- Non-Profit
 
 [Update a company industry selection
 ](https://docs.gusto.com/docs/api/b3A6MjU3MDkxNTI-update-a-company-industry-selection)
 
-This endpoint is used to update the company’s industry selection using naics_code and sic_codes. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
+This endpoint is used to update the company’s industry selection using naics_code and sic_codes. Gusto needs this information to stay compliant with finance regulations. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
 
 [Create a company bank account
 ](https://docs.gusto.com/docs/api/b3A6MTQxMjg0MTE-create-a-company-bank-account)
 
-This endpoint creates a new company bank account. If a default bank account exists, the new bank account will replace it as the company's default funding method. Upon being created, two verification deposits are automatically sent to the bank account in **1-2 business days**, and the bank account's `verification_status` is `awaiting_deposits`.
+This endpoint creates a new company bank account. If a default bank account exists, the new bank account will replace it as the company's default funding method.  Required fields to make this request include `routing_number`, `account_number`, and `account_type` (`Checking`, `Savings`).
+
+Upon being created, two verification deposits are automatically sent to the bank account in **1-2 business days**, and the bank account's `verification_status` is `awaiting_deposits`.
 
 When the deposits are successfully transferred, the `verification_status` changes to `ready_for_verification`, at which point the verify endpoint can be used to verify the bank account. After successful verification, the bank account's `verification_status` is `verified`.
 
