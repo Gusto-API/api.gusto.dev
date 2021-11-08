@@ -2802,7 +2802,7 @@ paths:
                         description: The ID of the employee.
                       excluded:
                         type: boolean
-                        description: Skip payroll for this employee. By setting it to true, this employee would be excluded in payroll calculation and getting zero dollar pay.
+                        description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
                       fixed_compensations:
                         type: array
                         items:
@@ -2964,7 +2964,7 @@ paths:
                         description: The ID of the employee.
                       excluded:
                         type: boolean
-                        description: Skip payroll for this employee. By setting it to true, this employee would be excluded in payroll calculation and getting zero dollar pay.
+                        description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
                       fixed_compensations:
                         type: array
                         items:
@@ -6648,7 +6648,7 @@ components:
                 readOnly: true
               excluded:
                 type: boolean
-                description: Skip payroll for this employee. By setting it to true, this employee would be excluded in payroll calculation and getting zero dollar pay. Cancelling a payroll would reset all employees' excluded back to false.
+                description: This employee will be excluded from payroll calculation and will not be paid for the payroll. Cancelling a payroll would reset all employees' excluded back to false.
                 readOnly: true
               gross_pay:
                 type: string
