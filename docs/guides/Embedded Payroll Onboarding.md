@@ -151,6 +151,8 @@ After you’ve passed all of the company and employee information you collect us
 }
 ```
 
+![](../../assets/images/Onboarding%20Form%20Sample.png)
+
 Employee state tax details and Company state tax details, do not exist as public APIs and therefore must be completed using Gusto’s Onboarding Form. State tax information will be needed for every state that an employee is physically working from. Each state has its own requirements when it comes to IDs and tax rates. You can reference our [state tax table](https://support.gusto.com/hub/Employers-and-admins/Taxes-forms-and-compliance) to determine what information is needed for each state.
 
 The onboarding link will expire 2 weeks after the request is made, however the endpoint can be called again to generate a new link if onboarding has not been completed by the user. Any information that was saved previously will persist, so the user will only need to complete any remaining steps.
