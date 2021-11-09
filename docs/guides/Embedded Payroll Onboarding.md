@@ -7,7 +7,7 @@ This guide covers the steps to fully onboard a company for [Gusto Embedded Payro
 
 To onboard a company for payroll, key inputs include company details (e.g. legal name, EIN), location(s), bank accounts, and other information. To onboard an employee, key inputs include employee details (e.g. name, addresses), pay rates (salaried or hourly), tax withholding, and so on. In practice, company, compensations, addresses, and tax/withholding information are relatively static.
 
-Although APIs exist for the majority of Company and Employee Onboarding steps, **the Employee and Company state tax setup steps do not exist as public APIs at this time and must be completed using Gusto’s co-branded Onboarding Form**. Ultimately, our goal is to eventually support all company and employee onboarding steps using APIs so partners have the option to use APIs and/or our pre-built flows to fully onboard a company and its employees.
+Although APIs exist for the majority of Company and Employee Onboarding steps, **the Employee and Company state tax setup steps do not exist as public APIs at this time and must be completed using Gusto’s co-branded [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form)**. Ultimately, our goal is to eventually support all company and employee onboarding steps using APIs so partners have the option to use APIs and/or our pre-built flows to fully onboard a company and its employees.
 
 *This guide will be updated on a recurring basis as we release more API functionality.*
 
@@ -44,22 +44,38 @@ Using the `company_uuid` from the response of the [partner_managed_companies](ht
 [Create a company location
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location)
 
-We’ll need the company’s mailing and filing address (this can be the same or different addresses) and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
+We’ll need the company’s mailing and filing address and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
 
 [Update Federal Tax Details
 ](https://docs.gusto.com/docs/api/b3A6MTU3ODY5MjY-update-federal-tax-details)
 
-This endpoint is used to update attributes relevant for a company’s federal taxes. You will need to provide the company’s `legal_name`, `ein`, `tax_payer_type`, `filing_form` (941 or 944), and whether this company should be `taxable_as_scorp`.
+This endpoint is used to update attributes relevant for a company’s federal taxes. We need the company's federal tax details so we can file and pay taxes correctly. You can find this info on the company's [IRS Form CP-575](https://gusto.com/blog/taxes/form-cp-575). You will need to provide the company’s `legal_name`, `ein`, `tax_payer_type`, `filing_form` (941 or 944), and whether this company should be `taxable_as_scorp`.
+
+Allowed `tax_payer_type` values:
+- C-Corporation
+- S-Corporation
+- Sole proprietor
+- LLC
+- LLP
+- Limited partnership
+- Co-ownership
+- Association
+- Trusteeship
+- General partnership
+- Joint venture
+- Non-Profit
 
 [Update a company industry selection
 ](https://docs.gusto.com/docs/api/b3A6MjU3MDkxNTI-update-a-company-industry-selection)
 
-This endpoint is used to update the company’s industry selection using naics_code and sic_codes. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
+This endpoint is used to update the company’s industry selection using naics_code and sic_codes. Gusto needs this information to stay compliant with finance regulations. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
 
 [Create a company bank account
 ](https://docs.gusto.com/docs/api/b3A6MTQxMjg0MTE-create-a-company-bank-account)
 
-This endpoint creates a new company bank account. If a default bank account exists, the new bank account will replace it as the company's default funding method. Upon being created, two verification deposits are automatically sent to the bank account in **1-2 business days**, and the bank account's `verification_status` is `awaiting_deposits`.
+This endpoint creates a new company bank account. If a default bank account exists, the new bank account will replace it as the company's default funding method.  Required fields to make this request include `routing_number`, `account_number`, and `account_type` (`Checking`, `Savings`).
+
+Upon being created, two verification deposits are automatically sent to the bank account in **1-2 business days**, and the bank account's `verification_status` is `awaiting_deposits`.
 
 When the deposits are successfully transferred, the `verification_status` changes to `ready_for_verification`, at which point the verify endpoint can be used to verify the bank account. After successful verification, the bank account's `verification_status` is `verified`.
 
@@ -155,7 +171,30 @@ After you’ve passed all of the company and employee information you collect us
 
 Employee state tax details and Company state tax details, do not exist as public APIs and therefore must be completed using Gusto’s Onboarding Form. State tax information will be needed for every state that an employee is physically working from. Each state has its own requirements when it comes to IDs and tax rates. You can reference our [state tax table](https://support.gusto.com/hub/Employers-and-admins/Taxes-forms-and-compliance) to determine what information is needed for each state.
 
-The onboarding link will expire 2 weeks after the request is made, however the endpoint can be called again to generate a new link if onboarding has not been completed by the user. Any information that was saved previously will persist, so the user will only need to complete any remaining steps.
+### Company Forms
+
+We require the Company Signatory to sign forms that authorize Gusto to file forms and make payroll tax deposits on the company's behalf. **Forms can be signed through Gusto's [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form) or via API calls.**
+
+These are the prerequisites in order to `GET` and sign Company Forms:
+- `"add_employees"`
+- `"federal_tax_setup"`
+- `"state_setup"` (via Gusto's Onboarding Form)
+- `"add_bank_info"`
+- `"payroll_schedule"`
+
+After these steps are completed you can [Get all company forms](https://docs.gusto.com/docs/api/b3A6MjU1NDc5Njg-get-all-company-forms). In the API response you'll receive:
+
+- **uuid** (string) - The UUID of the form
+- **name** (string) - The type identifier of the form
+- **title** (string) - The title of the form
+- **description** (string) - The description of the form
+- **requires_signing** (boolean) - A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
+
+After identifying which forms require signing, you can take leverage `uuid` of the form and make a subsequent request to [Sign a company form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzE-sign-a-company-form). This request should include:
+
+- **signature_text** (string) - The name of the Company Signatory
+- **agree** (boolean) - whether you agree to sign electronically
+- **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
 
 ### Completing Onboarding and Company Approval
 
@@ -232,4 +271,8 @@ You can check the company’s onboarding status by pinging our [Get the company�
 }
 ````
 
-After completing onboarding, the company will be reviewed by Gusto’s internal approval process which can take 1-2 business days. A company must be approved before it can process payroll. You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+**After all the steps are completed, onboarding needs to be finalized. This can be done using the Onboarding Form or via API call to [Finish company onboarding](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTU-finish-company-onboarding)**. This will trigger the company's review by Gusto’s internal approval process which can take 1-2 business days. **A company must be approved before it can process payroll**. You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+
+### Video Tutorial
+
+See the APIs and Onboarding Form in action via this [Loom tutorial](https://www.loom.com/share/85a3dfb5d1f64e1389a56cbb0ef4d37b).
