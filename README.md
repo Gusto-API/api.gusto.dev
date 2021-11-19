@@ -32,4 +32,4 @@ We also have a process for editing directly this repo (not recommended): https:/
 
 You need write access on both https://gusto.stoplight.io and the https://github.com/Gusto-API/api.gusto.dev repo.
 
-You can ask for access in the App Dev and Discovery channel: #pie-app-developer-and-discovery
+You can ask for access in the PIE Hire channel: #pie-hire
