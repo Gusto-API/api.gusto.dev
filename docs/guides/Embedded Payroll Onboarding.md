@@ -110,14 +110,14 @@ The order of the two deposits specified in request parameters does not matter. T
 The bearer token should be specified via the Authorization HTTP header for these requests.
 
 
-After creating the company you can now pass any employee information that you already collect using our API. If you do not already collect this information, you can build a UI in your app so the user can enter this information to pass along to Gusto. This information will pre-populate fields in the co-branded Onboarding Form that Gusto provides. **Employee state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.** 
+After creating the company via `partner_managed_companies` you can pass any employee information that you already collect using our API. If you do not already collect this information, you can build a UI in your app so the user can enter this information to pass along to Gusto. This information will pre-populate fields in the co-branded Onboarding Form that Gusto provides. **Employee state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.** 
 
 Using the `company_uuid` from the response of the `partner_managed_companies` endpoint, you can make the following API calls to create and update employee information:
 
 [Create an employee
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTQ-create-an-employee)
 
-You can use this endpoint to create an employee record in Gusto using basic employee information you already collect. This includes `first_name`, `middle_initial`, `last_name`, `date_of_birth`, `email` and `ssn`. After the employee is created, subsequent calls can be made to update additional information like their `home_address`, `employee_bank_account`, `employee_payment_method`, `jobs`, and `compensations`.
+You can use this endpoint to create an employee record in Gusto using basic employee information you already collect. This includes `first_name`, `middle_initial`, `last_name`, `date_of_birth`, `email` and `ssn`. **After the employee is created**, subsequent calls can be made to update additional information like their `home_address`, `employee_bank_account`, `employee_payment_method`, `jobs`, and `compensations`.
 
 [Update an employee’s home address
 ](https://docs.gusto.com/docs/api/b3A6MTE3OTYxOTM-update-an-employee-s-home-address)
@@ -149,7 +149,7 @@ Compensations contain information on how much is paid out for a job. Jobs may ha
 When updating a compensation, the following information is needed:
 - **rate** (string) - The dollar amount paid per payment unit.
 - **payment_unit** (string) - The unit accompanying the compensation rate. If the employee is an owner, rate should be 'Paycheck'. Allowed values: `Hour` `Week` `Month` `Year` `Paycheck`
-- **flsa_status** (string) - The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. Allowed values: `Exempt` `Salaried` `Nonexempt` `Nonexempt` `Owner`
+- **flsa_status** (string) - The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. Allowed values: `Exempt` `Salaried` `Nonexempt` `Owner`
 
 ### Deleting an Employee
 
