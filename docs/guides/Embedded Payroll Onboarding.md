@@ -63,6 +63,9 @@ This endpoint creates a new company bank account. If a default bank account exis
 
 When the deposits are successfully transferred, the `verification_status` changes to `ready_for_verification`, at which point the verify endpoint can be used to verify the bank account. After successful verification, the bank account's `verification_status` is `verified`.
 
+Our API validates the routing number to ensure it's a valid US routing number. For testing purposes, you can use this sample routing number: `102001017`
+
+
 [Create a new single pay schedule
 ](https://docs.gusto.com/docs/api/b3A6MjA5MTEyMTI-create-a-new-single-pay-schedule)
 
@@ -134,6 +137,10 @@ When updating a compensation, the following information is needed:
 - **rate** (string) - The dollar amount paid per payment unit.
 - **payment_unit** (string) - The unit accompanying the compensation rate. If the employee is an owner, rate should be 'Paycheck'. Allowed values: `Hour` `Week` `Month` `Year` `Paycheck`
 - **flsa_status** (string) - The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. Allowed values: `Exempt` `Salaried` `Nonexempt` `Owner`
+
+### Employee Reconciliation
+
+After creating an employee and their job(s) you should reconcile their `employee_id` and `job_ids` and persist these in your database. This information is necessary to update payroll ongoing.
 
 ### Deleting an Employee
 
