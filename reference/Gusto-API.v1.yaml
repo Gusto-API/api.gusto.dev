@@ -23,7 +23,7 @@ tags:
   - name: Jobs
   - name: Locations
   - name: Pay Schedules
-  - name: Payroll
+  - name: Payrolls
   - name: Signatories (Beta)
   - name: Terminations
   - name: Time Off Requests
@@ -120,8 +120,7 @@ paths:
     delete:
       summary: Delete an onboarding employee
       operationId: delete-v1-employee
-      description: |-
-        Use this endpoint to delete an employee who is in onboarding. Deleting an onboarded employee is not allowed. Please check out the Terminations api if you need to terminate an onboarded employee.
+      description: Use this endpoint to delete an employee who is in onboarding. Deleting an onboarded employee is not allowed. Please check out the Terminations api if you need to terminate an onboarded employee.
       parameters: []
       responses:
         '204':
@@ -1476,7 +1475,7 @@ paths:
     get:
       summary: Get an employee's federal taxes
       tags:
-        - Employees
+        - Employee Federal Tax (Beta)
       responses:
         '200':
           $ref: '#/components/responses/Employee-Federal-Tax-Object'
@@ -1488,7 +1487,7 @@ paths:
     put:
       summary: Update an employee's federal taxes
       tags:
-        - Employees
+        - Employee Federal Tax (Beta)
       responses:
         '200':
           $ref: '#/components/responses/Employee-Federal-Tax-Object'
@@ -1707,7 +1706,7 @@ paths:
       tags:
         - Industry (Beta)
       operationId: put-v1-company-industry
-      parameters: [ ]
+      parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
@@ -1732,7 +1731,7 @@ paths:
                   type: array
                   items:
                     type: string
-                  description: A list of Standard Industrial Classification (SIC) codes, which are four digit number that categorize the industries that companies belong to based on their business activities.
+                  description: 'A list of Standard Industrial Classification (SIC) codes, which are four digit number that categorize the industries that companies belong to based on their business activities.'
               required:
                 - title
                 - naics_code
@@ -2552,7 +2551,7 @@ paths:
     get:
       summary: Get pay periods for a company
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           description: OK
@@ -2671,7 +2670,7 @@ paths:
     get:
       summary: Get all payrolls for a company
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           $ref: '#/components/responses/Payroll-List'
@@ -2720,7 +2719,7 @@ paths:
     post:
       summary: Create an Off-Cycle Payroll (Beta)
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           $ref: '#/components/responses/Payroll-Object'
@@ -2771,7 +2770,7 @@ paths:
     put:
       summary: Update a payroll by ID
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           $ref: '#/components/responses/Payroll-Object'
@@ -2800,6 +2799,9 @@ paths:
                       employee_id:
                         type: integer
                         description: The ID of the employee.
+                      excluded:
+                        type: boolean
+                        description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
                       fixed_compensations:
                         type: array
                         items:
@@ -2851,6 +2853,7 @@ paths:
                   version: 19289df18e6e20f797de4a585ea5a91535c7ddf7
                   employee_compensations:
                     - employee_id: 1123581321345589
+                      excluded: false
                       fixed_compensations:
                         - name: Bonus
                           amount: '200.00'
@@ -2875,7 +2878,7 @@ paths:
     get:
       summary: Get a single payroll
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           $ref: '#/components/responses/Payroll-Object'
@@ -2927,7 +2930,7 @@ paths:
     put:
       summary: Update a payroll
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           $ref: '#/components/responses/Payroll-Object'
@@ -2958,6 +2961,9 @@ paths:
                       employee_id:
                         type: integer
                         description: The ID of the employee.
+                      excluded:
+                        type: boolean
+                        description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
                       fixed_compensations:
                         type: array
                         items:
@@ -3009,6 +3015,7 @@ paths:
                   version: 19289df18e6e20f797de4a585ea5a91535c7ddf7
                   employee_compensations:
                     - employee_id: 1123581321345589
+                      excluded: false
                       fixed_compensations:
                         - name: Bonus
                           amount: '200.00'
@@ -3652,7 +3659,7 @@ paths:
     put:
       summary: Calculate a Payroll (Beta)
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '202':
           description: Accepted
@@ -3669,9 +3676,8 @@ paths:
         ```
         { "errors": { "missing_requirements": ["needs_onboarding", "invalid_signatory"] } }
         ```
-
       parameters: []
-  '/v1/companies/{company_id}/payrolls/{payroll_Id}/submit':
+  '/v1/companies/{company_id}/payrolls/{payroll_id}/submit':
     parameters:
       - schema:
           type: string
@@ -3681,18 +3687,18 @@ paths:
         description: Company ID
       - schema:
           type: string
-        name: payroll_Id
+        name: payroll_id
         in: path
         required: true
         description: Payroll ID
     put:
       summary: Submit Payroll (Beta)
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '202':
           description: Accepted
-      operationId: put-v1-companies-company_id-payrolls-payroll_Id-submit
+      operationId: put-v1-companies-company_id-payrolls-payroll_id-submit
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
@@ -3703,7 +3709,6 @@ paths:
         ```
         { "errors": { "missing_requirements": ["needs_onboarding", "invalid_signatory"] } }
         ```
-
   '/v1/companies/{company_id}/payrolls/{payroll_id}/cancel':
     parameters:
       - schema:
@@ -3721,7 +3726,7 @@ paths:
     put:
       summary: Cancel a Payroll (Beta)
       tags:
-        - Payroll
+        - Payrolls
       responses:
         '200':
           $ref: '#/components/responses/Payroll-Object'
@@ -3740,7 +3745,7 @@ paths:
     get:
       summary: Get approved Payroll Reversals
       tags:
-        - Payroll
+        - Payrolls
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/perParam'
@@ -4308,7 +4313,7 @@ paths:
                 Example:
                   value:
                     uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
-                    document_url: https://app.gusto-demo.com/assets/forms/7757842065202782/original/company_direct_deposit20211007-48226-gsqo8k.pdf?1633667020
+                    document_url: 'https://app.gusto-demo.com/assets/forms/7757842065202782/original/company_direct_deposit20211007-48226-gsqo8k.pdf?1633667020'
   '/v1/forms/{id_or_uuid}/sign':
     parameters:
       - schema:
@@ -4355,7 +4360,7 @@ paths:
                 value:
                   signature_text: Jane Smith
                   agree: true
-                  signed_by_ip_address: '192.168.0.1'
+                  signed_by_ip_address: 192.168.0.1
   '/v1/companies/{company_uuid}/flows':
     parameters:
       - schema:
@@ -4390,10 +4395,10 @@ paths:
                     - company_onboarding
                 entity_uuid:
                   type: string
-                  description: UUID of the target entity applicable to the flow. For instance, the company's UUID is used for `company_onboarding` flow.
+                  description: 'UUID of the target entity applicable to the flow. For instance, the company''s UUID is used for `company_onboarding` flow.'
                 entity_type:
                   type: string
-                  description: the type of target entity applicable to the flow. For instance, `Company` is used for `company_onboarding`
+                  description: 'the type of target entity applicable to the flow. For instance, `Company` is used for `company_onboarding`'
                   enum:
                     - Company
                 expires_at:
@@ -4406,9 +4411,36 @@ paths:
             examples:
               Example:
                 value:
-                  flow_type: 'company_onboarding'
-                  entity_type: 'Company'
-                  entity_uuid: '89771af8-b964-472e-8064-554dfbcb56d9'
+                  flow_type: company_onboarding
+                  entity_type: Company
+                  entity_uuid: 89771af8-b964-472e-8064-554dfbcb56d9
+  '/v1/payrolls/{payroll_id_or_uuid}/employees/{employee_id_or_uuid}/pay_stub':
+    parameters:
+      - schema:
+          type: string
+        name: payroll_id_or_uuid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: employee_id_or_uuid
+        in: path
+        required: true
+    get:
+      summary: Get an employee pay stub (pdf)
+      tags:
+        - Payrolls
+      operationId: get-v1-payrolls-payroll_uuid-employees-employee_uuid-pay_stub
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get an employee's pay stub for the specified payroll. By default, an application/pdf response will be returned. No other content types are currently supported, but may be supported in the future.
+
+        scope: `payrolls:run`
+      parameters: []
+      responses:
+        '200':
+          description: OK
 components:
   parameters:
     pageParam:
@@ -4742,7 +4774,7 @@ components:
           maximum_accrual_balance: '240.0'
           paid_at_termination: false
       x-tags:
-        - Payroll
+        - Payrolls
     Garnishment:
       description: 'Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also have maximum deductions on a yearly or per-pay-period bases. Common uses for garnishments are court-ordered payments for child support or back taxes. Some companies provide loans to their employees that are repaid via garnishments.'
       type: object
@@ -4959,7 +4991,7 @@ components:
           readOnly: true
         sic_codes:
           type: array
-          description: A list of Standard Industrial Classification (SIC) codes, which are four digit number that categorize the industries that companies belong to based on their business activities.
+          description: 'A list of Standard Industrial Classification (SIC) codes, which are four digit number that categorize the industries that companies belong to based on their business activities.'
           readOnly: true
         title:
           type: string
@@ -5417,12 +5449,15 @@ components:
               id: add_employees
               required: true
               completed: true
-              requirements: ['add_addresses']
+              requirements:
+                - add_addresses
             - title: Enter Your Federal Tax Information
               id: federal_tax_setup
               required: true
               completed: true
-              requirements: ['add_addresses', 'add_employees']
+              requirements:
+                - add_addresses
+                - add_employees
             - title: Add Your Bank Account
               id: add_bank_info
               required: true
@@ -5437,12 +5472,18 @@ components:
               id: sign_all_forms
               required: true
               completed: false
-              requirements: ['add_employees', 'federal_tax_setup', 'state_setup', 'add_bank_info', 'payroll_schedule']
+              requirements:
+                - add_employees
+                - federal_tax_setup
+                - state_setup
+                - add_bank_info
+                - payroll_schedule
             - title: Verify Your Bank Account
               id: verify_bank_info
               required: true
               completed: false
-              requirements: ['add_bank_info']
+              requirements:
+                - add_bank_info
       x-tags:
         - Companies
     Contractor:
@@ -6376,7 +6417,7 @@ components:
               readOnly: true
           readOnly: true
       x-tags:
-        - Payroll
+        - Payrolls
     Payroll:
       description: ''
       type: object
@@ -6418,6 +6459,7 @@ components:
             deferred_payroll_taxes: '0.00'
           employee_compensations:
             - employee_id: 1123581321345589
+              excluded: false
               gross_pay: '2791.25'
               net_pay: '1953.31'
               payment_method: Direct Deposit
@@ -6480,7 +6522,7 @@ components:
                   employer: true
                   amount: '191.25'
       x-tags:
-        - Payroll
+        - Payrolls
       properties:
         version:
           type: string
@@ -6636,6 +6678,10 @@ components:
               employee_id:
                 type: number
                 description: The ID of the employee.
+                readOnly: true
+              excluded:
+                type: boolean
+                description: This employee will be excluded from payroll calculation and will not be paid for the payroll. Cancelling a payroll would reset all employees' excluded back to false.
                 readOnly: true
               gross_pay:
                 type: string
@@ -6864,7 +6910,7 @@ components:
       type: object
       x-examples:
         Example:
-          url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+          url: 'https://flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
           expires_at: '2021-12-28 04:25:48'
       title: Flow
       x-tags:
@@ -6954,8 +7000,7 @@ components:
           description: An employee can request an additional amount to be withheld from each paycheck.
         two_jobs:
           type: boolean
-          description: |-
-            If there are only two jobs (i.e., you and your spouse each have a job, or you have two), you can set it to true.
+          description: 'If there are only two jobs (i.e., you and your spouse each have a job, or you have two), you can set it to true.'
         dependents_amount:
           type: string
           description: A dependent is a person other than the taxpayer or spouse who entitles the taxpayer to claim a dependency exemption.
@@ -6975,8 +7020,7 @@ components:
             An exemption from paying a certain amount of income tax.
         additional_withholding:
           type: boolean
-          description: |-
-            *does not apply to rev_2020_w4 form*
+          description: '*does not apply to rev_2020_w4 form*'
       x-examples:
         Example:
           value:
@@ -7485,12 +7529,15 @@ components:
                     id: add_employees
                     required: true
                     completed: true
-                    requirements: ['add_addresses']
+                    requirements:
+                      - add_addresses
                   - title: Enter Your Federal Tax Information
                     id: federal_tax_setup
                     required: true
                     completed: true
-                    requirements: ['add_addresses', 'add_employees']
+                    requirements:
+                      - add_addresses
+                      - add_employees
                   - title: Add Your Bank Account
                     id: add_bank_info
                     required: true
@@ -7505,12 +7552,18 @@ components:
                     id: sign_all_forms
                     required: true
                     completed: false
-                    requirements: ['add_employees', 'federal_tax_setup', 'state_setup', 'add_bank_info', 'payroll_schedule']
+                    requirements:
+                      - add_employees
+                      - federal_tax_setup
+                      - state_setup
+                      - add_bank_info
+                      - payroll_schedule
                   - title: Verify Your Bank Account
                     id: verify_bank_info
                     required: true
                     completed: false
-                    requirements: ['add_bank_info']
+                    requirements:
+                      - add_bank_info
     Company-Object:
       description: Example response
       content:
@@ -7619,7 +7672,7 @@ components:
           examples:
             Example:
               value:
-                url: 'https://gws-flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
+                url: 'https://flows.gusto-demo.com/flows/lO2BHHAMCScPVV9G5WEURW0Im_nP9mGYloQgjUWbenQ'
                 expires_at: '2021-12-28 04:25:48'
     Form-Object:
       description: Example response
@@ -8792,6 +8845,7 @@ components:
                   deferred_payroll_taxes: '0.00'
                 employee_compensations:
                   - employee_id: 1123581321345589
+                    excluded: false
                     gross_pay: '2791.25'
                     net_pay: '1953.31'
                     payment_method: Direct Deposit
@@ -8901,6 +8955,7 @@ components:
                     deferred_payroll_taxes: '0.00'
                   employee_compensations:
                     - employee_id: 1123581321345589
+                      excluded: false
                       gross_pay: '2791.25'
                       net_pay: '1953.31'
                       payment_method: Direct Deposit
