@@ -3793,11 +3793,11 @@ paths:
         Returns all approved Payroll Reversals for a Company.
 
         `scope: payrolls.read`
-  '/v1/companies/{company_id}/admins':
+  '/v1/companies/{company_id_or_uuid}/admins':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
         description: The ID of the company
