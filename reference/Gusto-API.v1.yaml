@@ -5124,10 +5124,14 @@ components:
       description: The representation of an admin user in Gusto.
       x-examples:
         Example:
+          uuid: 987058cc-23ee-46e9-81ef-5cee086cceca
           first_name: John
           last_name: Smith
           email: jsmith99@gmail.com
       properties:
+        uuid:
+          type: string
+          description: The unique id of the admin.
         email:
           type: string
           description: The email of the admin. This is used by the admin to log in to their account.
@@ -8615,6 +8619,7 @@ components:
                 first_name: John
                 last_name: Smith
                 email: jsmith99@gmail.com
+                uuid: 5de11791-98fd-4587-9ed0-d5d804b8e647
     Admin-List:
       description: Example response
       content:
@@ -8629,9 +8634,11 @@ components:
                 - first_name: Katherine
                   last_name: Johnson
                   email: Katherine@acmecorp.com
+                  uuid: 987058cc-23ee-46e9-81ef-5cee086cceca
                 - first_name: Anita
                   last_name: Borg
                   email: Anita@acmecorp.com
+                  uuid: 5de11791-98fd-4587-9ed0-d5d804b8e647
     Company-Benefit-Object:
       description: Example response
       content:
