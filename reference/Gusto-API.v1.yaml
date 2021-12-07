@@ -1316,14 +1316,14 @@ paths:
                 value:
                   version: 52b7c567242cb7452e89ba2bc02cb476
                   active: false
-  '/v1/employees/{employee_id}/terminations':
+  '/v1/employees/{employee_id_or_uuid}/terminations':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The ID of the employee
+        description: The ID or UUID of the employee
     get:
       summary: Get terminations for an employee
       tags:
@@ -4861,6 +4861,10 @@ components:
           type: integer
           description: The unique identifier of the termination in Gusto.
           readOnly: true
+        uuid:
+          type: string
+          description: The UUID of the termination object.
+          readOnly: true
         version:
           type: string
           description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
@@ -4868,6 +4872,10 @@ components:
         employee_id:
           type: integer
           description: The ID of the employee to which this termination is attached.
+          readOnly: true
+        employee_uuid:
+          type: integer
+          description: The UUID of the employee to which this termination is attached.
           readOnly: true
         active:
           type: boolean
@@ -4884,6 +4892,9 @@ components:
       x-examples:
         example-1:
           id: 891238902131212
+          uuid: 'da441196-43a9-4d23-ad5d-f37ce6bb99c0'
+          employee_id: 891238902131212
+          employee_uuid: 'da441196-43a9-4d23-ad5d-f37ce6bb99c0'
           version: d487dd0b55dfcacdd920ccbdaeafa351
           active: true
           effective_date: '2020-03-10'
