@@ -71,6 +71,7 @@ Allowed `tax_payer_type` values:
 
 This endpoint is used to update the company’s industry selection using `naics_code` and `sic_codes`. Gusto requires this information to stay compliant with finance regulations. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
 
+
 [Create a company bank account
 ](https://docs.gusto.com/docs/api/b3A6MTQxMjg0MTE-create-a-company-bank-account)
 
