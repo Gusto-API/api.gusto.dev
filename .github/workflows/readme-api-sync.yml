@@ -1,0 +1,14 @@
+name: Sync OAS to ReadMe
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: readmeio/github-readme-sync@v2
+        with:
+          readme-oas-key: g4v7NpVSmfdp2uI5u87bHebUYzd04WUi:61b10422f857a76f4012fa40
