@@ -304,14 +304,14 @@ paths:
           $ref: '#/components/responses/Employee-Object'
       tags:
         - Employees
-  '/v1/jobs/{job_id}':
+  '/v1/jobs/{job_id_or_uuid}':
     parameters:
       - schema:
           type: string
-        name: job_id
+        name: job_id_or_uuid
         in: path
         required: true
-        description: The job ID
+        description: The ID or UUID of the job
     get:
       summary: Get a job
       responses:
@@ -376,14 +376,14 @@ paths:
         Deletes a specific job that an employee holds.
 
         `scope: jobs.write`
-  '/v1/employees/{employee_id}/jobs':
+  '/v1/employees/{employee_id_or_uuid}/jobs':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The employee ID
+        description: The employee ID or UUID
     get:
       summary: Get jobs for an employee
       parameters:
@@ -958,14 +958,14 @@ paths:
 
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
       x-internal: false
-  '/v1/compensations/{compensation_id}':
+  '/v1/compensations/{compensation_id_or_uuid}':
     parameters:
       - schema:
           type: string
-        name: compensation_id
+        name: compensation_id_or_uuid
         in: path
         required: true
-        description: The ID of the compensation
+        description: The ID or UUID of the compensation
     get:
       summary: Get a compensation
       responses:
@@ -1037,14 +1037,14 @@ paths:
                   rate: '60000.00'
                   payment_unit: Year
                   flsa_status: Exempt
-  '/v1/jobs/{job_id}/compensations':
+  '/v1/jobs/{job_id_or_uuid}/compensations':
     parameters:
       - schema:
           type: string
-        name: job_id
+        name: job_id_or_uuid
         in: path
         required: true
-        description: The ID of the job to which the compensation belongs
+        description: The ID or UUID of the job to which the compensation belongs
     get:
       summary: Get compensations for a job
       parameters:
@@ -2086,14 +2086,14 @@ paths:
                 value:
                   version: 98jr3289h3298hr9329gf9egskt3kagri32qqgiqe3872
                   active: false
-  '/v1/companies/{company_id}/earning_types':
+  '/v1/companies/{company_id_or_uuid}/earning_types':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     get:
       summary: Get all earning types for a company
       tags:
@@ -3444,14 +3444,14 @@ paths:
         Details of a single time off request
 
         `scope: time_off_requests.read`
-  '/v1/companies/{company_id}/job_applicants':
+  '/v1/companies/{company_id_or_uuid}/job_applicants':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     post:
       summary: Create a job applicant
       operationId: post-v1-companies-company_id-job_applicants
@@ -5025,6 +5025,10 @@ components:
           type: integer
           description: The unique identifier of the job in Gusto.
           readOnly: true
+        uuid:
+          type: string
+          description: the UUID of the job
+          readOnly: true
         version:
           type: string
           description: 'The current version of the object. See the [versioning guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzM0MTc-versioning) for information on how to use this field.'
@@ -5032,6 +5036,10 @@ components:
         employee_id:
           type: integer
           description: The ID of the employee to which the job belongs.
+          readOnly: true
+        employee_uuid:
+          type: string
+          description: The UUID of the employee to which the job belongs.
           readOnly: true
         location_id:
           type: integer
@@ -5092,6 +5100,10 @@ components:
           type: integer
           description: The ID for the current compensation of the job.
           readOnly: true
+        current_compensation_uuid:
+          type: string
+          description: The UUID of the current compensation of the job.
+          readOnly: true
         compensations:
           type: array
           items:
@@ -5101,18 +5113,23 @@ components:
       x-examples:
         Example:
           id: 7757869441038000
+          uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
           version: d0e719137f89ca3dd334dd4cc248ffbb
           employee_id: 7757869432666661
+          employee_uuid: '948daac8-4355-4ece-9e2a-229898accb22'
           current_compensation_id: 7757869444844981
+          current_compensation_uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
           payment_unit: Year
           primary: true
           title: Account Director
           compensations:
             - id: 7757869444844981
+              uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
               version: 994b75511d1debac5d7e2ddeae13679f
               payment_unit: Year
               flsa_status: Exempt
               job_id: 7757869441038000
+              job_uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
               effective_date: '2021-01-20'
               rate: '78000.00'
           rate: '78000.00'
@@ -7743,18 +7760,23 @@ components:
             Example:
               value:
                 id: 7757869441038000
+                uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
                 version: d0e719137f89ca3dd334dd4cc248ffbb
                 employee_id: 7757869432666661
+                employee_uuid: '948daac8-4355-4ece-9e2a-229898accb22'
                 current_compensation_id: 7757869444844981
+                current_compensation_uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
                 payment_unit: Year
                 primary: true
                 title: Account Director
                 compensations:
                   - id: 7757869444844981
+                    uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
                     version: 994b75511d1debac5d7e2ddeae13679f
                     payment_unit: Year
                     flsa_status: Exempt
                     job_id: 7757869441038000
+                    job_uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
                     effective_date: '2021-01-20'
                     rate: '78000.00'
                 rate: '78000.00'
@@ -7781,18 +7803,23 @@ components:
             Example:
               value:
                 - id: 7757869441038001
+                  uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
                   version: 6c0ed1521e8b86eb36bd4455a63a2dac
                   employee_id: 7757869432666662
+                  employee_uuid: '948daac8-4355-4ece-9e2a-229898accb22'
                   current_compensation_id: 7757869444844982
+                  current_compensation_uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
                   payment_unit: Year
                   primary: true
                   title: Client Support Director
                   compensations:
                     - id: 7757869444844982
+                      uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
                       version: 2cd4b18662395eb53bcf80d5b5447f36
                       payment_unit: Year
                       flsa_status: Exempt
                       job_id: 7757869441038001
+                      job_uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
                       effective_date: '2021-01-20'
                       rate: '70000.00'
                   rate: '70000.00'
@@ -8065,8 +8092,10 @@ components:
             Example:
               value:
                 id: 1363316536327004
+                uuid: 'db57832c-d8bc-43a7-ae99-0a04480ff037'
                 version: 98jr3289h3298hr9329gf9egskt3kagri32qqgiqe3872
                 job_id: 1123581321345589
+                job_uuid: 'd8f8fbe7-496d-4b69-86f0-1e2d1b73a086'
                 rate: '70.00'
                 payment_unit: Hour
                 flsa_status: Nonexempt
@@ -8087,8 +8116,10 @@ components:
             Example:
               value:
                 - id: 1363316536327004
+                  uuid: 'db57832c-d8bc-43a7-ae99-0a04480ff037'
                   version: 98jr3289h3298hr9329gf9egskt3kagri32qqgiqe3872
                   job_id: 1123581321345589
+                  job_uuid: 'd8f8fbe7-496d-4b69-86f0-1e2d1b73a086'
                   rate: '70.00'
                   payment_unit: Hour
                   flsa_status: Nonexempt
