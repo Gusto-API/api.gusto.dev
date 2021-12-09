@@ -132,7 +132,7 @@ The home address of an employee is used to determine certain tax information abo
 [Update an employee's federal taxes
 ](https://docs.gusto.com/docs/api/b3A6MjYxODExMDU-update-an-employee-s-federal-taxes)
 
-This endpoint updates attributes relevant for an employee's federal taxes. These inputs will be used to calculate how much federal withholding tax will be withheld from an employee's wages.
+This endpoint updates attributes relevant for an employee's federal taxes. These inputs will be used to calculate how much federal income tax will be withheld from an employee's wages.
 
 When updating an employee's federal taxes, the following information is needed:
 - **version** (string) - The current version of the object. You can `GET` the current version via [Get an employee's federal taxes](https://docs.gusto.com/docs/api/b3A6MjYxODExMDQ-get-an-employee-s-federal-taxes)
