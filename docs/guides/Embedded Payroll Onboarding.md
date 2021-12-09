@@ -37,19 +37,20 @@ Upon successful creation of the company, this creates a link between you (the pa
 The bearer token should be specified via the Authorization HTTP header for these requests.
 
 
-After creating the company you can now pass any company information that you already collect using our API. If you do not already collect this information, you can build a UI in your app so the user can enter this information to pass along to Gusto. This information will pre-populate fields in the co-branded Onboarding Form that Gusto provides. **Company state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.**
+After creating the company you can now pass any company information that you already collect using our API. If you do not already collect this information, you can build a UI in your application so the user can enter this information to pass along to Gusto. This information will pre-populate fields in Gusto's co-branded Onboarding Form so the payroll administrator will not need to provide this information twice. **Company state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.**
 
 Using the `company_uuid` from the response of the [partner_managed_companies](https://docs.gusto.com/docs/api/b3A6MTMzNjk4NzY-create-a-partner-managed-company-beta) endpoint, you can make the following API calls to create and update company information:
 
 [Create a company location
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location)
 
-We’ll need the company’s mailing and filing address and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
+Gusto requires the company’s mailing and filing address and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. (A company location must be created before a `job` for an employee can be created since `location_id` is a required field to create a `job`.) You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
+
 
 [Update Federal Tax Details
 ](https://docs.gusto.com/docs/api/b3A6MTU3ODY5MjY-update-federal-tax-details)
 
-This endpoint is used to update attributes relevant for a company’s federal taxes. We need the company's federal tax details so we can file and pay taxes correctly. You can find this info on the company's [IRS Form CP-575](https://gusto.com/blog/taxes/form-cp-575). You will need to provide the company’s `legal_name`, `ein`, `tax_payer_type`, `filing_form` (941 or 944), and whether this company should be `taxable_as_scorp`.
+This endpoint is used to update attributes relevant for a company’s federal taxes. Gusto needs the company's federal tax details so we can file and pay taxes correctly. You can find this info on the company's [IRS Form CP-575](https://gusto.com/blog/taxes/form-cp-575). You will need to provide the company’s `legal_name`, `ein`, `tax_payer_type`, `filing_form` (941 or 944), and whether this company should be `taxable_as_scorp`.
 
 Allowed `tax_payer_type` values:
 - C-Corporation
@@ -65,21 +66,23 @@ Allowed `tax_payer_type` values:
 - Joint venture
 - Non-Profit
 
+
 [Update a company industry selection
 ](https://docs.gusto.com/docs/api/b3A6MjU3MDkxNTI-update-a-company-industry-selection)
 
-This endpoint is used to update the company’s industry selection using naics_code and sic_codes. Gusto needs this information to stay compliant with finance regulations. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
+This endpoint is used to update the company’s industry selection using `naics_code` and `sic_codes`. Gusto requires this information to stay compliant with finance regulations. [North American Industry Classification System](https://www.naics.com/) (NAICS) is used to classify businesses with a six digit number based on the primary type of work the business performs. SIC codes are the list of [Standard Industrial Classification](https://siccode.com/), which are four digit numbers that categorize the industries that companies belong to based on their business activities. You can look up a company’s NAICS and SIC codes [here](https://www.naics.com/naics-code-description/).
+
 
 [Create a company bank account
 ](https://docs.gusto.com/docs/api/b3A6MTQxMjg0MTE-create-a-company-bank-account)
 
-This endpoint creates a new company bank account. If a default bank account exists, the new bank account will replace it as the company's default funding method.  Required fields to make this request include `routing_number`, `account_number`, and `account_type` (`Checking`, `Savings`).
+This endpoint creates a new company bank account. If a default bank account exists, the new bank account will replace it as the company's default funding method. Required fields to make this request include `routing_number`, `account_number`, and `account_type` (`Checking`, `Savings`).
 
 Upon being created, two verification deposits are automatically sent to the bank account in **1-2 business days**, and the bank account's `verification_status` is `awaiting_deposits`.
 
 When the deposits are successfully transferred, the `verification_status` changes to `ready_for_verification`, at which point the verify endpoint can be used to verify the bank account. After successful verification, the bank account's `verification_status` is `verified`.
 
-Our API validates the routing number to ensure it's a valid US routing number. For testing purposes, you can use this sample routing number: `102001017`
+**Our API validates the routing number to ensure it's a valid US routing number and will reject false inputs**. When testing in Gusto's demo environment, you can use this sample routing number: `102001017`
 
 
 [Create a new single pay schedule
@@ -96,7 +99,7 @@ When setting a pay schedule, the following information is needed:
 [Create a signatory
 ](https://docs.gusto.com/docs/api/b3A6MjU1Mzg3MDE-create-a-signatory)
 
-This endpoint creates a company signatory who can legally sign forms. The company signatory is someone, usually an executive, designated to sign agreements on the company's behalf. Please note that there can only be a single primary signatory in a company. 
+This endpoint creates a company signatory who can legally sign forms. The company signatory is someone, usually an executive, designated to sign agreements on the company's behalf. **Please note that there can only be a single primary signatory in a company.**
 
 [Verify a company bank account
 ](https://docs.gusto.com/docs/api/b3A6MTQxMzc1MDE-verify-a-company-bank-account)
@@ -113,19 +116,37 @@ The order of the two deposits specified in request parameters does not matter. T
 The bearer token should be specified via the Authorization HTTP header for these requests.
 
 
-After creating the company via `partner_managed_companies` you can pass any employee information that you already collect using our API. If you do not already collect this information, you can build a UI in your app so the user can enter this information to pass along to Gusto. This information will pre-populate fields in the co-branded Onboarding Form that Gusto provides. **Employee state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.** 
+After creating the company via `partner_managed_companies` you can pass any employee information that you already collect using our API. If you do not already collect this information, you can build a UI in your application so the user can enter this information to pass along to Gusto. This information will pre-populate fields in Gusto's co-branded Onboarding Form so the payroll administrator will not need to provide this information twice. **Employee state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.** 
+
 
 Using the `company_uuid` from the response of the `partner_managed_companies` endpoint, you can make the following API calls to create and update employee information:
 
 [Create an employee
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTQ-create-an-employee)
 
-You can use this endpoint to create an employee record in Gusto using basic employee information you already collect. This includes `first_name`, `middle_initial`, `last_name`, `date_of_birth`, `email` and `ssn`. **After the employee is created**, subsequent calls can be made to update additional information like their `home_address`, `employee_bank_account`, `employee_payment_method`, `jobs`, and `compensations`.
+You can use this endpoint to create an employee record in Gusto using basic employee information you already collect. This includes `first_name`, `middle_initial`, `last_name`, `date_of_birth`, `email` and `ssn`. **After the employee is created, subsequent calls can be made to update additional information** like their `home_address`, `employee_bank_account`, `employee_payment_method`, `jobs`, and `compensations`.
+
 
 [Update an employee’s home address
 ](https://docs.gusto.com/docs/api/b3A6MTE3OTYxOTM-update-an-employee-s-home-address)
 
 The home address of an employee is used to determine certain tax information about them. Gusto only supports W2 employees based in the US at this time.
+
+[Update an employee's federal taxes
+](https://docs.gusto.com/docs/api/b3A6MjYxODExMDU-update-an-employee-s-federal-taxes)
+
+This endpoint updates attributes relevant for an employee's federal taxes. These inputs will be used to calculate how much federal income tax will be withheld from an employee's wages.
+
+When updating an employee's federal taxes, the following information is needed:
+- **version** (string) - The current version of the object. You can `GET` the current version via [Get an employee's federal taxes](https://docs.gusto.com/docs/api/b3A6MjYxODExMDQ-get-an-employee-s-federal-taxes)
+- **filing_status** (string) - It determines which tax return form an individual will use and is an important factor in computing taxable income. One of: `Single` `Married` `Head of Household` `Exempt from withholding` `Married, but withhold as Single` (does not apply to `rev_2020_w4` form)
+- **extra_withholding** (string) - An employee can request an additional amount to be withheld from each paycheck.
+- **two_jobs** (boolean) - If there are only two jobs (i.e., you and your spouse each have a job, or you have two), you can set it to true.
+- **dependents_amount** (string) - A dependent is a person other than the taxpayer or spouse who entitles the taxpayer to claim a dependency exemption.
+- **other_oncome** (string) - Other income amount.
+- **deductions** (string)
+- **w4_data_type** (string) - The version of the w4 form. Allowed values: `rev_2020_w4`(revised 2020 W4 form), `pre_2020_w4`(pre 2020 W4 form)
+
 
 [Create an employee bank account
 ](https://docs.gusto.com/docs/api/b3A6MTg1NTAzOTI-create-an-employee-bank-account)
@@ -135,34 +156,33 @@ This endpoint creates an employee bank account. Required fields to make this req
 [Update an employee’s payment method
 ](https://docs.gusto.com/docs/api/b3A6MTk0NjI2NTY-update-an-employee-s-payment-method)
 
-This endpoint can be called to update an employee’s payment method or update how they want to split their pay if they’ve set up multiple employee bank accounts. Payments can be split by an `Amount` (dollar amount) or by a `Percentage`. You can also set the payment priority, which is the order of priority for each payment split. `"priority": 1` would be the first bank account to receive payment, for example.
+This endpoint is used to update an employee’s payment method, or if the employee has setup multiple bank accounts, can update how they want to split their pay. Payments can be split by an `Amount` (dollar amount) or by a `Percentage`. You can also set the payment priority, which is the order of priority for each payment split. `"priority": 1` would be the first bank account to receive payment, for example.
 
 [Create a job
 ](https://docs.gusto.com/docs/api/b3A6MTAwMDM4Njg-create-a-job)
 
-A job is the representation of an employee’s title or pay rate. An employee can have multiple jobs in Gusto and each job_id is unique to an employee. Two employees cannot share the same job_id. The request should include a title, location_id, and hire_date. The location needs to be created in advance using [Create a company location](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location). The hire_date can be the employee’s actual hire_date or the effective_date of the job if the employee has multiple jobs. 
+A job is effectively an employee’s title or pay rate. An employee can have multiple jobs in Gusto and each `job_id` is unique to an employee. Two employees cannot share the same `job_id`. The request should include a `title`, `location_id`, and `hire_date`. The location needs to be created in advance using [Create a company location](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location). The `hire_date` can be the employee’s actual `hire_date` or the `effective_date` of the job if the employee has multiple jobs. 
 
-Creating a job automatically creates a non-exempt, hourly compensation of $0/hr. Compensation for a job should be updated in subsequent API call.
+**Creating a job automatically creates a non-exempt, hourly compensation of $0/hr. Compensation for a job should be updated in subsequent API call.**
 
 [Update a compensation
 ](https://docs.gusto.com/docs/api/b3A6NTU0OTY5MQ-update-a-compensation)
 
-Compensations contain information on how much is paid out for a job. Jobs may have many compensations, but only one that is active. The current compensation is the one with the most recent effective_date.
+Compensations contain information on how much is paid out for a job. Jobs can have multiple compensations, **but only one that is active**. The current compensation is the one with the most recent `effective_date`.
 
 When updating a compensation, the following information is needed:
 - **rate** (string) - The dollar amount paid per payment unit.
 - **payment_unit** (string) - The unit accompanying the compensation rate. If the employee is an owner, rate should be 'Paycheck'. Allowed values: `Hour` `Week` `Month` `Year` `Paycheck`
 - **flsa_status** (string) - The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. Allowed values: `Exempt` `Salaried` `Nonexempt` `Owner`
 
-
 ### Employee Reconciliation
 
-After creating an employee and their job(s) you should reconcile their `employee_id` and `job_ids` and persist these in your database. This information is necessary to update payroll ongoing.
+After creating an employee and their job(s) you should reconcile their `employee_id` and `job_ids` (and their respective compensations) and persist these in your database. This information is necessary to update payroll on an ongoing basis and will ensure the intended employee is being paid the correct wage.
 
 
 ### Deleting an Employee
 
-If at any point you need to delete an employee who is in the middle of onboarding you can call the [Delete an onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDQ-delete-an-onboarding-employee) endpoint. This is only intended to delete an employee that has not been fully onboarded, as deleting an onboarded employee “onboarded”: “true” is not permitted.
+If at any point you need to delete an employee who is in the middle of onboarding you can call the [Delete an onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDQ-delete-an-onboarding-employee) endpoint. This is only intended to delete an employee that has not been fully onboarded, as deleting an onboarded employee `“onboarded”: “true”` is not permitted.
 
 ### Generate a link to access Gusto’s Onboarding Form
 
@@ -177,6 +197,7 @@ After you’ve passed all of the company and employee information you collect us
 ```
 
 ![](../../assets/images/Onboarding%20Form%20Sample.png)
+
 
 Employee state tax details and Company state tax details, do not exist as public APIs and therefore must be completed using Gusto’s Onboarding Form. State tax information will be needed for every state that an employee is physically working from. Each state has its own requirements when it comes to IDs and tax rates. You can reference our [state tax table](https://support.gusto.com/hub/Employers-and-admins/Taxes-forms-and-compliance) to determine what information is needed for each state.
 
@@ -204,6 +225,32 @@ After identifying which forms require signing, you can take leverage `uuid` of t
 - **signature_text** (string) - The name of the Company Signatory
 - **agree** (boolean) - whether you agree to sign electronically
 - **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
+
+### Company Forms
+
+We require the Company Signatory to sign forms that authorize Gusto to file forms and make payroll tax deposits on the company's behalf. **Forms can be signed through Gusto's [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form) or via API calls.**
+
+These are the prerequisites in order to `GET` and sign Company Forms:
+- `"add_employees"`
+- `"federal_tax_setup"`
+- `"state_setup"` (via Gusto's Onboarding Form)
+- `"add_bank_info"`
+- `"payroll_schedule"`
+
+After these steps are completed you can [Get all company forms](https://docs.gusto.com/docs/api/b3A6MjU1NDc5Njg-get-all-company-forms). In the API response you'll receive:
+
+- **uuid** (string) - The UUID of the form
+- **name** (string) - The type identifier of the form
+- **title** (string) - The title of the form
+- **description** (string) - The description of the form
+- **requires_signing** (boolean) - A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
+
+After identifying which forms require signing, you can take leverage `uuid` of the form and make a subsequent request to [Sign a company form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzE-sign-a-company-form). This request should include:
+
+- **signature_text** (string) - The name of the Company Signatory
+- **agree** (boolean) - whether you agree to sign electronically
+- **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
+
 
 ### Completing Onboarding and Company Approval
 
@@ -280,7 +327,8 @@ You can check the company’s onboarding status by pinging our [Get the company�
 }
 ````
 
-**After all the steps are completed, onboarding needs to be finalized. This can be done using the Onboarding Form or via API call to [Finish company onboarding](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTU-finish-company-onboarding)**. This will trigger the company's review by Gusto’s internal approval process which can take 1-2 business days. **A company must be approved before it can process payroll**. You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+**After all the steps are completed, onboarding needs to be finalized. This can be done using the Onboarding Form or via API call to [Finish company onboarding](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTU-finish-company-onboarding).** This will trigger the company's review by Gusto’s internal approval process. The majority of companies will be approved within minutes, however this process can sometimes take 1-2 business days, so it is recommended to start company onboarding accordingly to ensure employees are paid on time. **A company must be approved before it can process payroll.** You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+
 
 ### Video Tutorial
 
