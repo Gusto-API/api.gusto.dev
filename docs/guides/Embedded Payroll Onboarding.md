@@ -226,32 +226,6 @@ After identifying which forms require signing, you can take leverage `uuid` of t
 - **agree** (boolean) - whether you agree to sign electronically
 - **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
 
-### Company Forms
-
-We require the Company Signatory to sign forms that authorize Gusto to file forms and make payroll tax deposits on the company's behalf. **Forms can be signed through Gusto's [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form) or via API calls.**
-
-These are the prerequisites in order to `GET` and sign Company Forms:
-- `"add_employees"`
-- `"federal_tax_setup"`
-- `"state_setup"` (via Gusto's Onboarding Form)
-- `"add_bank_info"`
-- `"payroll_schedule"`
-
-After these steps are completed you can [Get all company forms](https://docs.gusto.com/docs/api/b3A6MjU1NDc5Njg-get-all-company-forms). In the API response you'll receive:
-
-- **uuid** (string) - The UUID of the form
-- **name** (string) - The type identifier of the form
-- **title** (string) - The title of the form
-- **description** (string) - The description of the form
-- **requires_signing** (boolean) - A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
-
-After identifying which forms require signing, you can take leverage `uuid` of the form and make a subsequent request to [Sign a company form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzE-sign-a-company-form). This request should include:
-
-- **signature_text** (string) - The name of the Company Signatory
-- **agree** (boolean) - whether you agree to sign electronically
-- **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
-
-
 ### Completing Onboarding and Company Approval
 
 You can check the company’s onboarding status by pinging our [Get the company’s onboarding status](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTQ-get-the-company-s-onboarding-status) endpoint. The data returned in this endpoint helps inform the required onboarding steps and respective completion status.
