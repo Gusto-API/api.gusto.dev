@@ -3713,13 +3713,13 @@ paths:
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
         description: Company ID or UUID
       - schema:
           type: string
-        name: payroll_id
+        name: payroll_id_or_uuid
         in: path
         required: true
         description: Payroll ID or UUID
