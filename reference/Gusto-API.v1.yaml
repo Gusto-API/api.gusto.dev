@@ -831,14 +831,14 @@ paths:
                   business_name: Johnson-Johnson Contractors
                   start_date: '2020-04-01'
         description: Create an individual or business contractor.
-  '/v1/companies/{company_id}/contractor_payments':
+  '/v1/companies/{company_id_or_uuid}/contractor_payments':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     get:
       summary: Get contractor payments for a company
       tags:
@@ -919,14 +919,14 @@ paths:
           in: query
           name: reimbursement
           description: Reimbursed wages for the contractor .
-  '/v1/companies/{company_id}/contractor_payments/{contractor_payment_id_or_uuid}':
+  '/v1/companies/{company_id_or_uuid}/contractor_payments/{contractor_payment_id_or_uuid}':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
       - schema:
           type: string
         name: contractor_payment_id_or_uuid
@@ -1122,14 +1122,14 @@ paths:
                   payment_unit: Year
                   flsa_status: Exempt
                   effective_date: '2020-03-15'
-  '/v1/employees/{employee_id}/garnishments':
+  '/v1/employees/{employee_id_or_uuid}/garnishments':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The ID of the employee to which the garnishment belongs
+        description: The ID or UUID of the employee to which the garnishment belongs
     get:
       summary: Get garnishments for an employee
       tags:
@@ -1222,14 +1222,14 @@ paths:
                   court_ordered: true
                   recurring: true
                   deduct_as_percentage: false
-  '/v1/garnishments/{garnishment_id}':
+  '/v1/garnishments/{garnishment_id_or_uuid}':
     parameters:
       - schema:
           type: string
-        name: garnishment_id
+        name: garnishment_id_or_uuid
         in: path
         required: true
-        description: The ID of the garnishment
+        description: The ID or UUID of the garnishment
     get:
       summary: Get a garnishment
       tags:
@@ -1370,14 +1370,14 @@ paths:
                 value:
                   effective_date: '2020-06-30'
                   run_termination_payroll: true
-  '/v1/companies/{company_id}/time_off_requests':
+  '/v1/companies/{company_id_or_uuid}/time_off_requests':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     get:
       summary: Get time off requests for a company
       tags:
@@ -1464,14 +1464,14 @@ paths:
                                 active: true
       operationId: get-v1-me
       description: Returns information pertaining to the user associated with the provided access token.
-  '/v1/employees/{employee_id}/federal_taxes':
+  '/v1/employees/{employee_uuid}/federal_taxes':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_uuid
         in: path
         required: true
-        description: The ID of the employee
+        description: The UUID of the employee
     get:
       summary: Get an employee's federal taxes
       tags:
@@ -1534,14 +1534,14 @@ paths:
                   other_income: '0.0'
                   deductions: '0.0'
                   w4_data_type: rev_2020_w4
-  '/v1/employees/{employee_id}/home_address':
+  '/v1/employees/{employee_id_or_uuid}/home_address':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The ID of the employee
+        description: The ID or UUID of the employee
     get:
       summary: Get an employee's home address
       tags:
@@ -1598,14 +1598,14 @@ paths:
                   city: San Francisco
                   state: CA
                   zip: '94107'
-  '/v1/companies/{company_id}/pay_schedules':
+  '/v1/companies/{company_id_or_uuid}/pay_schedules':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     get:
       summary: Get the pay schedules for a company
       parameters:
@@ -1964,14 +1964,14 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Supported-Benefit-Object'
-  '/v1/companies/{company_id}/company_benefits':
+  '/v1/companies/{company_id_or_uuid}/company_benefits':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     get:
       summary: Get benefits for a company
       tags:
@@ -2141,14 +2141,14 @@ paths:
               Example:
                 value:
                   name: Gym Membership Stipend
-  '/v1/companies/{company_id}/earning_types/{earning_type_uuid}':
+  '/v1/companies/{company_id_or_uuid}/earning_types/{earning_type_uuid}':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
       - schema:
           type: string
         name: earning_type_uuid
@@ -2192,14 +2192,14 @@ paths:
         Deactivate an earning type.
 
         `scope: payrolls.write`
-  '/v1/employees/{employee_id}/employee_benefits':
+  '/v1/employees/{employee_id_or_uuid}/employee_benefits':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The ID of the employee
+        description: The ID or UUID of the employee
     get:
       summary: Get an employee's benefits
       tags:
@@ -2354,14 +2354,14 @@ paths:
                     type: amount
                     value: '100.00'
         description: ''
-  '/v1/employees/{employee_id}/ytd_benefit_amounts_from_different_company':
+  '/v1/employees/{employee_id_or_uuid}/ytd_benefit_amounts_from_different_company':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The ID of the employee
+        description: The ID or UUID of the employee
     post:
       summary: Year-to-date Benefit Amounts from Different Company
       tags:
@@ -3304,14 +3304,14 @@ paths:
                         phone: '2345678901'
         description: ''
       security: []
-  '/v1/employees/{employee_id}/custom_fields':
+  '/v1/employees/{employee_id_or_uuid}/custom_fields':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
-        description: The ID of the employee
+        description: The ID or UUID of the employee
     get:
       summary: Get an employee's custom fields
       tags:
@@ -3364,14 +3364,14 @@ paths:
         Returns a list of the employee's custom fields.
 
         `scope: employees.read`
-  '/v1/companies/{company_id}/custom_fields':
+  '/v1/companies/{company_id_or_uuid}/custom_fields':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
     get:
       summary: Get the custom fields of a company
       description: |-
@@ -3418,20 +3418,20 @@ paths:
                           - apple
                           - banana
                           - orange
-  '/v1/companies/{company_id}/time_off_requests/{time_off_request_id}':
+  '/v1/companies/{company_id_or_uuid}/time_off_requests/{time_off_request_id}':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or ID of the company
       - schema:
           type: string
         name: time_off_request_id
         in: path
         required: true
-        description: The ID of the time off request
+        description: The ID or UUID of the time off request
     get:
       summary: Get a specific time off request
       tags:
@@ -3536,14 +3536,14 @@ paths:
         Returns all job applicants for a company.
 
         `scope: job_applicants.read`
-  '/v1/companies/{company_id}/job_applicants/{job_applicant_uuid}':
+  '/v1/companies/{company_id_or_uuid}/job_applicants/{job_applicant_uuid}':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: The ID of the company
+        description: The ID or UUID of the company
       - schema:
           type: string
         name: job_applicant_uuid
@@ -3644,11 +3644,11 @@ paths:
         `scope: job_applicants.write`
       tags:
         - Job Applicants (Beta)
-  '/v1/companies/{company_id}/payrolls/{payroll_id}/calculate':
+  '/v1/companies/{company_id_or_uuid}/payrolls/{payroll_id_or_uuid}/calculate':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
       - schema:
@@ -3677,20 +3677,20 @@ paths:
         { "errors": { "missing_requirements": ["needs_onboarding", "invalid_signatory"] } }
         ```
       parameters: []
-  '/v1/companies/{company_id}/payrolls/{payroll_id}/submit':
+  '/v1/companies/{company_id_or_uuid}/payrolls/{payroll_id_or_uuid}/submit':
     parameters:
       - schema:
           type: string
-        name: company_id
+        name: company_id_or_uuid
         in: path
         required: true
-        description: Company ID
+        description: Company ID or UUID
       - schema:
           type: string
-        name: payroll_id
+        name: payroll_id_or_uuid
         in: path
         required: true
-        description: Payroll ID
+        description: Payroll ID or UUID
     put:
       summary: Submit Payroll (Beta)
       tags:
@@ -3709,20 +3709,20 @@ paths:
         ```
         { "errors": { "missing_requirements": ["needs_onboarding", "invalid_signatory"] } }
         ```
-  '/v1/companies/{company_id}/payrolls/{payroll_id}/cancel':
+  '/v1/companies/{company_id_or_uuid}/payrolls/{payroll_id_or_uuid}/cancel':
     parameters:
       - schema:
           type: string
         name: company_id
         in: path
         required: true
-        description: Company ID
+        description: Company ID or UUID
       - schema:
           type: string
         name: payroll_id
         in: path
         required: true
-        description: Payroll ID
+        description: Payroll ID or UUID
     put:
       summary: Cancel a Payroll (Beta)
       tags:
@@ -3929,11 +3929,11 @@ paths:
         Updates attributes relevant for a company's federal taxes. This information is required is to onboard a company for use with Gusto Embedded Payroll.
       tags:
         - Federal Tax Details (Beta)
-  '/v1/employees/{employee_id}/bank_accounts':
+  '/v1/employees/{employee_id_or_uuid}/bank_accounts':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
     get:
@@ -3998,16 +3998,16 @@ paths:
                   account_type: Checking
       tags:
         - Employee Bank Accounts (Beta)
-  '/v1/employees/{employee_id}/bank_accounts/{bank_account_id}':
+  '/v1/employees/{employee_id_or_uuid}/bank_accounts/{bank_account_uuid}':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
       - schema:
           type: string
-        name: bank_account_id
+        name: bank_account_uuid
         in: path
         required: true
     delete:
@@ -4022,11 +4022,11 @@ paths:
         Deletes an employee bank account. To update an employee's bank account details, delete the bank account first and create a new one.
       tags:
         - Employee Bank Accounts (Beta)
-  '/v1/employees/{employee_id}/payment_method':
+  '/v1/employees/{employee_id_or_uuid}/payment_method':
     parameters:
       - schema:
           type: string
-        name: employee_id
+        name: employee_id_or_uuid
         in: path
         required: true
     get:
@@ -4140,7 +4140,7 @@ paths:
           type: string
         name: company_uuid
         in: path
-        description: The ID or UUID of the company
+        description: The UUID of the company
         required: true
     post:
       summary: Create a signatory
