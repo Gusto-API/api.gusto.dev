@@ -304,6 +304,8 @@ You can check the company’s onboarding status by pinging our [Get the company�
 **After all the steps are completed, onboarding needs to be finalized. This can be done using the Onboarding Form or via API call to [Finish company onboarding](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTU-finish-company-onboarding).** This will trigger the company's review by Gusto’s internal approval process. The majority of companies will be approved within minutes, however this process can sometimes take 1-2 business days, so it is recommended to start company onboarding accordingly to ensure employees are paid on time. **A company must be approved before it can process payroll.** You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
 
 
+**Note**: When building in Gusto's demo environment, companies must be manually approved by Gusto's Developer Relations team.
+
 ### Video Tutorial
 
 See the APIs and Onboarding Form in action via this [Loom tutorial](https://www.loom.com/share/85a3dfb5d1f64e1389a56cbb0ef4d37b).
