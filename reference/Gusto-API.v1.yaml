@@ -3653,7 +3653,7 @@ paths:
         required: true
       - schema:
           type: string
-        name: payroll_id
+        name: payroll_id_or_uuid
         in: path
         required: true
     put:
