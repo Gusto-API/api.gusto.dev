@@ -7,7 +7,7 @@ This guide covers the steps to fully onboard a company for [Gusto Embedded Payro
 
 To onboard a company for payroll, key inputs include company details (e.g. legal name, EIN), location(s), bank accounts, and other information. To onboard an employee, key inputs include employee details (e.g. name, addresses), pay rates (salaried or hourly), tax withholding, and so on. In practice, company, compensations, addresses, and tax/withholding information are relatively static.
 
-Although APIs exist for the majority of Company and Employee Onboarding steps, **the Employee and Company state tax setup steps do not exist as public APIs at this time and must be completed using Gusto’s co-branded Onboarding Form**. Ultimately, our goal is to eventually support all company and employee onboarding steps using APIs so partners have the option to use APIs and/or our pre-built flows to fully onboard a company and its employees.
+Although APIs exist for the majority of Company and Employee Onboarding steps, **the Employee and Company state tax setup steps do not exist as public APIs at this time and must be completed using Gusto’s co-branded [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form)**. Ultimately, our goal is to eventually support all company and employee onboarding steps using APIs so partners have the option to use APIs and/or our pre-built flows to fully onboard a company and its employees.
 
 *This guide will be updated on a recurring basis as we release more API functionality.*
 
@@ -45,6 +45,7 @@ Using the `company_uuid` from the response of the [partner_managed_companies](ht
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location)
 
 Gusto requires the company’s mailing and filing address and all addresses where the company has employees physically working in the United States. This includes remote employees and employees who work from home. (A company location must be created before a `job` for an employee can be created since `location_id` is a required field to create a `job`.) You can specify if the address you are creating is the `mailing_address` or `filing_address` in your request ie. `“mailing_address”: “true”`
+
 
 [Update Federal Tax Details
 ](https://docs.gusto.com/docs/api/b3A6MTU3ODY5MjY-update-federal-tax-details)
@@ -117,12 +118,14 @@ The bearer token should be specified via the Authorization HTTP header for these
 
 After creating the company via `partner_managed_companies` you can pass any employee information that you already collect using our API. If you do not already collect this information, you can build a UI in your application so the user can enter this information to pass along to Gusto. This information will pre-populate fields in Gusto's co-branded Onboarding Form so the payroll administrator will not need to provide this information twice. **Employee state tax setup does not exist as a public API at this time and must be completed using Gusto’s co-branded Onboarding Form.** 
 
+
 Using the `company_uuid` from the response of the `partner_managed_companies` endpoint, you can make the following API calls to create and update employee information:
 
 [Create an employee
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTQ-create-an-employee)
 
 You can use this endpoint to create an employee record in Gusto using basic employee information you already collect. This includes `first_name`, `middle_initial`, `last_name`, `date_of_birth`, `email` and `ssn`. **After the employee is created, subsequent calls can be made to update additional information** like their `home_address`, `employee_bank_account`, `employee_payment_method`, `jobs`, and `compensations`.
+
 
 [Update an employee’s home address
 ](https://docs.gusto.com/docs/api/b3A6MTE3OTYxOTM-update-an-employee-s-home-address)
@@ -176,6 +179,7 @@ When updating a compensation, the following information is needed:
 
 After creating an employee and their job(s) you should reconcile their `employee_id` and `job_ids` (and their respective compensations) and persist these in your database. This information is necessary to update payroll on an ongoing basis and will ensure the intended employee is being paid the correct wage.
 
+
 ### Deleting an Employee
 
 If at any point you need to delete an employee who is in the middle of onboarding you can call the [Delete an onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDQ-delete-an-onboarding-employee) endpoint. This is only intended to delete an employee that has not been fully onboarded, as deleting an onboarded employee `“onboarded”: “true”` is not permitted.
@@ -197,7 +201,30 @@ After you’ve passed all of the company and employee information you collect us
 
 Employee state tax details and Company state tax details, do not exist as public APIs and therefore must be completed using Gusto’s Onboarding Form. State tax information will be needed for every state that an employee is physically working from. Each state has its own requirements when it comes to IDs and tax rates. You can reference our [state tax table](https://support.gusto.com/hub/Employers-and-admins/Taxes-forms-and-compliance) to determine what information is needed for each state.
 
-The onboarding link will expire 2 weeks after the request is made, however the endpoint can be called again to generate a new link if onboarding has not been completed by the user. Any information that was saved previously will persist, so the user will only need to complete any remaining steps.
+### Company Forms
+
+We require the Company Signatory to sign forms that authorize Gusto to file forms and make payroll tax deposits on the company's behalf. **Forms can be signed through Gusto's [Onboarding Form](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding#generate-a-link-to-access-gustos-onboarding-form) or via API calls.**
+
+These are the prerequisites in order to `GET` and sign Company Forms:
+- `"add_employees"`
+- `"federal_tax_setup"`
+- `"state_setup"` (via Gusto's Onboarding Form)
+- `"add_bank_info"`
+- `"payroll_schedule"`
+
+After these steps are completed you can [Get all company forms](https://docs.gusto.com/docs/api/b3A6MjU1NDc5Njg-get-all-company-forms). In the API response you'll receive:
+
+- **uuid** (string) - The UUID of the form
+- **name** (string) - The type identifier of the form
+- **title** (string) - The title of the form
+- **description** (string) - The description of the form
+- **requires_signing** (boolean) - A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
+
+After identifying which forms require signing, you can take leverage `uuid` of the form and make a subsequent request to [Sign a company form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzE-sign-a-company-form). This request should include:
+
+- **signature_text** (string) - The name of the Company Signatory
+- **agree** (boolean) - whether you agree to sign electronically
+- **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
 
 ### Company Forms
 
@@ -301,6 +328,7 @@ You can check the company’s onboarding status by pinging our [Get the company�
 ````
 
 **After all the steps are completed, onboarding needs to be finalized. This can be done using the Onboarding Form or via API call to [Finish company onboarding](https://docs.gusto.com/docs/api/b3A6MjU3Mjg5NTU-finish-company-onboarding).** This will trigger the company's review by Gusto’s internal approval process. The majority of companies will be approved within minutes, however this process can sometimes take 1-2 business days, so it is recommended to start company onboarding accordingly to ensure employees are paid on time. **A company must be approved before it can process payroll.** You can check the company’s approval status using our [Get a company endpoint](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTI-get-a-company) where `"company_status": "Approved"`.
+
 
 ### Video Tutorial
 
