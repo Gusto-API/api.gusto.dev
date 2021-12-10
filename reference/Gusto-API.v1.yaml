@@ -8807,52 +8807,6 @@ components:
                         - name: Social Security
                           employer: true
                           amount: '191.25'
-    Job-Applicant-Object:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Job-Applicant'
-          examples:
-            Example:
-              value:
-                uuid: 94535f4f-b784-46e0-82c4-962c72fe5c99
-                first_name: John
-                last_name: Smith
-                email: jsmith99@gmail.com
-                phone: '9606437980'
-                gusto_person_type: Employee
-                gusto_person_id: 7757869433913583
-                gusto_person_uuid: 1e58cce4-47ee-47aa-98e5-e0209c223456
-                company_uuid: 5c286695-783f-45a2-a9e2-3ca056ba7ae6
-                company_id: 7757616923766228
-                job_title: Software engineer
-                start_date: '2021-04-30'
-                date_of_birth: '1990-01-01'
-    Job-Applicant-List:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Job-Applicant'
-          examples:
-            Example:
-              value:
-                - uuid: 94535f4f-b784-46e0-82c4-962c72fe5c99
-                  first_name: John
-                  last_name: Smith
-                  email: jsmith99@gmail.com
-                  phone: '9606437980'
-                  gusto_person_type: Employee
-                  gusto_person_id: 7757869433913583
-                  gusto_person_uuid: 1e58cce4-47ee-47aa-98e5-e0209c223456
-                  company_uuid: 5c286695-783f-45a2-a9e2-3ca056ba7ae6
-                  company_id: 7757616923766228
-                  job_title: Software engineer
-                  start_date: '2021-04-30'
-                  date_of_birth: '1990-01-01'
     Company-Bank-Account-Object:
       description: Example response
       content:
