@@ -3452,90 +3452,6 @@ paths:
         in: path
         required: true
         description: The ID or UUID of the company
-    post:
-      summary: Create a job applicant
-      operationId: post-v1-companies-company_id-job_applicants
-      responses:
-        '201':
-          $ref: '#/components/responses/Job-Applicant-Object'
-      tags:
-        - Job Applicants (Beta)
-      description: |-
-        *This endpoint is in beta - we will be making breaking changes based on developer feedback.
-
-        Create a job applicant.
-
-        `scope: job_applicants.write`
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                email:
-                  type: string
-                phone:
-                  type: string
-                  nullable: true
-                onboarding_person_type:
-                  type: string
-                  description: Must be "Employee" if send_offer is set to true.
-                  enum:
-                    - Employee
-                    - Contractor
-                  nullable: true
-                send_offer:
-                  type: boolean
-                  description: Required if onboarding_person_type is set to "Employee".
-                  nullable: true
-                job_title:
-                  type: string
-                  nullable: true
-                date_of_birth:
-                  type: string
-                  nullable: true
-                start_date:
-                  type: string
-                  nullable: true
-              required:
-                - first_name
-                - last_name
-                - email
-            examples:
-              Example:
-                value:
-                  first_name: John
-                  last_name: Smith
-                  email: jsmith99@gmail.com
-                  phone: '9606437980'
-                  onboarding_person_type: Employee
-                  send_offer: true
-                  job_title: Software engineer
-                  date_of_birth: '1990-01-01'
-                  start_date: '2021-05-01'
-        description: 'If you want to add the job applicant as an employee or contractor, include the onboarding_person_type field. You can then find them in the hiring center in Gusto. Otherwise, you can manually import them through the import applicant flow.'
-    get:
-      summary: Get all job applicants for a company
-      tags:
-        - Job Applicants (Beta)
-      parameters:
-        - $ref: '#/components/parameters/pageParam'
-        - $ref: '#/components/parameters/perParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/Job-Applicant-List'
-      operationId: get-v1-companies-company_id-job_applicants
-      description: |-
-        *This endpoint is in beta - we will be making breaking changes based on developer feedback.
-
-        Returns all job applicants for a company.
-
-        `scope: job_applicants.read`
   '/v1/companies/{company_id_or_uuid}/job_applicants/{job_applicant_uuid}':
     parameters:
       - schema:
@@ -3550,100 +3466,6 @@ paths:
         in: path
         required: true
         description: The UUID of the job applicant
-    get:
-      summary: Get a job applicant
-      tags:
-        - Job Applicants (Beta)
-      responses:
-        '200':
-          $ref: '#/components/responses/Job-Applicant-Object'
-      operationId: get-v1-companies-company_id-job_applicants-job_applicant_uuid
-      description: |-
-        *This endpoint is in beta - we will be making breaking changes based on developer feedback.
-
-        Returns a single job applicant.
-
-        `scope: job_applicants.read`
-    put:
-      summary: Update a job applicant
-      operationId: put-v1-companies-company_id-job_applicants-job_applicant_uuid
-      responses:
-        '200':
-          $ref: '#/components/responses/Job-Applicant-Object'
-      description: |-
-        *This endpoint is in beta - we will be making breaking changes based on developer feedback.
-
-        Update an existing job applicant (only allowed when the job applicant has not been imported).
-
-        `scope: job_applicants.write`
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                first_name:
-                  type: string
-                  nullable: true
-                last_name:
-                  type: string
-                  nullable: true
-                email:
-                  type: string
-                  nullable: true
-                phone:
-                  type: string
-                  nullable: true
-                onboarding_person_type:
-                  type: string
-                  description: Must be "Employee" if send_offer is set to true.
-                  enum:
-                    - Employee
-                    - Contractor
-                  nullable: true
-                send_offer:
-                  type: boolean
-                  description: Required if onboarding_person_type is set to "Employee".
-                  nullable: true
-                job_title:
-                  type: string
-                  nullable: true
-                date_of_birth:
-                  type: string
-                  nullable: true
-                start_date:
-                  type: string
-                  nullable: true
-            examples:
-              Example:
-                value:
-                  first_name: John
-                  last_name: Smith
-                  email: jsmith99@gmail.com
-                  phone: '9606437980'
-                  onboarding_person_type: Employee
-                  send_offer: true
-                  job_title: Software engineer
-                  date_of_birth: '1990-01-01'
-                  start_date: '2021-05-01'
-        description: At least one param is required.
-      tags:
-        - Job Applicants (Beta)
-    delete:
-      summary: Delete a job applicant
-      operationId: delete-v1-companies-company_id-job_applicants-job_applicant_uuid
-      responses:
-        '204':
-          description: No Content
-      description: |-
-        *This endpoint is in beta - we will be making breaking changes based on developer feedback.
-
-        Permanently remove a job applicant by uuid (only allowed when the job applicant has not been imported).
-
-        `scope: job_applicants.write`
-      tags:
-        - Job Applicants (Beta)
   '/v1/companies/{company_id_or_uuid}/payrolls/{payroll_id_or_uuid}/calculate':
     parameters:
       - schema:
@@ -4892,9 +4714,9 @@ components:
       x-examples:
         example-1:
           id: 891238902131212
-          uuid: 'da441196-43a9-4d23-ad5d-f37ce6bb99c0'
+          uuid: da441196-43a9-4d23-ad5d-f37ce6bb99c0
           employee_id: 891238902131212
-          employee_uuid: 'da441196-43a9-4d23-ad5d-f37ce6bb99c0'
+          employee_uuid: da441196-43a9-4d23-ad5d-f37ce6bb99c0
           version: d487dd0b55dfcacdd920ccbdaeafa351
           active: true
           effective_date: '2020-03-10'
@@ -5113,23 +4935,23 @@ components:
       x-examples:
         Example:
           id: 7757869441038000
-          uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
+          uuid: d6d1035e-8a21-4e1d-89d5-fa894f9aff97
           version: d0e719137f89ca3dd334dd4cc248ffbb
           employee_id: 7757869432666661
-          employee_uuid: '948daac8-4355-4ece-9e2a-229898accb22'
+          employee_uuid: 948daac8-4355-4ece-9e2a-229898accb22
           current_compensation_id: 7757869444844981
-          current_compensation_uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
+          current_compensation_uuid: ea8b0b90-1112-4f9d-bb93-bf029bc8537a
           payment_unit: Year
           primary: true
           title: Account Director
           compensations:
             - id: 7757869444844981
-              uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
+              uuid: ea8b0b90-1112-4f9d-bb93-bf029bc8537a
               version: 994b75511d1debac5d7e2ddeae13679f
               payment_unit: Year
               flsa_status: Exempt
               job_id: 7757869441038000
-              job_uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
+              job_uuid: d6d1035e-8a21-4e1d-89d5-fa894f9aff97
               effective_date: '2021-01-20'
               rate: '78000.00'
           rate: '78000.00'
@@ -6952,65 +6774,6 @@ components:
           type: string
         expires_at:
           type: string
-    Job-Applicant:
-      description: The representation of a job applicant in Gusto.
-      type: object
-      x-examples:
-        Example:
-          uuid: 94535f4f-b784-46e0-82c4-962c72fe5c99
-          first_name: John
-          last_name: Smith
-          email: jsmith99@gmail.com
-          phone: '9606437980'
-          gusto_person_type: Employee
-          gusto_person_id: 7757869433913583
-          gusto_person_uuid: 1e58cce4-47ee-47aa-98e5-e0209c223456
-          company_uuid: 5c286695-783f-45a2-a9e2-3ca056ba7ae6
-          company_id: 7757616923766228
-          job_title: Software engineer
-          start_date: '2021-04-30'
-          date_of_birth: '1990-01-01'
-      title: Job Applicant
-      x-tags:
-        - Job Applicants (Beta)
-      properties:
-        uuid:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-          nullable: true
-        gusto_person_type:
-          type: string
-          enum:
-            - Employee
-            - Contractor
-            - Candidate
-          nullable: true
-        gusto_person_id:
-          type: number
-          nullable: true
-        gusto_person_uuid:
-          type: string
-          nullable: true
-        company_uuid:
-          type: string
-        company_id:
-          type: number
-        job_title:
-          type: string
-          nullable: true
-        start_date:
-          type: string
-          nullable: true
-        date_of_birth:
-          type: string
-          nullable: true
     Employee-Federal-Tax:
       title: Employee-Federal-Tax
       type: object
@@ -7760,23 +7523,23 @@ components:
             Example:
               value:
                 id: 7757869441038000
-                uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
+                uuid: d6d1035e-8a21-4e1d-89d5-fa894f9aff97
                 version: d0e719137f89ca3dd334dd4cc248ffbb
                 employee_id: 7757869432666661
-                employee_uuid: '948daac8-4355-4ece-9e2a-229898accb22'
+                employee_uuid: 948daac8-4355-4ece-9e2a-229898accb22
                 current_compensation_id: 7757869444844981
-                current_compensation_uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
+                current_compensation_uuid: ea8b0b90-1112-4f9d-bb93-bf029bc8537a
                 payment_unit: Year
                 primary: true
                 title: Account Director
                 compensations:
                   - id: 7757869444844981
-                    uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
+                    uuid: ea8b0b90-1112-4f9d-bb93-bf029bc8537a
                     version: 994b75511d1debac5d7e2ddeae13679f
                     payment_unit: Year
                     flsa_status: Exempt
                     job_id: 7757869441038000
-                    job_uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
+                    job_uuid: d6d1035e-8a21-4e1d-89d5-fa894f9aff97
                     effective_date: '2021-01-20'
                     rate: '78000.00'
                 rate: '78000.00'
@@ -7803,23 +7566,23 @@ components:
             Example:
               value:
                 - id: 7757869441038001
-                  uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
+                  uuid: d6d1035e-8a21-4e1d-89d5-fa894f9aff97
                   version: 6c0ed1521e8b86eb36bd4455a63a2dac
                   employee_id: 7757869432666662
-                  employee_uuid: '948daac8-4355-4ece-9e2a-229898accb22'
+                  employee_uuid: 948daac8-4355-4ece-9e2a-229898accb22
                   current_compensation_id: 7757869444844982
-                  current_compensation_uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
+                  current_compensation_uuid: ea8b0b90-1112-4f9d-bb93-bf029bc8537a
                   payment_unit: Year
                   primary: true
                   title: Client Support Director
                   compensations:
                     - id: 7757869444844982
-                      uuid: 'ea8b0b90-1112-4f9d-bb93-bf029bc8537a'
+                      uuid: ea8b0b90-1112-4f9d-bb93-bf029bc8537a
                       version: 2cd4b18662395eb53bcf80d5b5447f36
                       payment_unit: Year
                       flsa_status: Exempt
                       job_id: 7757869441038001
-                      job_uuid: 'd6d1035e-8a21-4e1d-89d5-fa894f9aff97'
+                      job_uuid: d6d1035e-8a21-4e1d-89d5-fa894f9aff97
                       effective_date: '2021-01-20'
                       rate: '70000.00'
                   rate: '70000.00'
@@ -8092,10 +7855,10 @@ components:
             Example:
               value:
                 id: 1363316536327004
-                uuid: 'db57832c-d8bc-43a7-ae99-0a04480ff037'
+                uuid: db57832c-d8bc-43a7-ae99-0a04480ff037
                 version: 98jr3289h3298hr9329gf9egskt3kagri32qqgiqe3872
                 job_id: 1123581321345589
-                job_uuid: 'd8f8fbe7-496d-4b69-86f0-1e2d1b73a086'
+                job_uuid: d8f8fbe7-496d-4b69-86f0-1e2d1b73a086
                 rate: '70.00'
                 payment_unit: Hour
                 flsa_status: Nonexempt
@@ -8116,10 +7879,10 @@ components:
             Example:
               value:
                 - id: 1363316536327004
-                  uuid: 'db57832c-d8bc-43a7-ae99-0a04480ff037'
+                  uuid: db57832c-d8bc-43a7-ae99-0a04480ff037
                   version: 98jr3289h3298hr9329gf9egskt3kagri32qqgiqe3872
                   job_id: 1123581321345589
-                  job_uuid: 'd8f8fbe7-496d-4b69-86f0-1e2d1b73a086'
+                  job_uuid: d8f8fbe7-496d-4b69-86f0-1e2d1b73a086
                   rate: '70.00'
                   payment_unit: Hour
                   flsa_status: Nonexempt
