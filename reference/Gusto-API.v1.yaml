@@ -6785,6 +6785,9 @@ components:
         w4_data_type:
           type: string
           description: The version of w4 form.
+          enum:
+            - pre_2020_w4
+            - rev_2020_w4
         federal_withholding_allowance:
           type: string
           description: |-
