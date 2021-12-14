@@ -31,7 +31,7 @@ Below is a list of new endpoints, enhancements and changes made to the Gusto API
 ### Employee Onboarding:
 - [Sept 2021] [create](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTI-create-an-employee-bank-account) / [get](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTE-get-all-employee-bank-accounts) / [delete](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTM-delete-an-employee-bank-account) employee bank accounts
 - [Sept 2021] [update](https://docs.gusto.com/docs/api/b3A6MTk0NjI2NTY-update-an-employee-s-payment-method) / [get](https://gusto.stoplight.io/docs/api/b3A6MTk0NjI2NTU-get-an-employee-s-payment-method) employee payment method
-- [Nov 2021] [update employee's federal taxes](https://docs.gusto.com/docs/api/b3A6MjYxODExMDU-update-an-employee-s-federal-taxes)
+- [Nov 2021] [update employee's federal taxes](https://docs.gusto.com/docs/api/b3A6MzEyOTc1OTQ-update-an-employee-s-federal-taxes)
 - [Nov 2021] [delete onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDQ-delete-an-onboarding-employee)
 - [Nov 2021] [finish onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDU-finish-onboarding-an-employee)
 
