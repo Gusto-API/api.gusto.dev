@@ -7003,7 +7003,7 @@ components:
       x-tags:
         - Employee Federal Tax (Beta)
     Employee-State-Tax:
-      description: ''
+      title: Employee-State-Tax
       type: object
       x-examples:
         example-1:
@@ -7050,6 +7050,8 @@ components:
                 - value: '0.0'
                   valid_from: '2010-01-01'
                   valid_up_to: null
+      x-tags:
+        - Employee State Tax (Beta)
       properties:
         employee_uuid:
           type: string
@@ -7059,7 +7061,6 @@ components:
           description: Two letter US state abbreviation
         questions:
           type: array
-          uniqueItems: true
           items:
             $ref: '#/components/schemas/Employee-State-Tax-Question'
       required:
@@ -7067,7 +7068,7 @@ components:
         - state
         - questions
     Employee-State-Tax-Question:
-      description: ''
+      title: Employee-State-Tax-Question
       type: object
       x-examples:
         example-1:
@@ -7092,6 +7093,8 @@ components:
             - value: S
               valid_from: '2010-01-01'
               valid_up_to: null
+      x-tags:
+        - Employee State Tax (Beta)
       properties:
         label:
           type: string
@@ -7106,7 +7109,6 @@ components:
           $ref: '#/components/schemas/Employee-State-Tax-Input-Question-Format'
         answers:
           type: array
-          uniqueItems: true
           items:
             $ref: '#/components/schemas/Employee-State-Tax-Answer'
       required:
@@ -7116,14 +7118,15 @@ components:
         - input_question_format
         - answers
     Employee-State-Tax-Answer:
-      description: ''
+      title: Employee-State-Tax-Answer
       type: object
       x-examples:
         example-1:
           value: '0.0'
           valid_from: '2010-01-01'
           valid_up_to: null
-      title: ''
+      x-tags:
+        - Employee State Tax (Beta)
       properties:
         value:
           type: string
@@ -7135,7 +7138,7 @@ components:
           description: The effective end date of the answer - currently always null.
           nullable: true
     Employee-State-Tax-Input-Question-Format:
-      description: ''
+      title: Employee-State-Tax-Input-Question-Format
       type: object
       x-examples:
         select-example:
@@ -7153,7 +7156,8 @@ components:
               label: Do Not Withhold
         number-example:
           type: Number
-      title: Employee-State-Tax-Input-Question-Format
+      x-tags:
+        - Employee State Tax (Beta)
       properties:
         type:
           type: string
@@ -7167,9 +7171,7 @@ components:
             properties:
               value:
                 description: An allowed value to answer the question
-                type:
-                  - string
-                  - boolean
+                type: string
               label:
                 type: string
                 description: A display label that corresponds to the answer value
