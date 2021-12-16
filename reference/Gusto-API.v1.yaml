@@ -12,6 +12,7 @@ tags:
   - name: Earning Type
   - name: Employee Bank Accounts (Beta)
   - name: Employee Federal Tax (Beta)
+  - name: Employee State Tax (Beta)
   - name: Employee Payment Method (Beta)
   - name: Employees
   - name: Federal Tax Details (Beta)
@@ -1534,6 +1535,197 @@ paths:
                   other_income: '0.0'
                   deductions: '0.0'
                   w4_data_type: rev_2020_w4
+  '/v1/employees/{employee_uuid}/state_taxes':
+    parameters:
+      - schema:
+          type: string
+        name: employee_uuid
+        in: path
+        required: true
+        description: The UUID of the employee
+    get:
+      summary: Get an employee's state taxes
+      tags:
+        - Employee State Tax (Beta)
+      operationId: get-v1-employees-employee_id-state_taxes
+      description: |
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get attributes relevant for an employee's state taxes.
+
+        The data required to correctly calculate an employee's state taxes varies by both home and work location. This API returns information about each question that must be answered grouped by state. Mostly commonly, an employee lives and works in the same state and will only have questions for a single state. The response contains metadata about each question, the type of answer expected, and the current answer stored in Gusto for that question.
+
+        Answers are represented by an array. Today, this array can only be empty or contain exactly one element, but is designed to allow for forward compatibility with effective-dated fields. Until effective dated answers are supported, the `valid_from` and `valid_up_to` must always be `"2010-01-01"` and `null` respectively.
+      responses:
+        '200':
+          $ref: '#/components/responses/Employee-State-Taxes-List'
+    put:
+      summary: Update an employee's state taxes
+      tags:
+        - Employee State Tax (Beta)
+      responses:
+        '200':
+          $ref: '#/components/responses/Employee-State-Taxes-List'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                uniqueItems: true
+                x-examples:
+                  example-1:
+                    - state: CA
+                      questions:
+                        - key: filing_status
+                          answers:
+                            - valid_from: '2010-01-01'
+                              valid_up_to: null
+                              errors:
+                                - string
+                items:
+                  type: object
+                  properties:
+                    state:
+                      type: string
+                    questions:
+                      type: array
+                      uniqueItems: true
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            type: string
+                          answers:
+                            type: array
+                            uniqueItems: true
+                            items:
+                              type: object
+                              properties:
+                                valid_from:
+                                  type: string
+                                valid_up_to:
+                                  nullable: true
+                                errors:
+                                  type: array
+                                  items:
+                                    type: string
+                              required:
+                                - valid_from
+                        required:
+                          - key
+                  required:
+                    - state
+                    - questions
+              examples:
+                Employee-State-Taxes-Error-Response:
+                  value:
+                    - state: CA
+                      questions:
+                        - key: filing_status
+                          answers:
+                            - valid_from: '2010-01-01'
+                              valid_up_to: null
+                              errors:
+                                - string
+      operationId: put-v1-employees-employee_id-state_taxes
+      description: |
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Update attributes relevant for an employee's state taxes.
+
+        As described for the GET endpoint, the answers must be supplied in the effective-dated format, but currently only a single answer will be accepted - `valid_from` and `valid_up_to` must be `"2010-01-01"` and `null` respectively.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  employee_id: 87156178-62f8-46d4-a026-ed9de3e8f836
+                  states:
+                    - state: CA
+                      questions:
+                        - key: filing_status
+                          answers:
+                            - value: M
+                              valid_from: '2010-01-01'
+                              valid_up_to: null
+                        - key: withholding_allowance
+                          answers:
+                            - value: 2
+                              valid_from: '2010-01-01'
+                              valid_up_to: null
+                        - key: additional_withholding
+                          answers:
+                            - value: '25.0'
+                              valid_from: '2010-01-01'
+                              valid_up_to: null
+              properties:
+                employee_id:
+                  type: string
+                states:
+                  type: array
+                  uniqueItems: true
+                  items:
+                    type: object
+                    properties:
+                      state:
+                        type: string
+                      questions:
+                        type: array
+                        uniqueItems: true
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                            answers:
+                              type: array
+                              uniqueItems: true
+                              items:
+                                type: object
+                                properties:
+                                  value:
+                                    type: string
+                                  valid_from:
+                                    type: string
+                                  valid_up_to:
+                                    nullable: true
+                                required:
+                                  - value
+                                  - valid_from
+                          required:
+                            - key
+                    required:
+                      - state
+              required:
+                - employee_id
+                - states
+            examples:
+              Employee-State-Taxes-Update-Example:
+                value:
+                  employee_id: 87156178-62f8-46d4-a026-ed9de3e8f836
+                  states:
+                    - state: CA
+                      questions:
+                        - key: filing_status
+                          answers:
+                            - value: M
+                              valid_from: '2010-01-01'
+                              valid_up_to: null
+                        - key: withholding_allowance
+                          answers:
+                            - value: 2
+                              valid_from: '2010-01-01'
+                              valid_up_to: null
+                        - key: additional_withholding
+                          answers:
+                            - value: '25.0'
+                              valid_from: '2010-01-01'
+                              valid_up_to: null
   '/v1/employees/{employee_id_or_uuid}/home_address':
     parameters:
       - schema:
@@ -6810,6 +7002,183 @@ components:
             w4_data_type: rev_2020_w4
       x-tags:
         - Employee Federal Tax (Beta)
+    Employee-State-Tax:
+      title: Employee-State-Tax
+      type: object
+      x-examples:
+        example-1:
+          employee_uuid: '123'
+          state: CA
+          questions:
+            - label: Filing Status
+              description: |
+                The Head of Household status applies to unmarried individuals who have a relative living with them in their home. If unsure, read the <a target='_blank' data-bypass rel='noopener noreferrer' tabindex='99' href='https://www.ftb.ca.gov/file/personal/filing-status/index.html'>CA Filing Status explanation</a>.
+              key: filing_status
+              input_question_format:
+                type: Select
+                options:
+                  - value: S
+                    label: Single
+                  - value: M
+                    label: Married one income
+                  - value: MD
+                    label: Married dual income
+                  - value: H
+                    label: Head of household
+                  - value: E
+                    label: Do Not Withhold
+              answers:
+                - value: S
+                  valid_from: '2010-01-01'
+                  valid_up_to: null
+            - label: Withholding Allowance
+              description: |
+                This value is needed to calculate the employee's CA income tax withholding. If unsure, use the <a target='_blank' data-bypass rel='noopener noreferrer' tabindex='99' href='http://www.edd.ca.gov/pdf_pub_ctr/de4.pdf'>CA DE-4 form</a> to calculate the value manually.
+              key: withholding_allowance
+              input_question_format:
+                type: Number
+              answers:
+                - value: 1
+                  valid_from: '2010-01-01'
+                  valid_up_to: null
+            - label: Additional Withholding
+              description: You can withhold an additional amount of California income taxes here.
+              key: additional_withholding
+              input_question_format:
+                type: Currency
+              answers:
+                - value: '0.0'
+                  valid_from: '2010-01-01'
+                  valid_up_to: null
+      x-tags:
+        - Employee State Tax (Beta)
+      properties:
+        employee_uuid:
+          type: string
+          description: The employee's uuid
+        state:
+          type: string
+          description: Two letter US state abbreviation
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee-State-Tax-Question'
+      required:
+        - employee_uuid
+        - state
+        - questions
+    Employee-State-Tax-Question:
+      title: Employee-State-Tax-Question
+      type: object
+      x-examples:
+        example-1:
+          label: Filing Status
+          description: |
+            The Head of Household status applies to unmarried individuals who have a relative living with them in their home. If unsure, read the <a target='_blank' data-bypass rel='noopener noreferrer' tabindex='99' href='https://www.ftb.ca.gov/file/personal/filing-status/index.html'>CA Filing Status explanation</a>.
+          key: filing_status
+          input_question_format:
+            type: Select
+            options:
+              - value: S
+                label: Single
+              - value: M
+                label: Married one income
+              - value: MD
+                label: Married dual income
+              - value: H
+                label: Head of household
+              - value: E
+                label: Do Not Withhold
+          answers:
+            - value: S
+              valid_from: '2010-01-01'
+              valid_up_to: null
+      x-tags:
+        - Employee State Tax (Beta)
+      properties:
+        label:
+          type: string
+          description: A short title for the question
+        description:
+          type: string
+          description: An explaination of the question - this may contain inline html formatted links.
+        key:
+          type: string
+          description: A unique identifier of the question (for the given state) - used for updating the answer.
+        input_question_format:
+          $ref: '#/components/schemas/Employee-State-Tax-Input-Question-Format'
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee-State-Tax-Answer'
+      required:
+        - label
+        - description
+        - key
+        - input_question_format
+        - answers
+    Employee-State-Tax-Answer:
+      title: Employee-State-Tax-Answer
+      type: object
+      x-examples:
+        example-1:
+          value: '0.0'
+          valid_from: '2010-01-01'
+          valid_up_to: null
+      x-tags:
+        - Employee State Tax (Beta)
+      properties:
+        value:
+          type: string
+          description: 'The answer to the corresponding question - this may be a string, number, boolean, or null.'
+        valid_from:
+          type: string
+          description: The effective date of the answer - currently always “2010-01-01”.
+        valid_up_to:
+          description: The effective end date of the answer - currently always null.
+          nullable: true
+    Employee-State-Tax-Input-Question-Format:
+      title: Employee-State-Tax-Input-Question-Format
+      type: object
+      x-examples:
+        select-example:
+          type: Select
+          options:
+            - value: S
+              label: Single
+            - value: M
+              label: Married one income
+            - value: MD
+              label: Married dual income
+            - value: H
+              label: Head of household
+            - value: E
+              label: Do Not Withhold
+        number-example:
+          type: Number
+      x-tags:
+        - Employee State Tax (Beta)
+      properties:
+        type:
+          type: string
+          description: 'Describes the type of question - Text, Number, Select, Currency'
+        options:
+          type: array
+          uniqueItems: true
+          description: 'For "Select" type questions, the allowed values and display labels.'
+          items:
+            type: object
+            properties:
+              value:
+                description: An allowed value to answer the question
+                type: string
+              label:
+                type: string
+                description: A display label that corresponds to the answer value
+            required:
+              - label
+      required:
+        - type
     Federal-Tax-Details:
       title: Federal-Tax-Details
       type: object
@@ -8886,6 +9255,60 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Federal-Tax-Details'
+    Employee-State-Taxes-List:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Employee-State-Tax'
+          examples:
+            Employee-State-Taxes-List-Example:
+              value:
+                employee_uuid: 92fa4d30-e284-43d0-a26e-605619c04beb
+                state: CA
+                questions:
+                  - label: Filing Status
+                    description: |
+                      The Head of Household status applies to unmarried individuals who have a relative living with them in their home. If unsure, read the <a target='_blank' data-bypass rel='noopener noreferrer' tabindex='99' href='https://www.ftb.ca.gov/file/personal/filing-status/index.html'>CA Filing Status explanation</a>.
+                    key: filing_status
+                    input_question_format:
+                      type: Select
+                      options:
+                        - value: S
+                          label: Single
+                        - value: M
+                          label: Married one income
+                        - value: MD
+                          label: Married dual income
+                        - value: H
+                          label: Head of household
+                        - value: E
+                          label: Do Not Withhold
+                    answers:
+                      - value: S
+                        valid_from: '2010-01-01'
+                        valid_up_to: null
+                  - label: Withholding Allowance
+                    description: |
+                      This value is needed to calculate the employee's CA income tax withholding. If unsure, use the <a target='_blank' data-bypass rel='noopener noreferrer' tabindex='99' href='http://www.edd.ca.gov/pdf_pub_ctr/de4.pdf'>CA DE-4 form</a> to calculate the value manually.
+                    key: withholding_allowance
+                    input_question_format:
+                      type: Number
+                    answers:
+                      - value: 1
+                        valid_from: '2010-01-01'
+                        valid_up_to: null
+                  - label: Additional Withholding
+                    description: You can withhold an additional amount of California income taxes here.
+                    key: additional_withholding
+                    input_question_format:
+                      type: Currency
+                    answers:
+                      - value: '0.0'
+                        valid_from: '2010-01-01'
+                        valid_up_to: null
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
