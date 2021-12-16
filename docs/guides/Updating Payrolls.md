@@ -136,7 +136,11 @@ This company seems to be on a semi-monthly pay schedule, paying their employees 
 
 Looks like she is eligible for two types of fixed compensations, one type of hourly compensation, and no PTO.
 
-Hourly and salaried employees will be returned in the unprocessed payroll response. `hourly_compensations`, `paid_time_off`, and `fixed_compensations` can be updated for hourly employees. However Gusto will automatically calculate wages for salaried employees so there won’t be any `hourly_compensations` to update for salaried employees. You can still pass any applicable `paid_time_off` hours and `fixed_compensations` for salaried employees.
+Hourly and salaried employees will be returned in the unprocessed payroll response. `hourly_compensations`, `paid_time_off`, and `fixed_compensations` can be updated for hourly and salaried employees.
+
+Gusto will automatically calculate wages for salaried employees based on their compensation so the `hourly_compensations` array will not be present for salaried employees in the API response. However if you need to make adjustments to working hours for salaried employees, you can pass `hourly_compensations` for salaried employees and this will update their gross earnings after calculating/submitting the payroll.
+
+You can update `Regular Hours`, `Overtime`, and `Double overtime` for `Salaried Nonexempt` employees, but only `Regular Hours` can be updated for `Exempt` employees since they are not eligible for overtime.
 
 Use the `flsa_status` in [compensations](https://docs.gusto.com/docs/api/reference/Gusto-API.v1.yaml/paths/~1v1~1compensations~1%7Bcompensation_id%7D/get) to determine if an employee is eligible for overtime.
 
