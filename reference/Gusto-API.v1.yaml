@@ -3909,9 +3909,9 @@ paths:
                 value:
                   version: 6cb95e00540706ca48d4577b3c839fbe
                   tax_payer_type: LLP
-                  ein: '561354858'
                   taxable_as_scorp: false
                   filing_form: '944'
+                  has_ein: true
                   ein_verified: false
                   legal_name: Acme Corp.
         description: 'Attributes related to federal tax details that can be updated via this endpoint include:'
@@ -7202,9 +7202,6 @@ components:
             - General partnership
             - Joint venture
             - Non-Profit
-        ein:
-          type: string
-          description: The company's Employer Identification Number (EIN) registered with the IRS
         taxable_as_scorp:
           type: string
           description: |-
@@ -7218,6 +7215,9 @@ components:
             The form used by the company for federal tax filing. One of:
             - 941 (Quarterly federal tax return form)
             - 944 (Annual federal tax return form)
+        has_ein:
+          type: string
+          description: Whether company's Employer Identification Number (EIN) is present
         ein_verified:
           type: boolean
           description: 'Whether the EIN was able to be verified as a valid EIN with the IRS. '
@@ -7229,9 +7229,9 @@ components:
           value:
             version: string
             tax_payer_type: string
-            ein: string
             taxable_as_scorp: string
             filing_form: string
+            has_ein: true
             ein_verified: true
             legal_name: string
       x-tags:
