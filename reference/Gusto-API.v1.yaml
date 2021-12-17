@@ -7216,7 +7216,7 @@ components:
             - 941 (Quarterly federal tax return form)
             - 944 (Annual federal tax return form)
         has_ein:
-          type: string
+          type: boolean
           description: Whether company's Employer Identification Number (EIN) is present
         ein_verified:
           type: boolean
