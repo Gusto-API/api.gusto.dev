@@ -4254,7 +4254,7 @@ paths:
         description: The ID or UUID of the form
         required: true
     get:
-      summary: Get a form
+      summary: Get a company form
       tags:
         - Forms (Beta)
       operationId: get-v1-company-form
@@ -4319,6 +4319,153 @@ paths:
       tags:
         - Forms (Beta)
       operationId: put-v1-company-form-sign
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Sign a company form
+      responses:
+        '200':
+          $ref: '#/components/responses/Form-Object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                signature_text:
+                  type: string
+                  description: The signature
+                agree:
+                  type: boolean
+                  description: whether you agree to sign electronically
+                signed_by_ip_address:
+                  type: string
+                  description: The IP address of the signatory who signed the form.
+              required:
+                - signature_text
+                - agree
+                - signed_by_ip_address
+            examples:
+              Example:
+                value:
+                  signature_text: Jane Smith
+                  agree: true
+                  signed_by_ip_address: 192.168.0.1
+  '/v1/employees/{employee_id_or_uuid}/forms':
+    parameters:
+      - schema:
+          type: string
+        name: employee_id_or_uuid
+        in: path
+        description: The ID or UUID of the employee
+        required: true
+    get:
+      summary: Get all employee forms
+      tags:
+        - Forms (Beta)
+      operationId: get-v1-employee-forms
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get a list of all employee's forms
+      responses:
+        '200':
+          $ref: '#/components/responses/Form-List'
+  '/v1/employees/{employee_id_or_uuid}/forms/{id_or_uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: employee_id_or_uuid
+        in: path
+        description: The ID or UUID of the employee
+        required: true
+      - schema:
+          type: string
+        name: id_or_uuid
+        in: path
+        description: The ID or UUID of the form
+        required: true
+    get:
+      summary: Get an employee form
+      tags:
+        - Forms (Beta)
+      operationId: get-v1-employee-form
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get an employee form
+      responses:
+        '200':
+          $ref: '#/components/responses/Form-Object'
+  '/v1/employees/{employee_id_or_uuid}/forms/{id_or_uuid}/pdf':
+    parameters:
+      - schema:
+          type: string
+        name: employee_id_or_uuid
+        in: path
+        description: The ID or UUID of the employee
+        required: true
+      - schema:
+          type: string
+        name: id_or_uuid
+        in: path
+        description: The ID or UUID of the form
+        required: true
+    get:
+      summary: Get the PDF of an employee's form
+      tags:
+        - Forms (Beta)
+      operationId: get-v1-employee-form-pdf
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get the link to the form PDF
+      responses:
+        '200':
+          description: Example response
+          content:
+            application/json:
+              schema:
+                title: Form PDF
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    description: the UUID of the form
+                    readOnly: true
+                  document_url:
+                    type: string
+                    description: the URL of the form
+                    readOnly: true
+              examples:
+                Example:
+                  value:
+                    uuid: 48cdd5ec-a4dd-4840-a424-ad79f38d8408
+                    document_url: 'https://app.gusto-demo.com/assets/forms/7757842065202782/original/company_direct_deposit20211007-48226-gsqo8k.pdf?1633667020'
+  '/v1/employees/{employee_id_or_uuid}/forms/{id_or_uuid}/sign':
+    parameters:
+      - schema:
+          type: string
+        name: employee_id_or_uuid
+        in: path
+        description: The ID or UUID of the employee
+        required: true
+      - schema:
+          type: string
+        name: id_or_uuid
+        in: path
+        description: The ID or UUID of the form
+        required: true
+    put:
+      summary: Sign an employee form
+      tags:
+        - Forms (Beta)
+      operationId: put-v1-employee-form-sign
       parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
