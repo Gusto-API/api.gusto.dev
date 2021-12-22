@@ -27,6 +27,7 @@ tags:
   - name: Payrolls
   - name: Signatories (Beta)
   - name: Terminations
+  - name: Terms of Service (Beta)
   - name: Time Off Requests
 info:
   title: Gusto API
@@ -1465,6 +1466,57 @@ paths:
                                 active: true
       operationId: get-v1-me
       description: Returns information pertaining to the user associated with the provided access token.
+  /v1/terms_of_service:
+    get:
+      summary: Get the terms of service acceptance
+      tags:
+        - Terms of Service (Beta)
+      responses:
+        '200':
+          description: Example response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  latest_terms_accepted:
+                    type: boolean
+                    description: Whether the latest terms have been accepted by the user.
+              examples:
+                Example:
+                  value:
+                    latest_terms_accepted: true
+      operationId: get-v1-terms-of-service
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Returns whether the latest terms of service for Gusto Embedded Payroll has been accepted by the current user.
+    post:
+      summary: Accept the latest terms of service
+      tags:
+        - Terms of Service (Beta)
+      responses:
+        '200':
+          description: Example response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  latest_terms_accepted:
+                    type: boolean
+                    description: Whether the latest terms have been accepted by the user.
+              examples:
+                Example:
+                  value:
+                    latest_terms_accepted: true
+      operationId: post-v1-terms-of-service
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Accepts the latest terms of service for Gusto Embedded Payroll for the current user.
   '/v1/employees/{employee_uuid}/federal_taxes':
     parameters:
       - schema:
