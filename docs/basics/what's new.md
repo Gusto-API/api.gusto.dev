@@ -31,9 +31,11 @@ Below is a list of new endpoints, enhancements and changes made to the Gusto API
 ### Employee Onboarding:
 - [Sept 2021] [create](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTI-create-an-employee-bank-account) / [get](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTE-get-all-employee-bank-accounts) / [delete](https://gusto.stoplight.io/docs/api/b3A6MTg1NTAzOTM-delete-an-employee-bank-account) employee bank accounts
 - [Sept 2021] [update](https://docs.gusto.com/docs/api/b3A6MTk0NjI2NTY-update-an-employee-s-payment-method) / [get](https://gusto.stoplight.io/docs/api/b3A6MTk0NjI2NTU-get-an-employee-s-payment-method) employee payment method
-- [Nov 2021] [update employee's federal taxes](https://docs.gusto.com/docs/api/b3A6MzEyOTc1OTQ-update-an-employee-s-federal-taxes)
+- [Nov 2021] [get](https://docs.gusto.com/docs/api/b3A6MzEyOTc1OTM-get-an-employee-s-federal-taxes) / [update](https://docs.gusto.com/docs/api/b3A6MzEyOTc1OTQ-update-an-employee-s-federal-taxes) employee's federal taxes
 - [Nov 2021] [delete onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDQ-delete-an-onboarding-employee)
 - [Nov 2021] [finish onboarding employee](https://docs.gusto.com/docs/api/b3A6MjU3MTM4NDU-finish-onboarding-an-employee)
+- [Dec 2021] [get](https://docs.gusto.com/docs/api/b3A6MzIyNDQxMzE-get-an-employee-s-state-taxes) / [update](https://docs.gusto.com/docs/api/b3A6MzIyNDQxMzI-update-an-employee-s-state-taxes) employee's state taxes
+- [Dec 2021] [get](https://docs.gusto.com/docs/api/b3A6MzI4MDQ3OTc-get-all-employee-forms) / [get a pdf](https://docs.gusto.com/docs/api/b3A6MzI4MDQ3OTk-get-the-pdf-of-an-employee-s-form) / [sign](https://docs.gusto.com/docs/api/b3A6MzI4MDQ4MDA-sign-an-employee-form) employee form
 
 ### Employees
 - [Oct 2021] Added `current_employment_status` to [employee object](https://docs.gusto.com/docs/api/c2NoOjUyMTU4NTA-employee)
