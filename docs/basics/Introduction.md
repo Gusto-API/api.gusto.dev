@@ -14,7 +14,7 @@ We currently do not support API access for Gusto customers looking to connect th
 
 #### Onboard
 
-To get started, sign up for an account on our [**Developer Portal**](https://dev.gusto.com) and onboard to our sandbox environment.
+To get started, fill out a [Production Pre-Approval form](https://gusto.az1.qualtrics.com/jfe/form/SV_1Oob0rNZpUwhSoS), sign up for a[ Developer Portal account](https://dev.gusto.com/dashboard) and onboard to our sandbox environment.
 
 Once you’ve created an account and completed your Organization setup, you will have access to your unique API token from the Organizations tab. This is used for provisioning new Gusto accounts.
 
