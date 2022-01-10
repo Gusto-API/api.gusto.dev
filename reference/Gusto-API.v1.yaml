@@ -4195,7 +4195,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Create a company signatory who can legally sign forms. Please note that there can only be a single primary signatory in a company. You can retrieve the current primary signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property
+        Create a company signatory who can legally sign forms. Please note that there can only be a single primary signatory in a company.
       responses:
         '201':
           $ref: '#/components/responses/Signatory-Object'
@@ -4249,6 +4249,16 @@ paths:
                 - title
                 - birthday
                 - home_address
+    get:
+      summary: Get a signatory
+      operationId: get-v1-companies-company_uuid-signatories
+      responses:
+        '201':
+          $ref: '#/components/responses/Signatory-List'
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get a company signatory. Please note that there can only be a single primary signatory in a company.
   '/v1/companies/{company_uuid}/signatories/{uuid}':
     parameters:
       - schema:
@@ -7128,6 +7138,9 @@ components:
           type: string
         title:
           type: string
+        is_admin:
+          type: boolean
+          description: Whether the signatory is the payroll admin or not
     Flow:
       description: The representation of a flow in Gusto whitelabel UI.
       type: object
@@ -9508,6 +9521,14 @@ components:
                       - value: '0.0'
                         valid_from: '2010-01-01'
                         valid_up_to: null
+    Signatory-List:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Signatory'
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
