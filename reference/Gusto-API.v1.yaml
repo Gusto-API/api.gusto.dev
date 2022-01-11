@@ -25,6 +25,7 @@ tags:
   - name: Locations
   - name: Pay Schedules
   - name: Payrolls
+  - name: Payment Configs (Beta)
   - name: Signatories (Beta)
   - name: Terminations
   - name: Terms of Service (Beta)
@@ -1842,6 +1843,64 @@ paths:
                   city: San Francisco
                   state: CA
                   zip: '94107'
+  '/v1/companies/{company_uuid}/payment_configs':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        description: The UUID of the company
+        required: true
+    get:
+      summary: Get a company's payment configs
+      tags:
+        - Payment Configs (Beta)
+      operationId: get-v1-company-payment-configs
+      parameters: [ ]
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get fast payment limit (only applicable for 2-day payroll) and payment speed for the company.
+      responses:
+        '200':
+          $ref: '#/components/responses/Payment-Configs-Object'
+    put:
+      summary: Update a company's payment configs
+      tags:
+        - Payment Configs (Beta)
+      operationId: put-v1-company-payment-configs
+      parameters: [ ]
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Update fast payment limit (only applicable for 2-day payroll) and payment speed for the company.
+      responses:
+        '200':
+          $ref: '#/components/responses/Payment-Configs-Object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                fast_payment_limit:
+                  type: integer
+                  description: Fast payment limit (only applicable to 2-day payroll)
+                payment_speed:
+                  type: string
+                  description: The payment speed
+                  enum:
+                    - 2-day
+                    - 4-day
+              required:
+                - fast_payment_limit
+                - payment_speed
+            examples:
+              Example:
+                value:
+                  fast_payment_limit: 5000
+                  payment_speed: '2-day'
   '/v1/companies/{company_id_or_uuid}/pay_schedules':
     parameters:
       - schema:
@@ -5709,6 +5768,34 @@ components:
                 - add_bank_info
       x-tags:
         - Companies
+    Payment-Configs:
+      title: Payment-Configs
+      type: object
+      properties:
+        company_uuid:
+          type: string
+          description: Company uuid
+          readOnly: true
+        partner_uuid:
+          type: string
+          description: Partner uuid
+          readOnly: true
+        fast_payment_limit:
+          type: number
+          description: Payment limit only applicable for 2-day payroll
+          readOnly: true
+        payment_speed:
+          type: string
+          description: Payment speed for 2-day / 4-day
+          readOnly: true
+      x-examples:
+        Example:
+          company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
+          partner_uuid: 556f05d0-48e0-4c47-bce5-db9aea923043
+          fast_payment_limit: 5000.0
+          payment_speed: 'two_day_ach'
+      x-tags:
+        - Payment Configs (Beta)
     Contractor:
       description: The representation of a contractor (individual or business) in Gusto.
       type: object
@@ -9378,6 +9465,19 @@ components:
                         - name: Social Security
                           employer: true
                           amount: '191.25'
+    Payment-Configs-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Payment-Configs'
+          examples:
+            Example:
+              value:
+                company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
+                partner_uuid: 556f05d0-48e0-4c47-bce5-db9aea923043
+                fast_payment_limit: 5000.0
+                payment_speed: 'two_day_ach'
     Company-Bank-Account-Object:
       description: Example response
       content:
