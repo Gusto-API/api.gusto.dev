@@ -4,7 +4,7 @@
 
 Employees can be paid in a multitude of ways. Some employees are paid on an hourly basis, some are salaried, and some are paid in a combination of ways. What an employee gets paid is determined by their jobs and compensations in Gusto.
 
-A job is effectively an employee's title or pay rate. Each `job_id` is unique to an employee, and an employee can have multiple jobs. Two employees cannot share the same `job_id` even if they share the same title. The [job object](https://docs.gusto.com/docs/api/c2NoOjUyNjYzOTY-job) contains a compensation which determines how much an employee earns for the respective job.
+A job is effectively an employee's title or pay rate. Each `job_id` is unique to an employee and an employee can have multiple jobs. Two employees cannot share the same `job_id` even if they share the same title. The [job object](https://docs.gusto.com/docs/api/c2NoOjUyNjYzOTY-job) contains a compensation which determines how much an employee earns for the respective job.
 
 An employee must be created before a job can be attributed to the employee. The request to [create a job](https://docs.gusto.com/docs/api/b3A6MzExMzczNDY-create-a-job) should include a `title`, `location_id`, and `hire_date`. The `title` is the name of the job. The location for the job determines where the company is liable for state taxes and should be created prior to creating the job using [create a company location](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTY-create-a-company-location). The `hire_date` reflects the employee's `hire_date` or the `effective_date` of the job if the employee has multiple jobs. 
 
@@ -15,6 +15,9 @@ An employee must be created before a job can be attributed to the employee. The 
  "hire_date": "2021-01-01"
 }
 ````
+
+
+If an employee is no longer paid for a specific job, you can [delete a individual job](https://docs.gusto.com/docs/api/b3A6MzExMzczNDQ-delete-an-individual-job) that an employee holds. This will remove the job from the employee's list of jobs and that job will no longer appear in the payroll object when retrieving or updating a payroll. This is not to be confused with terminating an employee, which makes the employee ineligible for payroll. You cannot delete an employee's primary job. Instead, you'll need to update the primary job to the intended title/rate accordingly.
 
 ### Compensations
 
@@ -77,10 +80,63 @@ When [updating a compensation](https://docs.gusto.com/docs/api/b3A6MzExMzczNjA-u
 }
 ````
 
+### Using Jobs to Update Payroll
+
+When it's time to process payroll and pass hours and earnings for employees, what you're doing in actuality is updating an unprocessed payroll.
+
+When you retrieve an unprocessed payroll for a specific pay period, we return an array of `employee_compensations` including `employee_ids` and their eligible `fixed_compensations`, `hourly_compensations`, and `paid_time_off`. 
+
+Within the `hourly_compensations` array, there are attributes for `Regular Hours`, `Overtime`, and` Double overtime` which include `hours` and `job_id` fields.
+
+You would use the `job_id` within each Hours type to identify which job you are populating hours for. **This is essential in ensuring that a specific employee is being attributed the correct amount of hours for a given job, resulting in the correct payment and reporting.**
+
+You can review our [Updating Payrolls Guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzMzNjU-updating-payrolls) for additional information and a step by step tutorial.
+
+```json
+      "hourly_compensations": [
+        {
+          "name": "Regular Hours",
+          "hours": "40.000",
+          "job_id": 1,
+          "compensation_multiplier": 1
+        },
+        {
+          "name": "Overtime",
+          "hours": "15.000",
+          "job_id": 1,
+          "compensation_multiplier": 1.5
+        },
+        {
+          "name": "Double Overtime",
+          "hours": "0.000",
+          "job_id": 1,
+          "compensation_multiplier": 2
+        },
+        {
+          "name": "Regular Hours",
+          "hours": "40.000",
+          "job_id": 2,
+          "compensation_multiplier": 1
+        },
+        {
+          "name": "Overtime",
+          "hours": "5.000",
+          "job_id": 2,
+          "compensation_multiplier": 1.5
+        },
+        {
+          "name": "Double Overtime",
+          "hours": "0.000",
+          "job_id": 2,
+          "compensation_multiplier": 2
+        }
+      ]
+```
+
 ### Custom Earnings
 
 
-In addition to the standard earning types — like `Bonus`, `Tips`, and `Commission` — you can [create a custom earning type](https://docs.gusto.com/docs/api/b3A6MzExMzczOTE-create-a-custom-earning-type) and name it whatever you like. Custom Earnings are created on the company level instead of being attributed to a specific employee, by creating an additional `fixed_compensation` to the [Payroll object](https://docs.gusto.com/docs/api/c2NoOjY2NjU5NTY-payroll). When updating payroll, the custom earning is able to be updated for every employee in the company.
+In addition to the standard earning types — like `Bonus`, `Tips`, and `Commission` — you can [create a custom earning type](https://docs.gusto.com/docs/api/b3A6MzExMzczOTE-create-a-custom-earning-type) and name it whatever you like. Custom Earnings are created at the company level instead of being attributed to a specific employee, by creating an additional `fixed_compensation` to the [Payroll object](https://docs.gusto.com/docs/api/c2NoOjY2NjU5NTY-payroll). When updating payroll, the custom earning is able to be updated for every employee in the company.
 
 Let's say you're a spa & salon and you track sales of hair products in addition to hourly wages and tips. You can create the custom earning, "Sales", and update this earning type so that it appears as a line item on the employee's paystub.
 
@@ -104,7 +160,8 @@ Let's say you're a spa & salon and you track sales of hair products in addition 
           "amount": "0.00",
           "job_id": 1
         }
-      ],
+      ]
+}
 ```
 To [create a custom earning type](https://docs.gusto.com/docs/api/b3A6MzExMzczOTE-create-a-custom-earning-type), you just need the `company_id_or_uuid` and the `name` of the custom earning type.
 
