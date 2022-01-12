@@ -16,8 +16,11 @@ An employee must be created before a job can be attributed to the employee. The 
 }
 ````
 
+### Deleting a Job
 
-If an employee is no longer paid for a specific job, you can [delete a individual job](https://docs.gusto.com/docs/api/b3A6MzExMzczNDQ-delete-an-individual-job) that an employee holds. This will remove the job from the employee's list of jobs and that job will no longer appear in the payroll object when retrieving or updating a payroll. This is not to be confused with terminating an employee, which makes the employee ineligible for payroll. You cannot delete an employee's primary job. Instead, you'll need to update the primary job to the intended title/rate accordingly.
+If an employee is no longer paid for a specific job, you can [delete a individual job](https://docs.gusto.com/docs/api/b3A6MzExMzczNDQ-delete-an-individual-job) that an employee holds. This will remove the job from the employee's list of jobs and that job will no longer appear in the [payroll object](https://docs.gusto.com/docs/api/c2NoOjY2NjU5NTY-payroll) when retrieving or updating a payroll. This is not to be confused with [terminating an employee](https://docs.gusto.com/docs/api/b3A6MzA5Nzc3NzM-create-an-employee-termination), which makes the employee ineligible for payroll.
+
+You cannot delete an employee's primary job. The primary job is the first job created for an employee and identified as `"primary": true`. Instead, you'll need to [update the primary job](https://docs.gusto.com/docs/api/b3A6MzExMzczNDM-update-a-job) to the intended title/rate accordingly.
 
 ### Compensations
 
@@ -86,9 +89,9 @@ When it's time to process payroll and pass hours and earnings for employees, wha
 
 When you retrieve an unprocessed payroll for a specific pay period, we return an array of `employee_compensations` including `employee_ids` and their eligible `fixed_compensations`, `hourly_compensations`, and `paid_time_off`. 
 
-Within the `hourly_compensations` array, there are attributes for `Regular Hours`, `Overtime`, and` Double overtime` which include `hours` and `job_id` fields.
+Within the `hourly_compensations` array, there are fields for `Regular Hours`, `Overtime`, and` Double overtime` which include `hours` and `job_id` attributes.
 
-You would use the `job_id` within each Hours type to identify which job you are populating hours for. **This is essential in ensuring that a specific employee is being attributed the correct amount of hours for a given job, resulting in the correct payment and reporting.**
+You would use the `job_id` within each Hours type to identify which job you are populating hours for. **This is essential in ensuring that a specific employee is being attributed the correct amount of hours for a given job, resulting in the correct payment and reporting for that employee.**
 
 You can review our [Updating Payrolls Guide](https://docs.gusto.com/docs/api/ZG9jOjUyNzMzNjU-updating-payrolls) for additional information and a step by step tutorial.
 
