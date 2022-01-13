@@ -1886,7 +1886,7 @@ paths:
               properties:
                 fast_payment_limit:
                   type: integer
-                  description: Fast payment limit (only applicable to 2-day payroll)
+                  description: Fast payment limit (only applicable to 2-day payroll). This limit is an aggregate of all fast payrolls amount.
                 payment_speed:
                   type: string
                   description: The payment speed
