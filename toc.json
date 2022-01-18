@@ -88,13 +88,18 @@
     },
     {
       "type": "item",
-      "title": "Building Embedded Payroll",
-      "uri": "docs/guides/Building Embedded Payroll.md"
+      "title": "Embedded Payroll Onboarding",
+      "uri": "docs/guides/Embedded Payroll Onboarding.md"
     },
     {
       "type": "item",
-      "title": "Embedded Payroll Onboarding",
-      "uri": "docs/guides/Embedded Payroll Onboarding.md"
+      "title": "Jobs and Compensations",
+      "uri": "docs/guides/Jobs and Compensations.md"
+    },
+    {
+      "type": "item",
+      "title": "Building Embedded Payroll",
+      "uri": "docs/guides/Building Embedded Payroll.md"
     },
     {
       "type": "item",
