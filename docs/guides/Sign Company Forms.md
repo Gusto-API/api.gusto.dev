@@ -40,4 +40,5 @@ After identifying which forms require signing (`"requires_signing": true`) you c
 - **agree** (boolean) - whether you agree to sign electronically
 - **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
 
-![](../../assets/images/Sign%20Form%20.png)
+![](../../assets/images/Sign%20Forms.png)
+
