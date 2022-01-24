@@ -78,18 +78,13 @@
     },
     {
       "type": "item",
-      "title": "Syncing Employees",
-      "uri": "docs/guides/Syncing Employees.md"
-    },
-    {
-      "type": "item",
-      "title": "Updating Payrolls",
-      "uri": "docs/guides/Updating Payrolls.md"
-    },
-    {
-      "type": "item",
       "title": "Embedded Payroll Onboarding",
       "uri": "docs/guides/Embedded Payroll Onboarding.md"
+    },
+     {
+      "type": "item",
+      "title": "Syncing Employees",
+      "uri": "docs/guides/Syncing Employees.md"
     },
     {
       "type": "item",
@@ -100,6 +95,26 @@
       "type": "item",
       "title": "Building Embedded Payroll",
       "uri": "docs/guides/Building Embedded Payroll.md"
+    },
+    {
+      "type": "item",
+      "title": "Process Regular Payroll",
+      "uri": "docs/guides/Process Regular Payroll.md"
+    },
+    {
+      "type": "item",
+      "title": "Process Off-Cycle Payroll",
+      "uri": "docs/guides/Process Off-Cycle Payroll.md"
+    },
+    {
+      "type": "item",
+      "title": "Process Contractor Payments",
+      "uri": "docs/guides/Process Contractor Payments.md"
+    },
+    {
+      "type": "item",
+      "title": "Updating Payrolls",
+      "uri": "docs/guides/Updating Payrolls.md"
     },
     {
       "type": "item",
