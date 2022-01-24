@@ -32,6 +32,8 @@ After these steps are completed you can [Get all company forms](https://docs.gus
 - **description** (string) - The description of the form
 - **requires_signing** (boolean) - A boolean flag that indicates whether the form needs signing or not. Note that this value will change after the form is signed.
 
+To preview the full document, you can [get a form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzA-get-a-form-pdf) pdf using the specific form's `uuid`.
+
 After identifying which forms require signing (`"requires_signing": true`) you can take leverage `uuid` of the form and make a subsequent request to [Sign a company form](https://docs.gusto.com/docs/api/b3A6MjU1NDc5NzE-sign-a-company-form). This request should include:
 
 - **signature_text** (string) - The name of the Company Signatory
@@ -39,5 +41,4 @@ After identifying which forms require signing (`"requires_signing": true`) you c
 - **signed_by_ip_address** (string) - The IP address of the signatory who signed the form.
 
 ![](../../assets/images/Sign%20Forms.png)
-
 
