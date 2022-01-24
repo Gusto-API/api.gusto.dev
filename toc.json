@@ -93,6 +93,11 @@
     },
     {
       "type": "item",
+      "title": "Sign Company Forms",
+      "uri": "docs/guides/Sign Company Forms.md"
+    },
+    {
+      "type": "item",
       "title": "Building Embedded Payroll",
       "uri": "docs/guides/Building Embedded Payroll.md"
     },
