@@ -5793,7 +5793,7 @@ components:
           company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
           partner_uuid: 556f05d0-48e0-4c47-bce5-db9aea923043
           fast_payment_limit: 5000.0
-          payment_speed: 'two_day_ach'
+          payment_speed: '2-day'
       x-tags:
         - Payment Configs (Beta)
     Contractor:
@@ -9477,7 +9477,7 @@ components:
                 company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
                 partner_uuid: 556f05d0-48e0-4c47-bce5-db9aea923043
                 fast_payment_limit: 5000.0
-                payment_speed: 'two_day_ach'
+                payment_speed: '2-day'
     Company-Bank-Account-Object:
       description: Example response
       content:
