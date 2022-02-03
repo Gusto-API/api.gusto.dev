@@ -6,4 +6,4 @@ Building payroll is no easy task. That’s why we’ve created **[Gusto Embedded
 
 **We spent 10+ years building a smart and compliant payroll product, now let us help you build the right payroll product in months. Interested in learning more?** [**Apply for early access**](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs).
 
-Check out the Building Embedded Payroll Guide for instructions on how to leverage the Gusto API to build your own payroll product.
+Check out the [Building Embedded Payroll Guide](https://docs.gusto.com/docs/api/ZG9jOjI0NTA1MzE5-building-embedded-payroll) for instructions on how to leverage the Gusto API to build your own payroll product.
