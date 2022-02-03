@@ -5,7 +5,7 @@ To kick off development, go to Gusto's Developer Portal at [dev.gusto.com](https
 
 The instructions below assume that the application is already authenticated, and that the bearer token is being specified via the Authorization HTTP header.
 
-A Company will need to be fully onboarded before payroll can be processed.  This includes the configuration of Federal and State taxes and a pay schedule. [Payroll Fundamentals](https://docs.gusto.com/docs/api/ZG9jOjE0NDc2ODMx-payroll-fundamentals) goes into detail on this.
+A Company will need to be fully onboarded before payroll can be processed.  This includes the configuration of Federal and State taxes and a pay schedule. A demo company you create from [dev.gusto.com](https://dev.gusto.com/) will be fully onboarded. To create a demo company from scratch using the APIs, start with the [Embedded Payroll Onboarding](https://docs.gusto.com/docs/api/ZG9jOjI2ODQ4MTI5-embedded-payroll-onboarding) guide. 
 
 ### Process a regular payroll
 ![](../../assets/images/payroll-flow.png)
