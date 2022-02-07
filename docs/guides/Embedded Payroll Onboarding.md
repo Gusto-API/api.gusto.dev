@@ -11,6 +11,10 @@ Although APIs exist for the majority of Company and Employee Onboarding steps, *
 
 *This guide will be updated on a recurring basis as we release more API functionality.*
 
+### Video Tutorial
+
+Watch a tutorial of these APIs and Gusto's Onboarding Form [here](https://www.loom.com/share/85a3dfb5d1f64e1389a56cbb0ef4d37b).
+
 ### Creating a Company and Authenticating
 
 Embedded payroll begins with the creation of a company that you can manage. You’ll use the [Partner Managed Companies](https://docs.gusto.com/docs/api/b3A6MTMzNjk4NzY-create-a-partner-managed-company-beta) endpoint to:
@@ -305,7 +309,3 @@ You can check the company’s onboarding status by pinging our [Get the company�
 
 
 **Note**: When building in Gusto's demo environment, companies must be manually approved by Gusto's Developer Relations team.
-
-### Video Tutorial
-
-See the APIs and Onboarding Form in action via this [Loom tutorial](https://www.loom.com/share/85a3dfb5d1f64e1389a56cbb0ef4d37b).
