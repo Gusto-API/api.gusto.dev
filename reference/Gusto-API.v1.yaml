@@ -3628,100 +3628,6 @@ paths:
         This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
         Get a signatory.
-  '/v1/companies/{company_uuid}/signatories/invite':
-    parameters:
-      - schema:
-          type: string
-        name: company_uuid
-        in: path
-        required: true
-    post:
-      summary: Invite a signatory
-      tags:
-        - Signatories (Beta)
-      responses:
-        '201':
-          $ref: '#/components/responses/Signatory-Object'
-      operationId: post-v1-companies-company_uuid-signatories-invite
-      description: |-
-        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
-
-        Invite a signatory if the signatory is not a payroll admin. If the signatory is the same user as the payroll admin of your company, create a signatory instead.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                title:
-                  type: string
-                email:
-                  type: string
-              required:
-                - email
-  '/v1/companies/{company_uuid}/signatories/{signatory_uuid}':
-    parameters:
-      - schema:
-          type: string
-        name: company_uuid
-        in: path
-        required: true
-      - schema:
-          type: string
-        name: signatory_uuid
-        in: path
-        required: true
-    put:
-      summary: Update a signatory
-      tags:
-        - Signatories (Beta)
-      responses:
-        '200':
-          $ref: '#/components/responses/Signatory-Object'
-      operationId: put-v1-companies-company_uuid-signatories-signatory_uuid
-      description: |-
-        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
-
-        Update a signatory.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                version:
-                  type: string
-                first_name:
-                  type: string
-                middle_initial:
-                  type: string
-                last_name:
-                  type: string
-                title:
-                  type: string
-                phone:
-                  type: string
-                birthday:
-                  type: string
-                ssn:
-                  type: string
-                home_address:
-                  type: object
-                  properties:
-                    street_1:
-                      type: string
-                    street_2:
-                      type: string
-                    city:
-                      type: string
-                    state:
-                      type: string
-                    zip:
-                      type: string
 components:
   schemas:
     Employee:
@@ -5116,16 +5022,6 @@ components:
     Company-Bank-Account:
       description: The company bank account
       type: object
-      x-examples:
-        Example:
-          uuid: 1263eae5-4411-48d9-bd6d-18ed93082e65
-          company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
-          account_type: Checking
-          routing_number: '851070439'
-          hidden_account_number: XXXX4087
-          verification_status: verified
-      x-tags:
-        - Company Bank Accounts (Beta)
       properties:
         uuid:
           type: string
@@ -5144,7 +5040,7 @@ components:
           description: The bank account's routing number
         hidden_account_number:
           type: string
-          description: Masked bank account number
+          description: masked bank account number
         verification_status:
           type: string
           enum:
@@ -5157,6 +5053,16 @@ components:
             'awaiting_deposits' means the bank account is just created and money is being transferred.
             'ready_for_verification' means the micro-deposits are completed and the verification process can begin by using the verify endpoint.
             'verified' means the bank account is verified.
+      x-examples:
+        Example:
+          uuid: 1263eae5-4411-48d9-bd6d-18ed93082e65
+          company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
+          account_type: Checking
+          routing_number: '851070439'
+          account_number: XXXX4087
+          verification_status: verified
+      x-tags:
+        - Company Bank Accounts (Beta)
     Supported-Benefit:
       description: ''
       type: object
@@ -6091,7 +5997,6 @@ components:
         Example-3:
           value:
             type: Check
-      description: ''
       properties:
         type:
           type: string
@@ -6124,10 +6029,10 @@ components:
                 description: The amount allocated for each payment split
       required:
         - type
+      description: ''
     Signatory:
       title: Signatory
       type: object
-      description: ''
       properties:
         uuid:
           type: string
@@ -6150,14 +6055,12 @@ components:
           nullable: true
         is_admin:
           type: boolean
-          description: |
-            Whether or not the signatory is also the payroll admin of the company.
+          description: Whether or not the signatory is also the payroll admin of the company.
         has_ssn:
           type: boolean
           description: Indicates whether the signatory has an SSN in Gusto.
         version:
           type: string
-          description: The current version of the signatory. See the versioning guide for details using this field.
         identity_verification_status:
           type: string
           enum:
@@ -6168,7 +6071,6 @@ components:
           nullable: true
         home_address:
           type: object
-          nullable: true
           properties:
             street_1:
               type: string
@@ -7895,7 +7797,7 @@ components:
                   company_uuid: e2c4c0ce-2986-48b9-86cf-ec27f6ed9a36
                   account_type: Checking
                   routing_number: '851070439'
-                  hidden_account_number: XXXX4087
+                  account_number: XXXX4087
                   verification_status: verified
     Employee-Bank-Account-Object:
       description: Example response
