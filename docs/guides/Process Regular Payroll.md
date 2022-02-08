@@ -6,6 +6,10 @@ tags: [regular payroll]
 
 ![](../../assets/images/payroll-flow.png)
 
+### Video Tutorial
+
+Watch a tutorial of the payroll APIs [here](https://www.loom.com/share/1449cd1c5c5049b7a2084e7d42fcccbd).
+
 Your embedded payroll product allows the Company to pay the Employees the right amount at the right cadence, while accounting for tax implications.
 
 The `pay_schedule` object in Gusto API includes details of when employees work and when they should be paid. It establishes pay periods with `start_date` and `end_date`. We automatically pre-generate scheduled regular payrolls based on the company’s pay schedule and corresponding pay periods. Pay periods are the foundation of payroll. Compensation, time & attendance, taxes, and expense reports all rely on when they happened. To begin submitting information for a given payroll, we need to agree on the time period.

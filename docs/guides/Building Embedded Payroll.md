@@ -7,6 +7,10 @@ The instructions below assume that the application is already authenticated, and
 
 A Company will need to be fully onboarded before payroll can be processed.  This includes the configuration of Federal and State taxes and a pay schedule. [Payroll Fundamentals](https://docs.gusto.com/docs/api/ZG9jOjE0NDc2ODMx-payroll-fundamentals) goes into detail on this.
 
+### Video Tutorial
+
+Watch a tutorial of the payroll APIs [here](https://www.loom.com/share/1449cd1c5c5049b7a2084e7d42fcccbd).
+
 ### Process a regular payroll
 ![](../../assets/images/payroll-flow.png)
 
