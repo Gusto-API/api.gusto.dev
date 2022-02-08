@@ -1856,7 +1856,7 @@ paths:
       tags:
         - Payment Configs (Beta)
       operationId: get-v1-company-payment-configs
-      parameters: [ ]
+      parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
@@ -1869,7 +1869,7 @@ paths:
       tags:
         - Payment Configs (Beta)
       operationId: put-v1-company-payment-configs
-      parameters: [ ]
+      parameters: []
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
@@ -1900,7 +1900,7 @@ paths:
               Example:
                 value:
                   fast_payment_limit: 5000
-                  payment_speed: '2-day'
+                  payment_speed: 2-day
   '/v1/companies/{company_id_or_uuid}/pay_schedules':
     parameters:
       - schema:
@@ -3342,7 +3342,7 @@ paths:
                           hours: '8.000'
   /v1/partner_managed_companies:
     post:
-      summary: Create a partner managed company (Beta)
+      summary: Create a partner managed company
       tags:
         - Companies
       responses:
@@ -3374,7 +3374,7 @@ paths:
                     company_uuid: d525dd21-ba6e-482c-be15-c2c7237f1364
       operationId: post-v1-partner-managed-companies
       description: |-
-        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+        This endpoint is intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
         ### Overview
 
@@ -3383,7 +3383,6 @@ paths:
         * Creates a new company in Gusto.
         * Creates a new user in Gusto.
         * Makes the new user the primary payroll administrator of the new company.
-        * Sends a welcome email to the new user.
 
         Additionally, on successful creation of the company, this API will do the following:
         * Creates a link between the partner and the company.
@@ -5792,8 +5791,8 @@ components:
         Example:
           company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
           partner_uuid: 556f05d0-48e0-4c47-bce5-db9aea923043
-          fast_payment_limit: 5000.0
-          payment_speed: '2-day'
+          fast_payment_limit: 5000
+          payment_speed: 2-day
       x-tags:
         - Payment Configs (Beta)
     Contractor:
@@ -9476,8 +9475,8 @@ components:
               value:
                 company_uuid: 423dd616-6dbc-4724-938a-403f6217a933
                 partner_uuid: 556f05d0-48e0-4c47-bce5-db9aea923043
-                fast_payment_limit: 5000.0
-                payment_speed: '2-day'
+                fast_payment_limit: 5000
+                payment_speed: 2-day
     Company-Bank-Account-Object:
       description: Example response
       content:
