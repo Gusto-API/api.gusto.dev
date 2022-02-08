@@ -14,6 +14,10 @@ We'll be using Ruby, with inefficient code, but the purpose of this example is t
 
 These examples will assume an [authenticated](https://gusto.stoplight.io/docs/gusto-api/docs/basics/Authentication.md) application and will also assume the bearer token is being specified via the `Authorization` HTTP header.
 
+### Video Tutorial
+
+Watch a tutorial of the payroll APIs [here](https://www.loom.com/share/1449cd1c5c5049b7a2084e7d42fcccbd).
+
 ### Get Unprocessed Payroll
 
 Let's say we have information for the regular hours of Patricia Churchland from January 01, 2021 through January 20, 2021:
