@@ -3609,6 +3609,119 @@ paths:
                 value:
                   type: Check
         description: ''
+  '/v1/companies/{company_uuid}/signatories':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+    get:
+      summary: Get a signatory
+      tags:
+        - Signatories (Beta)
+      responses:
+        '200':
+          $ref: '#/components/responses/Signatory-List'
+      operationId: get-v1-companies-company_uuid-signatories
+      description: |-
+        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get a signatory.
+  '/v1/companies/{company_uuid}/signatories/invite':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+    post:
+      summary: Invite a signatory
+      tags:
+        - Signatories (Beta)
+      responses:
+        '201':
+          $ref: '#/components/responses/Signatory-Object'
+      operationId: post-v1-companies-company_uuid-signatories-invite
+      description: |-
+        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Invite a signatory if the signatory is not a payroll admin. If the signatory is the same user as the payroll admin of your company, create a signatory instead.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                title:
+                  type: string
+                email:
+                  type: string
+              required:
+                - email
+  '/v1/companies/{company_uuid}/signatories/{signatory_uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: signatory_uuid
+        in: path
+        required: true
+    put:
+      summary: Update a signatory
+      tags:
+        - Signatories (Beta)
+      responses:
+        '200':
+          $ref: '#/components/responses/Signatory-Object'
+      operationId: put-v1-companies-company_uuid-signatories-signatory_uuid
+      description: |-
+        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Update a signatory.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type: string
+                first_name:
+                  type: string
+                middle_initial:
+                  type: string
+                last_name:
+                  type: string
+                title:
+                  type: string
+                phone:
+                  type: string
+                birthday:
+                  type: string
+                ssn:
+                  type: string
+                home_address:
+                  type: object
+                  properties:
+                    street_1:
+                      type: string
+                    street_2:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    zip:
+                      type: string
 components:
   schemas:
     Employee:
@@ -6011,6 +6124,65 @@ components:
                 description: The amount allocated for each payment split
       required:
         - type
+    Signatory:
+      title: Signatory
+      type: object
+      description: ''
+      properties:
+        uuid:
+          type: string
+        first_name:
+          type: string
+          nullable: true
+        last_name:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        email:
+          type: string
+        birthday:
+          type: string
+          nullable: true
+        is_admin:
+          type: boolean
+          description: |
+            Whether or not the signatory is also the payroll admin of the company.
+        has_ssn:
+          type: boolean
+          description: Indicates whether the signatory has an SSN in Gusto.
+        version:
+          type: string
+          description: The current version of the signatory. See the versioning guide for details using this field.
+        identity_verification_status:
+          type: string
+          enum:
+            - Pass
+            - Fail
+            - Skipped
+          description: 'The identity verification status of the signatory. When ''Pass'', signatory can sign all forms. When ''Skipped'', signatory cannot sign Form 8655 until the form is manually uploaded as wet-signed. When null, signatory must wait for identity verification process to complete.'
+          nullable: true
+        home_address:
+          type: object
+          nullable: true
+          properties:
+            street_1:
+              type: string
+            street_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+            country:
+              type: string
+              default: USA
   securitySchemes:
     Authorization:
       type: http
@@ -7763,6 +7935,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Employee-Payment-Method'
+    Signatory-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Signatory'
+    Signatory-List:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Signatory'
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
