@@ -4242,6 +4242,11 @@ paths:
           type: string
         name: company_uuid
         in: path
+        required: true
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
         description: The UUID of the company
         required: true
     post:
@@ -4307,6 +4312,18 @@ paths:
                 - title
                 - birthday
                 - home_address
+    get:
+      summary: Get a signatory
+      tags:
+        - Signatories (Beta)
+      responses:
+        '200':
+          $ref: '#/components/responses/Signatory-List'
+      operationId: get-v1-companies-company_uuid-signatories
+      description: |-
+        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get a signatory.
   '/v1/companies/{company_uuid}/signatories/{uuid}':
     parameters:
       - schema:
@@ -7210,10 +7227,55 @@ components:
           type: string
         first_name:
           type: string
+          nullable: true
         last_name:
           type: string
+          nullable: true
         title:
           type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        email:
+          type: string
+        birthday:
+          type: string
+          nullable: true
+        is_admin:
+          type: boolean
+          description: Whether or not the signatory is also the payroll admin of the company.
+        has_ssn:
+          type: boolean
+          description: Indicates whether the signatory has an SSN in Gusto.
+        version:
+          type: string
+          description: The current version of the signatory. See the versioning guide for details using this field.
+        identity_verification_status:
+          type: string
+          enum:
+            - Pass
+            - Fail
+            - Skipped
+          description: 'The identity verification status of the signatory. When ''Pass'', signatory can sign all forms. When ''Skipped'', signatory cannot sign Form 8655 until the form is manually uploaded as wet-signed. When null, signatory must wait for identity verification process to complete.'
+          nullable: true
+        home_address:
+          type: object
+          nullable: true
+          properties:
+            street_1:
+              type: string
+            street_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+            country:
+              type: string
+              default: USA
     Flow:
       description: The representation of a flow in Gusto whitelabel UI.
       type: object
@@ -9607,6 +9669,14 @@ components:
                       - value: '0.0'
                         valid_from: '2010-01-01'
                         valid_up_to: null
+    Signatory-List:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Signatory'
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
