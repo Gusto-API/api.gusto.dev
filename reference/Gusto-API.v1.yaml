@@ -4742,6 +4742,66 @@ paths:
                   type: string
               required:
                 - email
+  '/v1/companies/{company_uuid}/signatories/{signatory_uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: signatory_uuid
+        in: path
+        required: true
+    put:
+      summary: Update a signatory
+      tags:
+        - Signatories (Beta)
+      responses:
+        '200':
+          $ref: '#/components/responses/Signatory-Object'
+      operationId: put-v1-companies-company_uuid-signatories-signatory_uuid
+      description: |-
+        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Update a signatory.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type: string
+                  description: The current version of the object. See the versioning guide for information on how to use this field.
+                first_name:
+                  type: string
+                middle_initial:
+                  type: string
+                last_name:
+                  type: string
+                title:
+                  type: string
+                phone:
+                  type: string
+                birthday:
+                  type: string
+                ssn:
+                  type: string
+                home_address:
+                  type: object
+                  properties:
+                    street_1:
+                      type: string
+                    street_2:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    zip:
+                      type: string
 components:
   parameters:
     pageParam:
