@@ -4707,6 +4707,41 @@ paths:
       responses:
         '200':
           description: OK
+  '/v1/companies/{company_uuid}/signatories/invite':
+    parameters:
+      - schema:
+          type: string
+        name: company_uuid
+        in: path
+        required: true
+    post:
+      summary: Invite a signatory
+      tags:
+        - Signatories (Beta)
+      responses:
+        '201':
+          $ref: '#/components/responses/Signatory-Object'
+      operationId: post-v1-companies-company_uuid-signatories-invite
+      description: |-
+        This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Invite a signatory if the signatory is not a payroll admin. If the signatory is the same user as the payroll admin of your company, create a signatory instead.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                title:
+                  type: string
+                email:
+                  type: string
+              required:
+                - email
 components:
   parameters:
     pageParam:
