@@ -25,10 +25,10 @@ tags:
   - name: Locations
   - name: Pay Schedules
   - name: Payrolls
-  - name: Payment Configs
+  - name: Payment Configs (Beta)
   - name: Signatories
   - name: Terminations
-  - name: Terms of Service
+  - name: Terms of Service (Beta)
   - name: Time Off Requests
 info:
   title: Gusto API
@@ -1471,7 +1471,7 @@ paths:
     get:
       summary: Get the terms of service acceptance
       tags:
-        - Terms of Service
+        - Terms of Service (Beta)
       responses:
         '200':
           description: Example response
@@ -1496,7 +1496,7 @@ paths:
     post:
       summary: Accept the latest terms of service
       tags:
-        - Terms of Service
+        - Terms of Service (Beta)
       responses:
         '200':
           description: Example response
@@ -1853,8 +1853,8 @@ paths:
         required: true
     get:
       summary: Get a company's payment configs
-      tags:
-        - Payment Configs
+      tags: 
+        - Payment Configs (Beta)
       operationId: get-v1-company-payment-configs
       parameters: []
       description: |-
@@ -1867,7 +1867,7 @@ paths:
     put:
       summary: Update a company's payment configs
       tags:
-        - Payment Configs
+        - Payment Configs (Beta)
       operationId: put-v1-company-payment-configs
       parameters: []
       description: |-
