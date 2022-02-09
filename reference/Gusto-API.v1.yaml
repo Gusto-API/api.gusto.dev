@@ -1853,7 +1853,7 @@ paths:
         required: true
     get:
       summary: Get a company's payment configs
-      tags: 
+      tags:
         - Payment Configs (Beta)
       operationId: get-v1-company-payment-configs
       parameters: []
