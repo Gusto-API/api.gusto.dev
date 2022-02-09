@@ -1,34 +1,34 @@
 openapi: 3.0.0
 tags:
-  - name: Admins (Beta)
+  - name: Admins
   - name: Benefits
   - name: Companies
-  - name: Company Bank Accounts (Beta)
+  - name: Company Bank Accounts
   - name: Compensations
   - name: Contractor Payments
   - name: Contractors
   - name: Current User
   - name: Custom Fields
   - name: Earning Type
-  - name: Employee Bank Accounts (Beta)
-  - name: Employee Federal Tax (Beta)
-  - name: Employee State Tax (Beta)
-  - name: Employee Payment Method (Beta)
+  - name: Employee Bank Accounts
+  - name: Employee Federal Tax
+  - name: Employee State Tax
+  - name: Employee Payment Method
   - name: Employees
-  - name: Federal Tax Details (Beta)
-  - name: Flows (Beta)
-  - name: Forms (Beta)
-  - name: Industry (Beta)
+  - name: Federal Tax Details
+  - name: Flows
+  - name: Forms
+  - name: Industry
   - name: Garnishments
-  - name: Job Applicants (Beta)
+  - name: Job Applicants
   - name: Jobs
   - name: Locations
   - name: Pay Schedules
   - name: Payrolls
   - name: Payment Configs (Beta)
-  - name: Signatories (Beta)
+  - name: Signatories
   - name: Terminations
-  - name: Terms of Service (Beta)
+  - name: Terms of Servic
   - name: Time Off Requests
 info:
   title: Gusto API
