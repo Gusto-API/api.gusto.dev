@@ -6326,6 +6326,7 @@ components:
           routing_number: '851070439'
           hidden_account_number: XXXX4087
           verification_status: verified
+          verification_type: manual_debit_credit
       x-tags:
         - Company Bank Accounts
       properties:
@@ -6359,6 +6360,26 @@ components:
             'awaiting_deposits' means the bank account is just created and money is being transferred.
             'ready_for_verification' means the micro-deposits are completed and the verification process can begin by using the verify endpoint.
             'verified' means the bank account is verified.
+        verification_type:
+          type: string
+          enum:
+            - manual_debit_credit
+            - plaid
+          description: |-
+            The verification type of the bank account.
+            
+            'manual_debit_credit' means the bank account is connected by entering routing and accouting numbers and verifying through micro-deposits.
+            'plaid' means the bank account is connected through Plaid.
+        plaid_status:
+          type: string
+          enum:
+            - connected
+            - disconnected
+          description: |-
+            The Plaid connection status of the bank account. Only apply when verification type is Plaid.
+        last_cached_balance:
+          type: string
+          description: The last fetch balance for the bank account. Please be awared this amount is not reflecting to the most up-to-date balance. Only apply when verification type is Plaid.
     Supported-Benefit:
       description: ''
       type: object
@@ -9492,6 +9513,7 @@ components:
                 routing_number: '851070439'
                 account_number: XXXX4087
                 verification_status: verified
+                verification_type: manual_debit_credit
     Company-Bank-Account-List:
       description: Example response
       content:
@@ -9509,6 +9531,7 @@ components:
                   routing_number: '851070439'
                   hidden_account_number: XXXX4087
                   verification_status: verified
+                  verification_type: manual_debit_credit
     Employee-Bank-Account-Object:
       description: Example response
       content:
