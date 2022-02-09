@@ -25,10 +25,10 @@ tags:
   - name: Locations
   - name: Pay Schedules
   - name: Payrolls
-  - name: Payment Configs (Beta)
+  - name: Payment Configs
   - name: Signatories
   - name: Terminations
-  - name: Terms of Servic
+  - name: Terms of Service
   - name: Time Off Requests
 info:
   title: Gusto API
@@ -872,7 +872,7 @@ paths:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/perParam'
     post:
-      summary: Create a contractor payment (Beta)
+      summary: Create a contractor payment
       tags:
         - Contractor Payments
       responses:
@@ -949,7 +949,7 @@ paths:
 
         `scope: payrolls.read`
     delete:
-      summary: Cancel a contractor payment (Beta)
+      summary: Cancel a contractor payment
       tags:
         - Contractor Payments
       responses:
@@ -1471,7 +1471,7 @@ paths:
     get:
       summary: Get the terms of service acceptance
       tags:
-        - Terms of Service (Beta)
+        - Terms of Service
       responses:
         '200':
           description: Example response
@@ -1496,7 +1496,7 @@ paths:
     post:
       summary: Accept the latest terms of service
       tags:
-        - Terms of Service (Beta)
+        - Terms of Service
       responses:
         '200':
           description: Example response
@@ -1529,7 +1529,7 @@ paths:
     get:
       summary: Get an employee's federal taxes
       tags:
-        - Employee Federal Tax (Beta)
+        - Employee Federal Tax
       responses:
         '200':
           $ref: '#/components/responses/Employee-Federal-Tax-Object'
@@ -1541,7 +1541,7 @@ paths:
     put:
       summary: Update an employee's federal taxes
       tags:
-        - Employee Federal Tax (Beta)
+        - Employee Federal Tax
       responses:
         '200':
           $ref: '#/components/responses/Employee-Federal-Tax-Object'
@@ -1599,7 +1599,7 @@ paths:
     get:
       summary: Get an employee's state taxes
       tags:
-        - Employee State Tax (Beta)
+        - Employee State Tax
       operationId: get-v1-employees-employee_id-state_taxes
       description: |
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
@@ -1615,7 +1615,7 @@ paths:
     put:
       summary: Update an employee's state taxes
       tags:
-        - Employee State Tax (Beta)
+        - Employee State Tax
       responses:
         '200':
           $ref: '#/components/responses/Employee-State-Taxes-List'
@@ -1854,7 +1854,7 @@ paths:
     get:
       summary: Get a company's payment configs
       tags:
-        - Payment Configs (Beta)
+        - Payment Configs
       operationId: get-v1-company-payment-configs
       parameters: []
       description: |-
@@ -1867,7 +1867,7 @@ paths:
     put:
       summary: Update a company's payment configs
       tags:
-        - Payment Configs (Beta)
+        - Payment Configs
       operationId: put-v1-company-payment-configs
       parameters: []
       description: |-
@@ -1994,7 +1994,7 @@ paths:
     get:
       summary: Get Company Industry Selection
       tags:
-        - Industry (Beta)
+        - Industry
       operationId: get-v1-company-industry
       parameters: []
       description: |-
@@ -2007,7 +2007,7 @@ paths:
     put:
       summary: Update a company industry selection
       tags:
-        - Industry (Beta)
+        - Industry
       operationId: put-v1-company-industry
       parameters: []
       description: |-
@@ -2126,12 +2126,12 @@ paths:
 
         Returns company bank accounts. Currently we only support a single default bank account per company.
       tags:
-        - Company Bank Accounts (Beta)
+        - Company Bank Accounts
     post:
       summary: Create a company bank account
       operationId: post-v1-companies-company_id-bank-accounts
       tags:
-        - Company Bank Accounts (Beta)
+        - Company Bank Accounts
       responses:
         '201':
           $ref: '#/components/responses/Company-Bank-Account-Object'
@@ -2189,7 +2189,7 @@ paths:
       summary: Verify a company bank account
       operationId: put-v1-companies-company_id-bank-accounts-verify
       tags:
-        - Company Bank Accounts (Beta)
+        - Company Bank Accounts
       responses:
         '200':
           $ref: '#/components/responses/Company-Bank-Account-Object'
@@ -3020,7 +3020,7 @@ paths:
           name: end_date
           description: Return payrolls whose pay period is before the end date
     post:
-      summary: Create an Off-Cycle Payroll (Beta)
+      summary: Create an Off-Cycle Payroll
       tags:
         - Payrolls
       responses:
@@ -3759,7 +3759,7 @@ paths:
         in: path
         required: true
     put:
-      summary: Calculate a Payroll (Beta)
+      summary: Calculate a Payroll
       tags:
         - Payrolls
       responses:
@@ -3794,7 +3794,7 @@ paths:
         required: true
         description: Payroll ID or UUID
     put:
-      summary: Submit Payroll (Beta)
+      summary: Submit Payroll
       tags:
         - Payrolls
       responses:
@@ -3826,7 +3826,7 @@ paths:
         required: true
         description: Payroll ID or UUID
     put:
-      summary: Cancel a Payroll (Beta)
+      summary: Cancel a Payroll
       tags:
         - Payrolls
       responses:
@@ -3906,7 +3906,7 @@ paths:
     get:
       summary: Get all the admins at a company
       tags:
-        - Admins (Beta)
+        - Admins
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/perParam'
@@ -3921,7 +3921,7 @@ paths:
     post:
       summary: Create an admin for the company.
       tags:
-        - Admins (Beta)
+        - Admins
       operationId: post-v1-companies-company_id-admins
       responses:
         '200':
@@ -3978,7 +3978,7 @@ paths:
       security:
         - Authorization: []
       tags:
-        - Federal Tax Details (Beta)
+        - Federal Tax Details
     put:
       summary: Update Federal Tax Details
       responses:
@@ -4030,7 +4030,7 @@ paths:
 
         Updates attributes relevant for a company's federal taxes. This information is required is to onboard a company for use with Gusto Embedded Payroll.
       tags:
-        - Federal Tax Details (Beta)
+        - Federal Tax Details
   '/v1/employees/{employee_id_or_uuid}/bank_accounts':
     parameters:
       - schema:
@@ -4041,7 +4041,7 @@ paths:
     get:
       summary: Get all employee bank accounts
       tags:
-        - Employee Bank Accounts (Beta)
+        - Employee Bank Accounts
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/perParam'
@@ -4099,7 +4099,7 @@ paths:
                   account_number: '5809431207'
                   account_type: Checking
       tags:
-        - Employee Bank Accounts (Beta)
+        - Employee Bank Accounts
   '/v1/employees/{employee_id_or_uuid}/bank_accounts/{bank_account_uuid}':
     parameters:
       - schema:
@@ -4123,7 +4123,7 @@ paths:
 
         Deletes an employee bank account. To update an employee's bank account details, delete the bank account first and create a new one.
       tags:
-        - Employee Bank Accounts (Beta)
+        - Employee Bank Accounts
   '/v1/employees/{employee_id_or_uuid}/payment_method':
     parameters:
       - schema:
@@ -4134,7 +4134,7 @@ paths:
     get:
       summary: Get an employee's payment method
       tags:
-        - Employee Payment Method (Beta)
+        - Employee Payment Method
       responses:
         '200':
           $ref: '#/components/responses/Employee-Payment-Method-Object'
@@ -4146,7 +4146,7 @@ paths:
     put:
       summary: Update an employee's payment method
       tags:
-        - Employee Payment Method (Beta)
+        - Employee Payment Method
       operationId: put-v1-employees-employee_id-payment_method
       responses:
         '200':
@@ -4247,7 +4247,7 @@ paths:
     post:
       summary: Create a signatory
       tags:
-        - Signatories (Beta)
+        - Signatories
       operationId: post-v1-company-signatories
       parameters: []
       description: |-
@@ -4324,7 +4324,7 @@ paths:
     delete:
       summary: Delete a signatory
       tags:
-        - Signatories (Beta)
+        - Signatories
       operationId: delete-v1-company-signatory
       parameters: []
       description: |-
@@ -4345,7 +4345,7 @@ paths:
     get:
       summary: Get all company forms
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: get-v1-company-forms
       parameters: []
       description: |-
@@ -4366,7 +4366,7 @@ paths:
     get:
       summary: Get a company form
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: get-v1-company-form
       parameters: []
       description: |-
@@ -4387,7 +4387,7 @@ paths:
     get:
       summary: Get a form pdf
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: get-v1-company-form-pdf
       parameters: []
       description: |-
@@ -4427,7 +4427,7 @@ paths:
     put:
       summary: Sign a company form
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: put-v1-company-form-sign
       parameters: []
       description: |-
@@ -4474,7 +4474,7 @@ paths:
     get:
       summary: Get all employee forms
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: get-v1-employee-forms
       parameters: []
       description: |-
@@ -4501,7 +4501,7 @@ paths:
     get:
       summary: Get an employee form
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: get-v1-employee-form
       parameters: []
       description: |-
@@ -4528,7 +4528,7 @@ paths:
     get:
       summary: Get the PDF of an employee's form
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: get-v1-employee-form-pdf
       parameters: []
       description: |-
@@ -4574,7 +4574,7 @@ paths:
     put:
       summary: Sign an employee form
       tags:
-        - Forms (Beta)
+        - Forms
       operationId: put-v1-employee-form-sign
       parameters: []
       description: |-
@@ -4621,7 +4621,7 @@ paths:
     post:
       summary: Create a flow
       tags:
-        - Flows (Beta)
+        - Flows
       operationId: post-v1-company-flows
       parameters: []
       description: |-
@@ -5236,7 +5236,7 @@ components:
           description: We need you to sign paperwork to authorize us to debit and credit your bank account and file and pay your taxes.
           requires_signing: true
       x-tags:
-        - Forms (Beta)
+        - Forms
     Industry:
       title: Industry
       type: object
@@ -5265,7 +5265,7 @@ components:
             - '8243'
           title: Computer Training
       x-tags:
-        - Industry (Beta)
+        - Industry
     Job:
       title: Job
       type: object
@@ -5419,7 +5419,7 @@ components:
           type: string
           description: The last name of the admin.
       x-tags:
-        - Admins (Beta)
+        - Admins
     Company:
       title: Company
       type: object
@@ -5794,7 +5794,7 @@ components:
           fast_payment_limit: 5000
           payment_speed: 2-day
       x-tags:
-        - Payment Configs (Beta)
+        - Payment Configs
     Contractor:
       description: The representation of a contractor (individual or business) in Gusto.
       type: object
@@ -6327,7 +6327,7 @@ components:
           hidden_account_number: XXXX4087
           verification_status: verified
       x-tags:
-        - Company Bank Accounts (Beta)
+        - Company Bank Accounts
       properties:
         uuid:
           type: string
@@ -7204,7 +7204,7 @@ components:
           title: Signatory
       title: Signatory
       x-tags:
-        - Signatories (Beta)
+        - Signatories
       properties:
         uuid:
           type: string
@@ -7223,7 +7223,7 @@ components:
           expires_at: '2021-12-28 04:25:48'
       title: Flow
       x-tags:
-        - Flows (Beta)
+        - Flows
       properties:
         url:
           type: string
@@ -7286,7 +7286,7 @@ components:
             deductions: '0.0'
             w4_data_type: rev_2020_w4
       x-tags:
-        - Employee Federal Tax (Beta)
+        - Employee Federal Tax
     Employee-State-Tax:
       title: Employee-State-Tax
       type: object
@@ -7336,7 +7336,7 @@ components:
                   valid_from: '2010-01-01'
                   valid_up_to: null
       x-tags:
-        - Employee State Tax (Beta)
+        - Employee State Tax
       properties:
         employee_uuid:
           type: string
@@ -7379,7 +7379,7 @@ components:
               valid_from: '2010-01-01'
               valid_up_to: null
       x-tags:
-        - Employee State Tax (Beta)
+        - Employee State Tax
       properties:
         label:
           type: string
@@ -7411,7 +7411,7 @@ components:
           valid_from: '2010-01-01'
           valid_up_to: null
       x-tags:
-        - Employee State Tax (Beta)
+        - Employee State Tax
       properties:
         value:
           type: string
@@ -7442,7 +7442,7 @@ components:
         number-example:
           type: Number
       x-tags:
-        - Employee State Tax (Beta)
+        - Employee State Tax
       properties:
         type:
           type: string
@@ -7520,7 +7520,7 @@ components:
             ein_verified: true
             legal_name: string
       x-tags:
-        - Federal Tax Details (Beta)
+        - Federal Tax Details
     Employee-Bank-Account:
       title: Employee-Bank-Account
       type: object
@@ -7556,7 +7556,7 @@ components:
           type: string
           description: Masked bank account number
       x-tags:
-        - Employee Bank Accounts (Beta)
+        - Employee Bank Accounts
     Employee-Payment-Method:
       title: Employee-Payment-Method
       type: object
@@ -7638,7 +7638,7 @@ components:
                 type: integer
                 nullable: true
       x-tags:
-        - Employee Payment Method (Beta)
+        - Employee Payment Method
   securitySchemes:
     Authorization:
       type: http
