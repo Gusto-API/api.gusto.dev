@@ -5794,7 +5794,7 @@ components:
           fast_payment_limit: 5000
           payment_speed: 2-day
       x-tags:
-        - Payment Configs
+        - Payment Configs (Beta)
     Contractor:
       description: The representation of a contractor (individual or business) in Gusto.
       type: object
