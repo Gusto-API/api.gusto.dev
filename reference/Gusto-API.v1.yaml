@@ -6326,7 +6326,7 @@ components:
           routing_number: '851070439'
           hidden_account_number: XXXX4087
           verification_status: verified
-          verification_type: manual_debit_credit
+          verification_type: bank_deposits
       x-tags:
         - Company Bank Accounts
       properties:
@@ -6363,12 +6363,12 @@ components:
         verification_type:
           type: string
           enum:
-            - manual_debit_credit
+            - bank_deposits
             - plaid
           description: |-
             The verification type of the bank account.
             
-            'manual_debit_credit' means the bank account is connected by entering routing and accouting numbers and verifying through micro-deposits.
+            'bank_deposits' means the bank account is connected by entering routing and accouting numbers and verifying through micro-deposits.
             'plaid' means the bank account is connected through Plaid.
         plaid_status:
           type: string
@@ -9516,7 +9516,7 @@ components:
                 routing_number: '851070439'
                 account_number: XXXX4087
                 verification_status: verified
-                verification_type: manual_debit_credit
+                verification_type: bank_deposits
     Company-Bank-Account-List:
       description: Example response
       content:
@@ -9534,7 +9534,7 @@ components:
                   routing_number: '851070439'
                   hidden_account_number: XXXX4087
                   verification_status: verified
-                  verification_type: manual_debit_credit
+                  verification_type: bank_deposits
     Employee-Bank-Account-Object:
       description: Example response
       content:
