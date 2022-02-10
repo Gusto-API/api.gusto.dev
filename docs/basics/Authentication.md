@@ -94,9 +94,17 @@ This parameter contains the authorization code that you will then use to obtain 
 > -   `code` - the code being exchanged for an access token. This should be the Authorization Code received above (`51d5d63ae28783aecd59e7834be2c637a9ee260f241b191565aa10fe380471db`.)
 > -   `grant_type` - this should be the literal string "authorization_code"
 
-Next, you will make a server-side request to Gusto with your authorization code to `https://api.gusto.com/oauth/token` with the parameters outlined above. In this case, the request would look like this:
+Next, you will make a server-side request to Gusto with your authorization code to `https://api.gusto.com/oauth/token` with the parameters outlined above. These parameters should be POST data in the **body** of the request, rather than its query parameters. In this case, the body of the request to `https://api.gusto.com/oauth/token` would look like this with a `Content-Type` of `application/json`:
 
-    https://api.gusto.com/oauth/token?client_id=bbb286ff1a4fe6b84742b0d49b8d0d65bd0208d27d3d50333591df71c45da519&client_secret=cb06cb755b868a819ead51671f0f7e9c35c7c4cbbae0e38bef167e0e4ba64ee6&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&code=51d5d63ae28783aecd59e7834be2c637a9ee260f241b191565aa10fe380471db&grant_type=authorization_code
+```json
+{
+  "client_id": "bbb286ff1a4fe6b84742b0d49b8d0d65bd0208d27d3d50333591df71c45da519",
+  "client_secret": "cb06cb755b868a819ead51671f0f7e9c35c7c4cbbae0e38bef167e0e4ba64ee6",
+  "redirect_uri": "https://example.com/callback",
+  "code": "51d5d63ae28783aecd59e7834be2c637a9ee260f241b191565aa10fe380471db",
+  "grant_type": "authorization_code"
+}
+```
 
 That's a lot of information.
 
@@ -137,9 +145,17 @@ Access tokens expire 2 hours after they are issued.
 
 You may exchange your refresh token for a new access token once, making a request very similar to exchanging authorization code for an access token.
 
-The only difference is that `code` is now `refresh_token` and `grant_type` is set to "refresh_token". Assuming you are refreshing the access token received in the previous section, here is the request you would make:
+The only difference is that `code` is now `refresh_token` and `grant_type` is set to "refresh_token". Assuming you are refreshing the access token received in the previous section, here are POST paramters in the body for the request you would make to `https://api.gusto.com/oauth/token`:
 
-    https://api.gusto.com/oauth/token?client_id=bbb286ff1a4fe6b84742b0d49b8d0d65bd0208d27d3d50333591df71c45da519&client_secret=cb06cb755b868a819ead51671f0f7e9c35c7c4cbbae0e38bef167e0e4ba64ee6&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&refresh_token=8257e65c97202ed1726cf9571600918f3bffb2544b26e00a61df9897668c33a1&grant_type=refresh_token
+```json
+{
+  "client_id": "bbb286ff1a4fe6b84742b0d49b8d0d65bd0208d27d3d50333591df71c45da519",
+  "client_secret": "cb06cb755b868a819ead51671f0f7e9c35c7c4cbbae0e38bef167e0e4ba64ee6",
+  "redirect_uri": "https://example.com/callback",
+  "refresh_token": "8257e65c97202ed1726cf9571600918f3bffb2544b26e00a61df9897668c33a1",
+  "grant_type": "refresh_token"
+}
+```
 
 The corresponding response, including both a fresh access token and a new refresh token, will look something like this:
 
