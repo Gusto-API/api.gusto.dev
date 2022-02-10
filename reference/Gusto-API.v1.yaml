@@ -6380,6 +6380,9 @@ components:
         last_cached_balance:
           type: string
           description: The last fetch balance for the bank account. Please be awared this amount is not reflecting to the most up-to-date balance. Only apply when verification type is Plaid.
+        balance_fetched_date:
+          type: string
+          description: The balance fetch date associate with the last_cached_balance. Only apply when verification type is Plaid.
     Supported-Benefit:
       description: ''
       type: object
