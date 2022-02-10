@@ -4253,7 +4253,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Create a company signatory who can legally sign forms. Please note that there can only be a single primary signatory in a company. You can retrieve the current primary signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property
+        Create a company signatory with complete information. A signatory can legally sign forms once the identity verification process is successful.
       responses:
         '201':
           $ref: '#/components/responses/Signatory-Object'
@@ -4308,9 +4308,7 @@ paths:
                 - birthday
                 - home_address
     get:
-      summary: Get a signatory
-      tags:
-        - Signatories (Beta)
+      summary: Get all company signatories
       responses:
         '200':
           $ref: '#/components/responses/Signatory-List'
@@ -4318,7 +4316,9 @@ paths:
       description: |-
         This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Get a signatory.
+        Returns company signatories. Currently we only support a single signatory per company.
+      tags:
+        - Signatories
   '/v1/companies/{company_id_or_uuid}/forms':
     parameters:
       - schema:
@@ -4684,8 +4684,6 @@ paths:
         required: true
     post:
       summary: Invite a signatory
-      tags:
-        - Signatories (Beta)
       responses:
         '201':
           $ref: '#/components/responses/Signatory-Object'
@@ -4693,7 +4691,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Invite a signatory if the signatory is not a payroll admin. If the signatory is the same user as the payroll admin of your company, create a signatory instead.
+        Create a signatory with minimal information. This signatory can be invited to provide more information through the `PUT /v1/companies/{company_uuid}/signatories/{signatory_uuid}` endpoint. This will start the identity verification process and allow the signatory to be verified to sign documents.
       requestBody:
         content:
           application/json:
@@ -4710,6 +4708,8 @@ paths:
                   type: string
               required:
                 - email
+      tags:
+        - Signatories
   '/v1/companies/{company_uuid}/signatories/{signatory_uuid}':
     parameters:
       - schema:
@@ -4726,8 +4726,6 @@ paths:
         description: The UUID of the signatory
     put:
       summary: Update a signatory
-      tags:
-        - Signatories (Beta)
       responses:
         '200':
           $ref: '#/components/responses/Signatory-Object'
@@ -4735,7 +4733,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Update a signatory.
+        Update a signatory that has been either invited or created. If the signatory has been created with minimal information through the `POST /v1/companies/{company_uuid}/signatories/invite` endpoint, then the first update must contain all attributes specified in the request body in order to start the identity verification process.
       requestBody:
         content:
           application/json:
@@ -4772,6 +4770,8 @@ paths:
                       type: string
                     zip:
                       type: string
+      tags:
+        - Signatories
     delete:
       summary: ''
       operationId: delete-v1-companies-company_uuid-signatories-signatory_uuid
@@ -7332,7 +7332,14 @@ components:
             - Pass
             - Fail
             - Skipped
-          description: 'The identity verification status of the signatory. When ''Pass'', signatory can sign all forms. When ''Skipped'', signatory cannot sign Form 8655 until the form is manually uploaded as wet-signed. When null, signatory must wait for identity verification process to complete.'
+          description: |-
+            |   |   |
+            |---|---|
+            |__Status__| __Description__ |
+            | Pass | Signatory can sign all forms |
+            | Fail | Signatory cannot sign forms |
+            | Skipped | Signatory cannot sign Form 8655 until the form is manually uploaded as wet-signed |
+            | null | Identity verification process has not been completed |
           nullable: true
         home_address:
           type: object
