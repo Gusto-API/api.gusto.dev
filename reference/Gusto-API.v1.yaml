@@ -4650,19 +4650,12 @@ paths:
                   description: 'the type of target entity applicable to the flow. For instance, `Company` is used for `company_onboarding`'
                   enum:
                     - Company
-                expires_at:
-                  type: string
-                  description: time at which the flow is expired and no longer accessible. A default value will be used based on the flow_type if this field is not specified.
               required:
                 - flow_type
-                - entity_uuid
-                - entity_type
             examples:
               Example:
                 value:
                   flow_type: company_onboarding
-                  entity_type: Company
-                  entity_uuid: 89771af8-b964-472e-8064-554dfbcb56d9
   '/v1/payrolls/{payroll_id_or_uuid}/employees/{employee_id_or_uuid}/pay_stub':
     parameters:
       - schema:
