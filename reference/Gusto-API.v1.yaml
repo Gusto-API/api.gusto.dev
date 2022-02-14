@@ -137,6 +137,27 @@ paths:
         in: path
         required: true
         description: The ID or UUID of the employee
+  '/v1/employees/{employee_id_or_uuid}/onboarding_status':
+    parameters:
+      - schema:
+          type: string
+        name: employee_uuid
+        in: path
+        required: true
+        description: The UUID of the employee
+    get:
+      summary: Get the employee's onboarding status
+      operationId: get-v1-employee-onboarding-status
+      parameters: []
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get employee's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
+      responses:
+        '200':
+          $ref: '#/components/responses/Employee-Onboarding-Status-Object'
+      tags:
+        - Employees
   '/v1/employees/{employee_id_or_uuid}/finish_onboarding':
     parameters:
       - schema:
@@ -6452,7 +6473,7 @@ components:
             - plaid
           description: |-
             The verification type of the bank account.
-            
+
             'bank_deposits' means the bank account is connected by entering routing and accouting numbers and verifying through micro-deposits.
             'plaid' means the bank account is connected through Plaid.
         plaid_status:
