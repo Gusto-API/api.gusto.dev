@@ -4,7 +4,12 @@
 
 ### Setup
 
-We use [spectral](https://meta.stoplight.io/docs/spectral/ZG9jOjYx-overview) in a pre-commit hook, so you need to run `yarn install`  after cloning this repo.
+We use [spectral](https://meta.stoplight.io/docs/spectral/ZG9jOjYx-overview) in a pre-commit hook, so you need to run `yarn install` after cloning this repo.
+
+```shell
+git clone git@github.com:Gusto-API/api.gusto.dev.git
+yarn
+```
 
 ### Change request
 
@@ -18,15 +23,13 @@ If you want to do the change yourself, have your changes go through the DevRel t
 
 The documentation is generated through [stoplight.io](gusto.stoplight.io).
 
-While you could update this repo directly, it is not recommended. There is currently no CI check for this repo and a syntax error could take down the docs.
+While you could update this repo directly through the Github UI interface, it is not recommended. There is currently no CI check for this repo and a syntax error could take down the docs.
 
 The recommended way to do it is through stoplight.io. You can still create new branches/PR through stoplight.io.
-
 
 Here is the process: https://docs.google.com/document/d/1KxoLOgQLf8s3p0A5_qZCiJ_Kf0EreS18UeJfiNFqMrw
 
 We also have a process for editing directly this repo (not recommended): https://docs.google.com/document/d/1H4vtaynEvc74ZXfMb-ED34I5Ur4QLPM_ZkRvJ8dENp4
-
 
 ### Auth
 

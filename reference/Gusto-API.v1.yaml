@@ -146,7 +146,7 @@ paths:
         required: true
         description: The UUID of the employee
     get:
-      summary: Get the employee's onboarding status
+      summary: Get the employee's onboarding status (Beta)
       operationId: get-v1-employee-onboarding-status
       parameters: []
       description: |-
@@ -644,10 +644,10 @@ paths:
                   type: string
                 mailing_address:
                   type: boolean
-                  description: 'For a company location, specify if this location is the company''s mailing address.'
+                  description: "For a company location, specify if this location is the company's mailing address."
                 filing_address:
                   type: boolean
-                  description: 'For a company location, specify if this location is the company''s filing address.'
+                  description: "For a company location, specify if this location is the company's filing address."
             examples:
               Example:
                 value:
@@ -1036,7 +1036,7 @@ paths:
                 payment_unit:
                   type: string
                   readOnly: false
-                  description: 'The unit accompanying the compensation rate. If the employee is an owner, rate should be ''Paycheck''.'
+                  description: "The unit accompanying the compensation rate. If the employee is an owner, rate should be 'Paycheck'."
                   enum:
                     - Hour
                     - Week
@@ -1046,7 +1046,7 @@ paths:
                 flsa_status:
                   type: string
                   readOnly: false
-                  description: 'The FLSA status for this compensation. Salaried (''Exempt'') employees are paid a fixed salary every pay period. Salaried with overtime (''Salaried Nonexempt'') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly (''Nonexempt'') employees are paid for the hours they work, and receive overtime pay when applicable. Owners (''Owner'') are employees that own at least twenty percent of the company. '
+                  description: "The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. "
                   enum:
                     - Exempt
                     - Salaried Nonexempt
@@ -1116,7 +1116,7 @@ paths:
                 payment_unit:
                   type: string
                   readOnly: false
-                  description: 'The unit accompanying the compensation rate. If the employee is an owner, rate should be ''Paycheck''.'
+                  description: "The unit accompanying the compensation rate. If the employee is an owner, rate should be 'Paycheck'."
                   enum:
                     - Hour
                     - Week
@@ -1126,7 +1126,7 @@ paths:
                 flsa_status:
                   type: string
                   readOnly: false
-                  description: 'The FLSA status for this compensation. Salaried (''Exempt'') employees are paid a fixed salary every pay period. Salaried with overtime (''Salaried Nonexempt'') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly (''Nonexempt'') employees are paid for the hours they work, and receive overtime pay when applicable. Owners (''Owner'') are employees that own at least twenty percent of the company. '
+                  description: "The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. "
                   enum:
                     - Exempt
                     - Salaried Nonexempt
@@ -1134,7 +1134,7 @@ paths:
                     - Owner
                 effective_date:
                   type: string
-                  description: 'The effective date for this compensation. For the first compensation, this defaults to the job''s hire date.'
+                  description: "The effective date for this compensation. For the first compensation, this defaults to the job's hire date."
               required:
                 - rate
                 - payment_unit
@@ -2571,7 +2571,7 @@ paths:
                 employee_deduction:
                   type: string
                   default: '0.00'
-                  description: 'The amount to be deducted, per pay period, from the employee''s pay.'
+                  description: "The amount to be deducted, per pay period, from the employee's pay."
                 deduct_as_percentage:
                   type: boolean
                   default: false
@@ -2749,7 +2749,7 @@ paths:
                 employee_deduction:
                   type: string
                   default: '0.00'
-                  description: 'The amount to be deducted, per pay period, from the employee''s pay.'
+                  description: "The amount to be deducted, per pay period, from the employee's pay."
                 deduct_as_percentage:
                   type: boolean
                   default: false
@@ -3472,7 +3472,7 @@ paths:
                     email: frank@example.com
                     phone: '2345558899'
                   company:
-                    name: 'Frank''s Ocean, LLC'
+                    name: "Frank's Ocean, LLC"
                     trade_name: Frank’s Ocean
                     ein: '123456789'
         description: ''
@@ -3604,7 +3604,7 @@ paths:
                     email: frank@example.com
                     phone: '2345558899'
                   company:
-                    name: 'Frank''s Ocean, LLC'
+                    name: "Frank's Ocean, LLC"
                     trade_name: Frank’s Ocean
                     tier: complete
                     ein: '123456789'
@@ -4650,7 +4650,7 @@ paths:
                     - company_onboarding
                 entity_uuid:
                   type: string
-                  description: 'UUID of the target entity applicable to the flow. For instance, the company''s UUID is used for `company_onboarding` flow.'
+                  description: "UUID of the target entity applicable to the flow. For instance, the company's UUID is used for `company_onboarding` flow."
                 entity_type:
                   type: string
                   description: 'the type of target entity applicable to the flow. For instance, `Company` is used for `company_onboarding`'
@@ -5014,6 +5014,92 @@ components:
           nullable: true
           readOnly: true
       readOnly: true
+    Employee-Onboarding-Status:
+      description: The representation of an employee's onboarding status
+      title: 'Employee Onboarding Status'
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: the UUID of the employee
+        onboarding_completed:
+          type: boolean
+          description: a boolean flag for the employee's onboarding status
+        onboarding_steps:
+          type: array
+          description: a list of employee onboarding steps
+          items:
+            title: Onboarding step
+            type: object
+            properties:
+              title:
+                type: string
+                description: The display name of the onboarding step
+              id:
+                type: string
+                description: The string identifier for each onboarding step
+              required:
+                type: boolean
+                description: The boolean flag indicating whether the step is required or optional
+              completed:
+                type: boolean
+                description: The boolean flag indicating whether the step is completed or not.
+              requirements:
+                type: array
+                description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
+                items:
+                  type: string
+      x-examples:
+        Example:
+          uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
+          onboarding_completed: false
+          onboarding_steps:
+            - title: Add Your Company's Addresses
+              id: add_addresses
+              required: true
+              completed: true
+              requirements: []
+            - title: Add Your Employees
+              id: add_employees
+              required: true
+              completed: true
+              requirements:
+                - add_addresses
+            - title: Enter Your Federal Tax Information
+              id: federal_tax_setup
+              required: true
+              completed: true
+              requirements:
+                - add_addresses
+                - add_employees
+            - title: Add Your Bank Account
+              id: add_bank_info
+              required: true
+              completed: true
+              requirements: []
+            - title: Select a Pay Schedule
+              id: payroll_schedule
+              required: true
+              completed: false
+              requirements: []
+            - title: Sign Documents
+              id: sign_all_forms
+              required: true
+              completed: false
+              requirements:
+                - add_employees
+                - federal_tax_setup
+                - state_setup
+                - add_bank_info
+                - payroll_schedule
+            - title: Verify Your Bank Account
+              id: verify_bank_info
+              required: true
+              completed: false
+              requirements:
+                - add_bank_info
+      x-tags:
+        - Companies
     Location:
       description: The representation of an address in Gusto.
       type: object
@@ -5279,7 +5365,7 @@ components:
         payment_unit:
           type: string
           readOnly: false
-          description: 'The unit accompanying the compensation rate. If the employee is an owner, rate should be ''Paycheck''.'
+          description: "The unit accompanying the compensation rate. If the employee is an owner, rate should be 'Paycheck'."
           enum:
             - Hour
             - Week
@@ -5289,7 +5375,7 @@ components:
         flsa_status:
           type: string
           readOnly: false
-          description: 'The FLSA status for this compensation. Salaried (''Exempt'') employees are paid a fixed salary every pay period. Salaried with overtime (''Salaried Nonexempt'') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly (''Nonexempt'') employees are paid for the hours they work, and receive overtime pay when applicable. Owners (''Owner'') are employees that own at least twenty percent of the company. '
+          description: "The FLSA status for this compensation. Salaried ('Exempt') employees are paid a fixed salary every pay period. Salaried with overtime ('Salaried Nonexempt') employees are paid a fixed salary every pay period, and receive overtime pay when applicable. Hourly ('Nonexempt') employees are paid for the hours they work, and receive overtime pay when applicable. Owners ('Owner') are employees that own at least twenty percent of the company. "
           enum:
             - Exempt
             - Salaried Nonexempt
@@ -5298,7 +5384,7 @@ components:
         effective_date:
           type: string
           readOnly: false
-          description: 'The effective date for this compensation. For the first compensation, this defaults to the job''s hire date.'
+          description: "The effective date for this compensation. For the first compensation, this defaults to the job's hire date."
       x-examples:
         Example:
           id: 1363316536327004
@@ -6688,7 +6774,7 @@ components:
         employee_deduction:
           type: string
           default: '0.00'
-          description: 'The amount to be deducted, per pay period, from the employee''s pay.'
+          description: "The amount to be deducted, per pay period, from the employee's pay."
         deduct_as_percentage:
           type: boolean
           default: false
@@ -6740,7 +6826,7 @@ components:
                               If this is the first tier, a value of "5" means the company contribution will match employee deductions from 0% up to and including 5% of payroll.
                           threshold_delta:
                             type: string
-                            description: 'The step up difference between this tier''s threshold and the previous tier''s threshold. In the first tier, this is equivalent to threshold.'
+                            description: "The step up difference between this tier's threshold and the previous tier's threshold. In the first tier, this is equivalent to threshold."
         elective:
           type: boolean
           description: 'Whether the company contribution is elective (aka matching). For "tiered" contribution types, this is always true.'
@@ -8120,6 +8206,8 @@ components:
                   phone: '1234567890'
                   preferred_first_name: Denis
                   work_email: null
+    Employee-Onboarding-Status-Object:
+      description: Example response
     Company-Onboarding-Status-Object:
       description: Example response
       content:
