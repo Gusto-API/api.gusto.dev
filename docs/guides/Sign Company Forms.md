@@ -11,7 +11,9 @@ tags: [signatory, sign company forms]
 
 The signatory should be an officer, owner, general partner or LLC member manager, plan administrator, fiduciary, or an authorized representative who is designated to sign agreements on the company's behalf. An officer is the president, vice president, treasurer, chief accounting officer, etc.
 
-**There can only be a single primary signatory in a company** so you must [delete a signatory](https://docs.gusto.com/docs/api/b3A6MjU1Mzg3MDI-delete-a-signatory) before creating a new one. You can retrieve the current primary signatory from `GET /v1/companies/{company_id_or_uuid}` endpoint under the `primary_signatory` property.
+**There can only be a single primary signatory in a company** so you must [delete a signatory](https://docs.gusto.com/docs/api/b3A6MjU1Mzg3MDI-delete-a-signatory) before creating a new one. You can retrieve the current primary signatory from `GET /v1/companies/{company_uuid}/signatories` endpoint.
+
+**Alternatively, you can also [invite a signatory](https://docs.gusto.com/docs/api/b3A6MzkzMjM3NTQ-invite-a-signatory)** to create a signatory with minimal information and subsequently populate the remaining information using the [update signatory endpoint](https://docs.gusto.com/docs/api/b3A6MzkzMjM3NTU-update-a-signatory).
 
 ### Sign Company Forms
 
