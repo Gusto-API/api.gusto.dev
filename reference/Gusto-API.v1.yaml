@@ -4766,7 +4766,7 @@ paths:
       tags:
         - Signatories
     delete:
-      summary: ''
+      summary: 'Delete a signatory'
       operationId: delete-v1-companies-company_uuid-signatories-signatory_uuid
       responses:
         '204':
