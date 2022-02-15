@@ -5017,7 +5017,7 @@ components:
       description: |-
         The representation of an employee's onboarding status.
 
-        ## Note: regarding the "payroll_admin_review" step
+        ### Note: regarding the "payroll_admin_review" step
         This step is only required when the employee is invited to self-onboard.
       type: object
       title: Employee-Onboarding-Status
@@ -5104,8 +5104,8 @@ components:
                 - federal_tax_setup
                 - state_tax_setup
                 - add_payment_method
-            - title: Payroll Admin Review
-              id: payroll_admin_review
+            - title: Admin Review
+              id: admin_review
               completed: false
               requirements:
                 - personal_details
