@@ -5120,29 +5120,29 @@ components:
       properties:
         uuid:
           type: string
-          description: the UUID of the company
+          description: Unique identifier for this employee.
         onboarding_completed:
           type: boolean
-          description: a boolean flag for the company's onboarding status
+          description: 'When true, employee has successfully onboarded onto the company.'
         onboarding_steps:
           type: array
-          description: a list of company onboarding steps
+          description: List of steps required to onboard an employee.
           items:
             title: Onboarding step
             type: object
             properties:
               title:
                 type: string
-                description: The display name of the onboarding step
+                description: User-friendly description of the onboarding step.
               id:
                 type: string
-                description: The string identifier for each onboarding step
+                description: String identifier for the onboarding step.
               completed:
                 type: boolean
-                description: The boolean flag indicating whether the step is completed or not.
+                description: 'When true, this step has been completed.'
               requirements:
                 type: array
-                description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
+                description: A list of onboarding steps required to begin this step.
                 items:
                   type: string
     Location:
