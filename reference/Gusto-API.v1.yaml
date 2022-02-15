@@ -4775,6 +4775,25 @@ paths:
         This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
         Delete a company signatory.
+  '/v1/employees/{employee_id_or_uuid}/onboarding_status':
+    parameters:
+      - schema:
+          type: string
+        name: employee_id_or_uuid
+        in: path
+        required: true
+        description: The UUID of the employee
+    get:
+      summary: Get the employee's onboarding status (Beta)
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/Employee-Onboarding-Status-Object'
+      operationId: get-v1-employees-employee_id_or_uuid-onboarding_status
+      description: |-
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+
+        Get employee's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
 components:
   parameters:
     pageParam:
@@ -4993,6 +5012,95 @@ components:
           nullable: true
           readOnly: true
       readOnly: true
+    Employee-Onboarding-Status:
+      description: The representation of an employee's onboarding status
+      type: object
+      title: Employee-Onboarding-Status
+      x-examples:
+        Example:
+          uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
+          onboarding_completed: false
+          onboarding_steps:
+            - title: Personal details
+              id: personal_details
+              completed: false
+              requirements: []
+            - title: Enter compensation details
+              id: compensation_details
+              completed: false
+              requirements: []
+            - title: Add work address
+              id: add_work_address
+              completed: false
+              requirements: []
+            - title: Add home address
+              id: add_home_address
+              completed: false
+              requirements: []
+            - title: Enter federal tax withholdings
+              id: federal_tax_setup
+              completed: false
+              requirements: []
+            - title: Enter state tax information
+              id: state_tax_setup
+              completed: false
+              requirements:
+                - add_work_address
+                - add_home_address
+            - title: Add payment method
+              id: add_payment_method
+              completed: false
+              requirements: []
+            - title: Employee form signing
+              id: employee_form_signing
+              completed: false
+              requirements:
+                - federal_tax_setup
+                - state_tax_setup
+                - add_payment_method
+            - title: Payroll Admin Review
+              id: payroll_admin_review
+              completed: false
+              requirements:
+                - personal_details
+                - compensation_details
+                - add_home_address
+                - add_work_address
+                - federal_tax_setup
+                - state_tax_setup
+                - add_payment_method
+      properties:
+        uuid:
+          type: string
+          description: the UUID of the company
+        onboarding_completed:
+          type: boolean
+          description: a boolean flag for the company's onboarding status
+        onboarding_steps:
+          type: array
+          description: a list of company onboarding steps
+          items:
+            title: Onboarding step
+            type: object
+            properties:
+              title:
+                type: string
+                description: The display name of the onboarding step
+              id:
+                type: string
+                description: The string identifier for each onboarding step
+              completed:
+                type: boolean
+                description: The boolean flag indicating whether the step is completed or not.
+              requirements:
+                type: array
+                description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
+                items:
+                  type: string
+        '':
+          type: string
+      x-tags:
+        - Employees
     Location:
       description: The representation of an address in Gusto.
       type: object
@@ -5770,37 +5878,6 @@ components:
       description: The representation of a company's onboarding status
       type: object
       title: ''
-      properties:
-        uuid:
-          type: string
-          description: the UUID of the company
-        onboarding_completed:
-          type: boolean
-          description: a boolean flag for the company's onboarding status
-        onboarding_steps:
-          type: array
-          description: a list of company onboarding steps
-          items:
-            title: Onboarding step
-            type: object
-            properties:
-              title:
-                type: string
-                description: The display name of the onboarding step
-              id:
-                type: string
-                description: The string identifier for each onboarding step
-              required:
-                type: boolean
-                description: The boolean flag indicating whether the step is required or optional
-              completed:
-                type: boolean
-                description: The boolean flag indicating whether the step is completed or not.
-              requirements:
-                type: array
-                description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
-                items:
-                  type: string
       x-examples:
         Example:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
@@ -5852,6 +5929,39 @@ components:
                 - add_bank_info
       x-tags:
         - Companies
+      properties:
+        uuid:
+          type: string
+          description: the UUID of the company
+        onboarding_completed:
+          type: boolean
+          description: a boolean flag for the company's onboarding status
+        onboarding_steps:
+          type: array
+          description: a list of company onboarding steps
+          items:
+            title: Onboarding step
+            type: object
+            properties:
+              title:
+                type: string
+                description: The display name of the onboarding step
+              id:
+                type: string
+                description: The string identifier for each onboarding step
+              required:
+                type: boolean
+                description: The boolean flag indicating whether the step is required or optional
+              completed:
+                type: boolean
+                description: The boolean flag indicating whether the step is completed or not.
+              requirements:
+                type: array
+                description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
+                items:
+                  type: string
+        '':
+          type: string
     Payment-Configs:
       title: Payment-Configs
       type: object
@@ -6452,7 +6562,7 @@ components:
             - plaid
           description: |-
             The verification type of the bank account.
-            
+
             'bank_deposits' means the bank account is connected by entering routing and accouting numbers and verifying through micro-deposits.
             'plaid' means the bank account is connected through Plaid.
         plaid_status:
@@ -6460,8 +6570,7 @@ components:
           enum:
             - connected
             - disconnected
-          description: |-
-            The Plaid connection status of the bank account. Only apply when verification type is Plaid.
+          description: The Plaid connection status of the bank account. Only apply when verification type is Plaid.
         last_cached_balance:
           type: string
           description: The last fetch balance for the bank account. Please be awared this amount is not reflecting to the most up-to-date balance. Only apply when verification type is Plaid.
@@ -9778,6 +9887,17 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Signatory'
+    Employee-Onboarding-Status-Object:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Employee-Onboarding-Status'
+          examples: {}
+        application/xml:
+          schema:
+            type: object
+            properties: {}
   requestBodies:
     post-employee-ytd-benefit-amounts-from-different-company:
       content:
