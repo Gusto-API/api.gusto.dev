@@ -4775,6 +4775,8 @@ paths:
         This endpoint is in beta and intended for Gusto Embedded Payroll customers. Please apply for early access if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
         Delete a company signatory.
+      tags:
+        - Signatories
 components:
   parameters:
     pageParam:
