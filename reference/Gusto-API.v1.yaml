@@ -4785,7 +4785,8 @@ paths:
         description: The UUID of the employee
     get:
       summary: Get the employee's onboarding status (Beta)
-      tags: []
+      tags:
+        - Employees
       responses:
         '200':
           $ref: '#/components/responses/Employee-Onboarding-Status-Object'
@@ -5013,11 +5014,56 @@ components:
           readOnly: true
       readOnly: true
     Employee-Onboarding-Status:
-      description: The representation of an employee's onboarding status
+      description: |-
+        The representation of an employee's onboarding status.
+
+        ## Note: regarding the "payroll_admin_review" step
+        This step is only required when the employee is invited to self-onboard.
       type: object
       title: Employee-Onboarding-Status
       x-examples:
-        Example:
+        Example - Employee Onboarding by Admin:
+          uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
+          onboarding_completed: false
+          onboarding_steps:
+            - title: Personal details
+              id: personal_details
+              completed: false
+              requirements: []
+            - title: Enter compensation details
+              id: compensation_details
+              completed: false
+              requirements: []
+            - title: Add work address
+              id: add_work_address
+              completed: false
+              requirements: []
+            - title: Add home address
+              id: add_home_address
+              completed: false
+              requirements: []
+            - title: Enter federal tax withholdings
+              id: federal_tax_setup
+              completed: false
+              requirements: []
+            - title: Enter state tax information
+              id: state_tax_setup
+              completed: false
+              requirements:
+                - add_work_address
+                - add_home_address
+            - title: Add payment method
+              id: add_payment_method
+              completed: false
+              requirements: []
+            - title: Employee form signing
+              id: employee_form_signing
+              completed: false
+              requirements:
+                - federal_tax_setup
+                - state_tax_setup
+                - add_payment_method
+        Example - Employee Self-Onboarding:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
           onboarding_completed: false
           onboarding_steps:
@@ -5069,6 +5115,8 @@ components:
                 - federal_tax_setup
                 - state_tax_setup
                 - add_payment_method
+      x-tags:
+        - Employees
       properties:
         uuid:
           type: string
@@ -5097,10 +5145,6 @@ components:
                 description: A list of onboarding step that are required to be completed in order to proceed with the current onboarding step.
                 items:
                   type: string
-        '':
-          type: string
-      x-tags:
-        - Employees
     Location:
       description: The representation of an address in Gusto.
       type: object
@@ -9888,12 +9932,22 @@ components:
             items:
               $ref: '#/components/schemas/Signatory'
     Employee-Onboarding-Status-Object:
-      description: Example response
+      description: Example response.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Employee-Onboarding-Status'
-          examples: {}
+          examples:
+            Example:
+              value:
+                uuid: string
+                onboarding_completed: true
+                onboarding_steps:
+                  - title: string
+                    id: string
+                    completed: true
+                    requirements:
+                      - string
         application/xml:
           schema:
             type: object
