@@ -4616,17 +4616,17 @@ paths:
         |   |   |   |   |
         |---|---|---|---|
         |__flow_type__|__entity_type__|__entity_uuid__|__Flow description__|
-        | company_onboarding | N/A | N/A | Full company onboarding flow |
-        | add_addresses | N/A | N/A | Manage company's work, mailing, and filing addresses |
-        | federal_tax_setup | N/A | N/A | Review and update company federal tax details |
-        | select_industry | N/A | N/A | Select the company industry |
-        | add_bank_info | N/A | N/A | Add bank info manually or via Plaid |
-        | verify_bank_info | N/A | N/A| Bank deposits verification |
-        | add_employees | N/A | N/A | Manage all employee onboarding |
-        | state_setup | N/A | N/A | Review and update company state taxes |
-        | payroll_schedule | N/A | N/A | Set company's payroll schedule |
-        | sign_all_forms | N/A | N/A | Add signatory and sign company documents |
-        | employee_form_signing | 'Employee' | employee's UUID | For employee to review and sign documents |
+        | **company_onboarding** | n/a | n/a | Full company onboarding flow |
+        | **add_addresses** | n/a | n/a | Manage company's work, mailing, and filing addresses |
+        | **federal_tax_setup** | n/a | n/a | Review and update company federal tax details |
+        | **select_industry** | n/a | n/a | Select the company industry |
+        | **add_bank_info** | n/a | n/a | Add bank info manually or via Plaid |
+        | **verify_bank_info** | n/a | n/a | Bank deposits verification |
+        | **add_employees** | n/a | n/a | Manage all employee onboarding |
+        | **state_setup** | n/a | n/a | Review and update company state taxes |
+        | **payroll_schedule** | n/a | n/a | Set company's payroll schedule |
+        | **sign_all_forms** | n/a | n/a | Add signatory and sign company documents |
+        | **employee_form_signing** | 'Employee' | employee's UUID | For employee to review and sign documents |
       responses:
         "201":
           $ref: "#/components/responses/Flow-Object"
