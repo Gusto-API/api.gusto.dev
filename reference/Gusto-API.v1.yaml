@@ -4612,7 +4612,21 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Generate a link to access a workflow in Gusto whitelabel UI.
+        Generate a link to access a workflow in Gusto whitelabel UI. We currently support the following flow types
+        |   |   |   |   |
+        |---|---|---|---|
+        |__flow_type__|__entity_type__|__entity_uuid__|__Flow description__|
+        | company_onboarding | N/A | N/A | Full company onboarding flow |
+        | add_addresses | N/A | N/A | Manage company's work, mailing, and filing addresses |
+        | federal_tax_setup | N/A | N/A | Review and update company federal tax details |
+        | select_industry | N/A | N/A | Select the company industry |
+        | add_bank_info | N/A | N/A | Add bank info manually or via Plaid |
+        | verify_bank_info | N/A | N/A| Bank deposits verification |
+        | add_employees | N/A | N/A | Manage all employee onboarding |
+        | state_setup | N/A | N/A | Review and update company state taxes |
+        | payroll_schedule | N/A | N/A | Set company's payroll schedule |
+        | sign_all_forms | N/A | N/A | Add signatory and sign company documents |
+        | employee_form_signing | 'Employee' | employee's UUID | For employee to review and sign documents |
       responses:
         "201":
           $ref: "#/components/responses/Flow-Object"
@@ -4625,14 +4639,12 @@ paths:
                 flow_type:
                   type: string
                   description: flow type
-                  enum:
-                    - company_onboarding
                 entity_uuid:
                   type: string
-                  description: "UUID of the target entity applicable to the flow. For instance, the company's UUID is used for `company_onboarding` flow."
+                  description: 'UUID of the target entity applicable to the flow. This field is optional for company flows, please refer to the flow_types table above for more details.'
                 entity_type:
                   type: string
-                  description: "the type of target entity applicable to the flow. For instance, `Company` is used for `company_onboarding`"
+                  description: 'the type of target entity applicable to the flow. This field is optional for company flows, please refer to the flow_types table above for more details.'
                   enum:
                     - Company
               required:
