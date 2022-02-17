@@ -7392,6 +7392,30 @@ components:
                     - amount
                   readOnly: true
                 readOnly: true
+        payment_speed_changed:
+          type: object
+          description: Only applicable when a payroll is moved to four day processing instead of fast ach.
+          properties:
+            original_check_date:
+              type: string
+              description: Original check date when fast ach applies.
+              readOnly: true
+            current_check_date:
+              type: string
+              description: Current check date.
+              readOnly: true
+            original_debit_date:
+              type: number
+              description: Original debit date when fast ach applies.
+              readOnly: true
+            current_debit_date:
+              type: string
+              description: Current check date.
+              readOnly: true
+            reason:
+              type: string
+              description: The reason why the payroll is moved to four day.
+              readOnly: true
     Custom-Field-Type:
       type: string
       enum:
