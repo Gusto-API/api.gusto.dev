@@ -5042,9 +5042,10 @@ components:
 
         # For Employee Self-Onboarding flow
         ADMIN_ONBOARDING_INCOMPLETE = 'admin_onboarding_incomplete'
-        SELF_ONBOARDING_INVITED_NOT_STARTED = 'self_onboarding_invited_not_started'
-        SELF_ONBOARDING_INVITED_NOT_STARTED_OVERDUE = 'self_onboarding_invited_not_started_overdue'
+        SELF_ONBOARDING_NOT_INVITED = 'self_onboarding_not_invited'
+        SELF_ONBOARDING_INVITED = 'self_onboarding_invited'
         SELF_ONBOARDING_INVITED_STARTED = 'self_onboarding_invited_started'
+        SELF_ONBOARDING_INVITED_NOT_STARTED_OVERDUE = 'self_onboarding_invited_not_started_overdue'
         SELF_ONBOARDING_INVITED_STARTED_OVERDUE = 'self_onboarding_invited_started_overdue'
         SELF_ONBOARDING_AWAITING_ADMIN_REVIEW = 'self_onboarding_awaiting_admin_review'
         ONBOARDING_COMPLETED = 'onboarding_completed'
