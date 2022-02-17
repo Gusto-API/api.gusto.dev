@@ -5033,9 +5033,6 @@ components:
       description: |-
         The representation of an employee's onboarding status.
 
-        ### Note: regarding the "payroll_admin_review" step
-        This step is only required when the employee is invited to self-onboard.
-
         ### `onboarding_status` values for Admin-facilitated onboarding
         | onboarding_status | Description |
         | --- | ----------- |
