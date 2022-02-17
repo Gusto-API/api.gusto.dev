@@ -4805,10 +4805,12 @@ paths:
         '200':
           $ref: '#/components/responses/Employee-Onboarding-Status-Object'
       operationId: get-v1-employees-employee_id_or_uuid-onboarding_status
-      description: |-
-        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+      description: |
+        # Description
+        Retrieves an employee's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
 
-        Get employee's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
+        ## Beta Endpoint
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 components:
   parameters:
     pageParam:
@@ -5034,7 +5036,7 @@ components:
         ### Note: regarding the "payroll_admin_review" step
         This step is only required when the employee is invited to self-onboard.
 
-        ### onboarding_status enum (subject to change)
+        ### `onboarding_status` enum (subject to change)
         ```ruby
         # For Admin-facilitated onboarding
         ADMIN_ONBOARDING_INCOMPLETE = 'admin_onboarding_incomplete'
@@ -5096,7 +5098,7 @@ components:
                 - add_payment_method
         Example - Employee Self-Onboarding:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
-          onboarding_status: self_onboarding_invited_not_started
+          onboarding_status: self_onboarding_invited
           onboarding_steps:
             - title: Personal details
               id: personal_details
