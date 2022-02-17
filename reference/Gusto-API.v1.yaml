@@ -4807,10 +4807,12 @@ paths:
         '200':
           $ref: '#/components/responses/Employee-Onboarding-Status-Object'
       operationId: get-v1-employees-employee_id_or_uuid-onboarding_status
-      description: |-
-        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
+      description: |
+        # Description
+        Retrieves an employee's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
 
-        Get employee's onboarding status. The data returned helps inform the required onboarding steps and respective completion status.
+        ## Beta Endpoint
+        This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 components:
   parameters:
     pageParam:
@@ -5033,14 +5035,44 @@ components:
       description: |-
         The representation of an employee's onboarding status.
 
-        ### Note: regarding the "payroll_admin_review" step
-        This step is only required when the employee is invited to self-onboard.
+        ## onboarding_status
+
+        ### Admin-facilitated onboarding
+        | onboarding_status | Description |
+        | --- | ----------- |
+        | `admin_onboarding_incomplete` | Admin needs to complete the full employee-onboarding. |
+        | `onboarding_completed` | Employee has been fully onboarded and verified. |
+
+        ### Employee self-onboarding
+        | onboarding_status | Description |
+        | --- | ----------- |
+        | `admin_onboarding_incomplete` | Admin needs to enter basic information about the employee. |
+        | `self_onboarding_not_invited` | Admin has the intention to invite the employee to self-onboard (e.g., marking a checkbox), but the system has not yet sent the invitation. |
+        | `self_onboarding_invited` | Employee has been sent an invitation to self-onboard. |
+        | `self_onboarding_invited_started` | Employee has started the self-onboarding process. |
+        | `self_onboarding_invited_overdue` | Employee's start date has passed, and employee has still not completed self-onboarding. |
+        | `self_onboarding_awaiting_admin_review` | Admin needs to review employee's entered information and confirm onboarding. |
+        | `onboarding_completed` | Employee has been fully onboarded and verified. |
+
+        ## onboarding_steps
+
+        | onboarding_steps | Requirement(s) to be completed |
+        | --- | ----------- |
+        | `personal_details` | Add employee's first name, last name, email, date of birth, social security number |
+        | `compensation_details` | Associate employee to a job & compensation. |
+        | `add_work_address` | Add employee work address. |
+        | `add_home_address` | Add employee home address. |
+        | `federal_tax_setup` | Set up federal tax withholdings. |
+        | `state_tax_setup` | Set up state tax withholdings. |
+        | `add_payment_method` | Select a payment method (e.g., check or direct deposit). |
+        | `employee_form_signing` | Employee forms (e.g., W4, direct deposit authorization) are generated & signed. |
+        | `admin_review` | Admin reviews & confirms employee details. |
       type: object
       title: Employee-Onboarding-Status
       x-examples:
         Example - Employee Onboarding by Admin:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
-          onboarding_completed: false
+          onboarding_status: admin_onboarding_incomplete
           onboarding_steps:
             - title: Personal details
               id: personal_details
@@ -5081,7 +5113,7 @@ components:
                 - add_payment_method
         Example - Employee Self-Onboarding:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
-          onboarding_completed: false
+          onboarding_status: self_onboarding_invited
           onboarding_steps:
             - title: Personal details
               id: personal_details
@@ -5120,26 +5152,15 @@ components:
                 - federal_tax_setup
                 - state_tax_setup
                 - add_payment_method
-            - title: Admin Review
-              id: admin_review
-              completed: false
-              requirements:
-                - personal_details
-                - compensation_details
-                - add_home_address
-                - add_work_address
-                - federal_tax_setup
-                - state_tax_setup
-                - add_payment_method
       x-tags:
         - Employees
       properties:
         uuid:
           type: string
           description: Unique identifier for this employee.
-        onboarding_completed:
-          type: boolean
-          description: 'When true, employee has successfully onboarded onto the company.'
+        onboarding_status:
+          type: string
+          description: One of the "onboarding_status" enum values.
         onboarding_steps:
           type: array
           description: List of steps required to onboard an employee.
@@ -7398,6 +7419,30 @@ components:
                     - amount
                   readOnly: true
                 readOnly: true
+        payment_speed_changed:
+          type: object
+          description: Only applicable when a payroll is moved to four day processing instead of fast ach.
+          properties:
+            original_check_date:
+              type: string
+              description: Original check date when fast ach applies.
+              readOnly: true
+            current_check_date:
+              type: string
+              description: Current check date.
+              readOnly: true
+            original_debit_date:
+              type: number
+              description: Original debit date when fast ach applies.
+              readOnly: true
+            current_debit_date:
+              type: string
+              description: Current check date.
+              readOnly: true
+            reason:
+              type: string
+              description: The reason why the payroll is moved to four day.
+              readOnly: true
     Custom-Field-Type:
       type: string
       enum:
@@ -9961,7 +10006,7 @@ components:
             Example:
               value:
                 uuid: string
-                onboarding_completed: true
+                onboarding_status: string
                 onboarding_steps:
                   - title: string
                     id: string
