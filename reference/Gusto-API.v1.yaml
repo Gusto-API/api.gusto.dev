@@ -5036,19 +5036,19 @@ components:
         ### `onboarding_status` values for Admin-facilitated onboarding
         | onboarding_status | Description |
         | --- | ----------- |
-        | 'admin_onboarding_incomplete' | Admin needs to complete the full employee-onboarding. |
-        | 'onboarding_completed' | Employee has been fully onboarded and verified. |
+        | `admin_onboarding_incomplete` | Admin needs to complete the full employee-onboarding. |
+        | `onboarding_completed` | Employee has been fully onboarded and verified. |
 
         ### `onboarding_status` values for Employee Self-Onboarding flow
         | onboarding_status | Description |
         | --- | ----------- |
-        | 'admin_onboarding_incomplete' | Admin needs to enter basic information about the employee. |
-        | 'self_onboarding_not_invited' | Admin has the intention to invite the employee to self-onboard (e.g., marking a checkbox), but the system has not yet sent the invitation. |
-        | 'self_onboarding_invited' | Employee has been sent an invitation to self-onboard. |
-        | 'self_onboarding_invited_started' | Employee has started the self-onboarding process. |
-        | 'self_onboarding_invited_overdue' | Employee's start date has passed, and employee has still not completed self-onboarding. |
-        | 'self_onboarding_awaiting_admin_review' | Admin needs to review employee's entered information and confirm onboarding. |
-        | 'onboarding_completed' | Employee has been fully onboarded and verified. |
+        | `admin_onboarding_incomplete` | Admin needs to enter basic information about the employee. |
+        | `self_onboarding_not_invited` | Admin has the intention to invite the employee to self-onboard (e.g., marking a checkbox), but the system has not yet sent the invitation. |
+        | `self_onboarding_invited` | Employee has been sent an invitation to self-onboard. |
+        | `self_onboarding_invited_started` | Employee has started the self-onboarding process. |
+        | `self_onboarding_invited_overdue` | Employee's start date has passed, and employee has still not completed self-onboarding. |
+        | `self_onboarding_awaiting_admin_review` | Admin needs to review employee's entered information and confirm onboarding. |
+        | `onboarding_completed` | Employee has been fully onboarded and verified. |
       type: object
       title: Employee-Onboarding-Status
       x-examples:
