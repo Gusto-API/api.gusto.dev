@@ -3095,13 +3095,14 @@ paths:
                   type: array
                   items:
                     type: object
-                    required:
-                      - employee_id
                     description: ''
                     properties:
                       employee_id:
                         type: integer
-                        description: The ID of the employee.
+                        description: The ID of the employee. Required unless using employee_uuid.
+                      employee_uuid:
+                        type: string
+                        description: The UUID of the employee. Required unless using employee_id.
                       excluded:
                         type: boolean
                         description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
@@ -3257,13 +3258,14 @@ paths:
                   type: array
                   items:
                     type: object
-                    required:
-                      - employee_id
                     description: ''
                     properties:
                       employee_id:
                         type: integer
-                        description: The ID of the employee.
+                        description: The ID of the employee. Required unless using employee_uuid.
+                      employee_uuid:
+                        type: string
+                        description: The UUID of the employee. Required unless using employee_id.
                       excluded:
                         type: boolean
                         description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
@@ -7284,6 +7286,10 @@ components:
               employee_id:
                 type: number
                 description: The ID of the employee.
+                readOnly: true
+              employee_uuid:
+                type: string
+                description: The UUID of the employee.
                 readOnly: true
               excluded:
                 type: boolean
