@@ -5033,13 +5033,15 @@ components:
       description: |-
         The representation of an employee's onboarding status.
 
-        ## Admin-facilitated onboarding
+        ## onboarding_status
+
+        ### Admin-facilitated onboarding
         | onboarding_status | Description |
         | --- | ----------- |
         | `admin_onboarding_incomplete` | Admin needs to complete the full employee-onboarding. |
         | `onboarding_completed` | Employee has been fully onboarded and verified. |
 
-        ## Employee self-onboarding
+        ### Employee self-onboarding
         | onboarding_status | Description |
         | --- | ----------- |
         | `admin_onboarding_incomplete` | Admin needs to enter basic information about the employee. |
@@ -5049,6 +5051,20 @@ components:
         | `self_onboarding_invited_overdue` | Employee's start date has passed, and employee has still not completed self-onboarding. |
         | `self_onboarding_awaiting_admin_review` | Admin needs to review employee's entered information and confirm onboarding. |
         | `onboarding_completed` | Employee has been fully onboarded and verified. |
+
+        ## onboarding_steps
+
+        | onboarding_steps | Requirement(s) to be completed |
+        | --- | ----------- |
+        | `personal_details` | Add employee's first name, last name, email, date of birth, social security number |
+        | `compensation_details` | Associate employee to a job & compensation. |
+        | `add_work_address` | Add employee work address. |
+        | `add_home_address` | Add employee home address. |
+        | `federal_tax_setup` | Set up federal tax withholdings. |
+        | `state_tax_setup` | Set up state tax withholdings. |
+        | `add_payment_method` | Select a payment method (e.g., check or direct deposit). |
+        | `employee_form_signing` | Employee forms (e.g., W4, direct deposit authorization) are generated & signed. |
+        | `admin_review` | Admin reviews & confirms employee details. |
       type: object
       title: Employee-Onboarding-Status
       x-examples:
