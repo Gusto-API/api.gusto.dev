@@ -125,6 +125,9 @@ After creating the company via `partner_managed_companies` you can pass any empl
 
 Using the `company_uuid` from the response of the `partner_managed_companies` endpoint, you can make the following API calls to create and update employee information:
 
+**[](https://docs.gusto.com/docs/api/b3A6NDA0MTg3OTk-get-the-employee-s-onboarding-status-beta)**
+Retrieves an employee's onboarding status, showing the required steps to complete the employee's onboarding.
+
 [Create an employee
 ](https://docs.gusto.com/docs/api/b3A6MTQ3MTExMTQ-create-an-employee)
 
