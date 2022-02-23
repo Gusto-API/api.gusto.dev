@@ -5064,7 +5064,7 @@ components:
         | `add_home_address` | Add employee home address. |
         | `federal_tax_setup` | Set up federal tax withholdings. |
         | `state_tax_setup` | Set up state tax withholdings. |
-        | `add_payment_method` | Select a payment method (e.g., check or direct deposit). |
+        | `direct_deposit_setup` | Set up employee's direct deposit. |
         | `employee_form_signing` | Employee forms (e.g., W4, direct deposit authorization) are generated & signed. |
         | `admin_review` | Admin reviews & confirms employee details. |
       type: object
@@ -5076,82 +5076,107 @@ components:
           onboarding_steps:
             - title: Personal details
               id: personal_details
+              required: true
               completed: false
               requirements: []
             - title: Enter compensation details
               id: compensation_details
+              required: true
               completed: false
               requirements: []
             - title: Add work address
               id: add_work_address
+              required: true
               completed: false
               requirements: []
             - title: Add home address
               id: add_home_address
+              required: true
               completed: false
               requirements: []
             - title: Enter federal tax withholdings
               id: federal_tax_setup
+              required: true
               completed: false
               requirements: []
             - title: Enter state tax information
               id: state_tax_setup
+              required: true
               completed: false
               requirements:
                 - add_work_address
                 - add_home_address
-            - title: Add payment method
-              id: add_payment_method
+            - title: Direct deposit setup
+              id: direct_deposit_setup
+              required: false
               completed: false
               requirements: []
             - title: Employee form signing
               id: employee_form_signing
+              required: true
               completed: false
               requirements:
                 - federal_tax_setup
                 - state_tax_setup
-                - add_payment_method
         Example - Employee Self-Onboarding:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
           onboarding_status: self_onboarding_invited
           onboarding_steps:
             - title: Personal details
               id: personal_details
+              required: true
               completed: false
               requirements: []
             - title: Enter compensation details
               id: compensation_details
+              required: true
               completed: false
               requirements: []
             - title: Add work address
               id: add_work_address
+              required: true
               completed: false
               requirements: []
             - title: Add home address
               id: add_home_address
+              required: true
               completed: false
               requirements: []
             - title: Enter federal tax withholdings
               id: federal_tax_setup
+              required: true
               completed: false
               requirements: []
             - title: Enter state tax information
               id: state_tax_setup
+              required: true
               completed: false
               requirements:
                 - add_work_address
                 - add_home_address
-            - title: Add payment method
-              id: add_payment_method
+            - title: Direct deposit setup
+              id: direct_deposit_setup
+              required: true
               completed: false
               requirements: []
             - title: Employee form signing
               id: employee_form_signing
+              required: true
               completed: false
               requirements:
                 - federal_tax_setup
                 - state_tax_setup
-                - add_payment_method
+            - title: Admin review
+              id: admin_review
+              required: true
+              completed: false
+              requirements:
+                - personal_details
+                - compensation_details
+                - add_home_address
+                - add_work_address
+                - federal_tax_setup
+                - state_tax_setup
       x-tags:
         - Employees
       properties:
@@ -5174,6 +5199,9 @@ components:
               id:
                 type: string
                 description: String identifier for the onboarding step.
+              required:
+                type: boolean
+                description: 'When true, this step has been completed.'
               completed:
                 type: boolean
                 description: 'When true, this step has been completed.'
@@ -10010,6 +10038,7 @@ components:
                 onboarding_steps:
                   - title: string
                     id: string
+                    required: true
                     completed: true
                     requirements:
                       - string
