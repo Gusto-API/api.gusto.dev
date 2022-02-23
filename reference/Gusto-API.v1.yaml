@@ -5202,6 +5202,9 @@ components:
               id:
                 type: string
                 description: String identifier for the onboarding step.
+              required:
+                type: boolean
+                description: 'When true, this step has been completed.'
               completed:
                 type: boolean
                 description: 'When true, this step has been completed.'
@@ -10038,6 +10041,7 @@ components:
                 onboarding_steps:
                   - title: string
                     id: string
+                    required: true
                     completed: true
                     requirements:
                       - string
