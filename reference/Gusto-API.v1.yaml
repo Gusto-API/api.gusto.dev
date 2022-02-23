@@ -4614,7 +4614,7 @@ paths:
       description: |-
         This endpoint is in beta and intended for **[Gusto Embedded Payroll](https://gusto.com/embedded-payroll)** customers. Please [apply for early access](https://gusto-embedded-payroll.typeform.com/to/iomAQIj3?utm_source=docs) if you’d like to learn more and use it for production. Note, this endpoint will require you to enter a different agreement with Gusto.
 
-        Generate a link to access a workflow in Gusto whitelabel UI. We currently support the following flow types
+        Generate a link to access a pre-built workflow in Gusto whitelabel UI. For security, all generated flows will expire within 1 hour of inactivity. Additionally, flows will be deactivated 24 hours from creation time. We currently support the following flow types
         |   |   |   |   |
         |---|---|---|---|
         |__flow_type__|__entity_type__|__entity_uuid__|__Flow description__|
