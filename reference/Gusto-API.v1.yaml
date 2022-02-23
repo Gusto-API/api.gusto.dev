@@ -5118,7 +5118,6 @@ components:
               requirements:
                 - federal_tax_setup
                 - state_tax_setup
-                - direct_deposit_setup
         Example - Employee Self-Onboarding:
           uuid: c44d66dc-c41b-4a60-9e25-5e93ff8583f2
           onboarding_status: self_onboarding_invited
@@ -5167,7 +5166,6 @@ components:
               requirements:
                 - federal_tax_setup
                 - state_tax_setup
-                - direct_deposit_setup
             - title: Admin review
               id: admin_review
               required: true
@@ -5179,7 +5177,6 @@ components:
                 - add_work_address
                 - federal_tax_setup
                 - state_tax_setup
-                - direct_deposit_setup
       x-tags:
         - Employees
       properties:
