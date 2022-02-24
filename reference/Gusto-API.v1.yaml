@@ -3106,6 +3106,12 @@ paths:
                       excluded:
                         type: boolean
                         description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
+                      payment_method:
+                        type: string
+                        description: The employee's compensation payment method. Invalid values will be ignored.
+                        enum:
+                          - Direct Deposit
+                          - Check
                       fixed_compensations:
                         type: array
                         items:
@@ -3158,6 +3164,7 @@ paths:
                   employee_compensations:
                     - employee_id: 1123581321345589
                       excluded: false
+                      payment_method: Direct Deposit
                       fixed_compensations:
                         - name: Bonus
                           amount: '200.00'
@@ -3269,6 +3276,12 @@ paths:
                       excluded:
                         type: boolean
                         description: This employee will be excluded from payroll calculation and will not be paid for the payroll.
+                      payment_method:
+                        type: string
+                        description: The employee's compensation payment method. Invalid values will be ignored.
+                        enum:
+                          - Direct Deposit
+                          - Check
                       fixed_compensations:
                         type: array
                         items:
@@ -3321,6 +3334,7 @@ paths:
                   employee_compensations:
                     - employee_id: 1123581321345589
                       excluded: false
+                      payment_method: Direct Deposit
                       fixed_compensations:
                         - name: Bonus
                           amount: '200.00'
@@ -7335,7 +7349,7 @@ components:
                 readOnly: true
               payment_method:
                 type: string
-                description: The employee's compensation payment method. This value is only available for processed payrolls.
+                description: The employee's compensation payment method. Invalid values will be ignored.
                 enum:
                   - Check
                   - Direct Deposit
